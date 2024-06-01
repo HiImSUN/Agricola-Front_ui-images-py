@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>332</height>
+    <width>267</width>
+    <height>202</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -181,8 +181,11 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/wood.png);</string>
+           </property>
            <property name="text">
-            <string>나무</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -545,6 +548,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../images/MyQRC.qrc"/>
+ </resources>
  <connections/>
 </ui>

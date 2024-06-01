@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>vvvvv.png</file>
+    <file>xxxxx.png</file>
+    <file>zzzzz.png</file>
+    <file>popo.png</file>
+    <file>pppp.png</file>
+    <file>tttty.png</file>
+    <file>oooo.png</file>
+    <file>qqqq.png</file>
+    <file>빈 농장 칸 .png</file>
+  </qresource>
+</RCC>

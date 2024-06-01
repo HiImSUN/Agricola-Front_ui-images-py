@@ -1,0 +1,19 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>barn_blue.png</file>
+    <file>barn_green.png</file>
+    <file>barn_purple.png</file>
+    <file>barn_red.png</file>
+    <file>meal.png</file>
+    <file>rock.png</file>
+    <file>wood.png</file>
+    <file>worker_green.png</file>
+    <file>worker_purple.png</file>
+    <file>worker_red.png</file>
+    <file>worker_blue.png</file>
+    <file>harvest.png</file>
+    <file>IMG_0402.PNG</file>
+    <file>IMG_0403.PNG</file>
+    <file>IMG_0404.PNG</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>빈 농장 칸 .png</file>
+  </qresource>
+</RCC>
