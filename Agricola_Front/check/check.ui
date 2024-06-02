@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>418</width>
-    <height>248</height>
+    <width>234</width>
+    <height>166</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <property name="spacing">
-         <number>-1</number>
+         <number>6</number>
         </property>
         <property name="leftMargin">
          <number>15</number>
@@ -53,7 +53,7 @@
          <number>15</number>
         </property>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="btn_processing">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -67,9 +67,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normalon>:/newPrefix/check.png</normalon>
-           </iconset>
+           <iconset resource="../MyQRC.qrc">
+            <normaloff>:/newPrefix/check/check.png</normaloff>:/newPrefix/check/check.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -96,7 +95,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="btn_undo">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -110,8 +109,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="check.qrc">
-            <normaloff>:/newPrefix/undo.png</normaloff>:/newPrefix/undo.png</iconset>
+           <iconset resource="../MyQRC.qrc">
+            <normaloff>:/newPrefix/check/undo.png</normaloff>:/newPrefix/check/undo.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -129,7 +128,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="check.qrc"/>
+  <include location="../MyQRC.qrc"/>
  </resources>
  <connections/>
 </ui>

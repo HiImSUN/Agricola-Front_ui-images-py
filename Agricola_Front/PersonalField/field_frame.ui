@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>456</width>
-    <height>178</height>
+    <width>1585</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -265,6 +265,18 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
@@ -301,8 +313,17 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
@@ -340,8 +361,17 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
@@ -379,8 +409,17 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
@@ -418,8 +457,17 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
@@ -643,6 +691,18 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
@@ -672,6 +732,18 @@ background-color: rgba(0, 255, 0, 12);</string>
          <layout class="QHBoxLayout" name="hlo_1_1">
           <property name="spacing">
            <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
@@ -703,6 +775,18 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
@@ -733,6 +817,18 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
@@ -762,6 +858,18 @@ background-color: rgba(0, 255, 0, 12);</string>
          <layout class="QHBoxLayout" name="hlo_1_4">
           <property name="spacing">
            <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
@@ -976,6 +1084,18 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
@@ -1005,6 +1125,18 @@ background-color: rgba(0, 255, 0, 12);</string>
          <layout class="QHBoxLayout" name="hlo_2_1">
           <property name="spacing">
            <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
@@ -1036,6 +1168,18 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
@@ -1066,6 +1210,18 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
@@ -1095,6 +1251,18 @@ background-color: rgba(0, 255, 0, 12);</string>
          <layout class="QHBoxLayout" name="hlo_2_4">
           <property name="spacing">
            <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
