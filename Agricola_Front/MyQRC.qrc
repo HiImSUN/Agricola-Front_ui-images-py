@@ -1,0 +1,121 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>images/랜덤/랜덤 (0).png</file>
+    <file>images/랜덤/랜덤 (1).png</file>
+    <file>images/랜덤/랜덤 (2).png</file>
+    <file>images/랜덤/랜덤 (3).png</file>
+    <file>images/랜덤/랜덤 (4).png</file>
+    <file>images/랜덤/랜덤 (5).png</file>
+    <file>images/랜덤/랜덤 (6).png</file>
+    <file>images/랜덤/랜덤 (7).png</file>
+    <file>images/랜덤/랜덤 (8).png</file>
+    <file>images/랜덤/랜덤 (9).png</file>
+    <file>images/랜덤/랜덤 (10).png</file>
+    <file>images/랜덤/랜덤 (11).png</file>
+    <file>images/랜덤/랜덤 (12).png</file>
+    <file>images/랜덤/랜덤 (13).png</file>
+    <file>images/랜덤/랜덤 (14).png</file>
+    <file>images/기본행동/기본행동 (0).png</file>
+    <file>images/기본행동/기본행동 (1).png</file>
+    <file>images/기본행동/기본행동 (2).png</file>
+    <file>images/기본행동/기본행동 (3).png</file>
+    <file>images/기본행동/기본행동 (4).png</file>
+    <file>images/기본행동/기본행동 (5).png</file>
+    <file>images/기본행동/기본행동 (6).png</file>
+    <file>images/기본행동/기본행동 (7).png</file>
+    <file>images/기본행동/기본행동 (8).png</file>
+    <file>images/기본행동/기본행동 (9).png</file>
+    <file>images/기본행동/기본행동 (10).png</file>
+    <file>images/기본행동/기본행동 (11).png</file>
+    <file>images/기본행동/기본행동 (12).png</file>
+    <file>images/기본행동/기본행동 (13).png</file>
+    <file>images/기본행동/기본행동 (14).png</file>
+    <file>images/기본행동/기본행동 (15).png</file>
+    <file>check/undo.png</file>
+    <file>check/check.png</file>
+    <file>images/갈대밭.png</file>
+    <file>images/곡식 활용.png</file>
+    <file>images/곡식종자.png</file>
+    <file>images/급한 가족 늘리기.png</file>
+    <file>images/기본 가족 늘리기.png</file>
+    <file>images/낚시.png</file>
+    <file>images/납품팔이.png</file>
+    <file>images/농장 개조.png</file>
+    <file>images/농장확장.png</file>
+    <file>images/농지.png</file>
+    <file>images/덤불.png</file>
+    <file>images/동부채석장.png</file>
+    <file>images/돼지 시장.png</file>
+    <file>images/밭 농사.png</file>
+    <file>images/부업.png</file>
+    <file>images/서부채석장.png</file>
+    <file>images/소시장.png</file>
+    <file>images/수풀.png</file>
+    <file>images/숲.png</file>
+    <file>images/양 시장.png</file>
+    <file>images/울타리.png</file>
+    <file>images/유랑극단.png</file>
+    <file>images/자원시장.png</file>
+    <file>images/점토채굴장.png</file>
+    <file>images/주요설비.png</file>
+    <file>images/집 개조 크기.png</file>
+    <file>images/채소 종자.png</file>
+    <file>images/회합장소.png</file>
+    <file>images/scoreboard.png</file>
+    <file>images/arable_land.png</file>
+    <file>images/barn_blue.png</file>
+    <file>images/barn_0.png</file>
+    <file>images/barn_1.png</file>
+    <file>images/barn_2.png</file>
+    <file>images/barn_3.png</file>
+    <file>images/barn_green.png</file>
+    <file>images/barn_none.png</file>
+    <file>images/barn_purple.png</file>
+    <file>images/barn_red.png</file>
+    <file>images/begging_token.png</file>
+    <file>images/cow.png</file>
+    <file>images/dirt.png</file>
+    <file>images/empty_field.png</file>
+    <file>images/fence_blue.png</file>
+    <file>images/fence_green.png</file>
+    <file>images/fence_h_0.png</file>
+    <file>images/fence_h_1.png</file>
+    <file>images/fence_h_2.png</file>
+    <file>images/fence_h_3.png</file>
+    <file>images/fence_none.png</file>
+    <file>images/fence_purple.png</file>
+    <file>images/fence_red.png</file>
+    <file>images/fence_v_0.png</file>
+    <file>images/fence_v_1.png</file>
+    <file>images/fence_v_2.png</file>
+    <file>images/fence_v_3.png</file>
+    <file>images/food.png</file>
+    <file>images/grain.png</file>
+    <file>images/harvest.png</file>
+    <file>images/house_dirt.png</file>
+    <file>images/house_stone.png</file>
+    <file>images/IMG_0402.PNG</file>
+    <file>images/house_wood.png</file>
+    <file>images/IMG_0403.PNG</file>
+    <file>images/IMG_0404.PNG</file>
+    <file>images/number_1.png</file>
+    <file>images/number_2.png</file>
+    <file>images/number_3.png</file>
+    <file>images/number_4.png</file>
+    <file>images/number_5.png</file>
+    <file>images/number_6.png</file>
+    <file>images/pig.png</file>
+    <file>images/reed.png</file>
+    <file>images/round_circle.svg</file>
+    <file>images/sheep.png</file>
+    <file>images/stone.png</file>
+    <file>images/turn_icon.png</file>
+    <file>images/vegetable.png</file>
+    <file>images/wood.png</file>
+    <file>images/worker_blue.png</file>
+    <file>images/worker_green.png</file>
+    <file>images/worker_none.png</file>
+    <file>images/worker_purple.png</file>
+    <file>images/worker_red.png</file>
+  </qresource>
+</RCC>

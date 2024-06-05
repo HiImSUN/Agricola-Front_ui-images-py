@@ -21,26 +21,36 @@
     <number>0</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="rightMargin">
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <item>
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="widget_0" native="true">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="styleSheet">
-      <string notr="true">border-right-color: rgb(153, 102, 51);</string>
+     <property name="font">
+      <font>
+       <family>Pretendard Medium</family>
+      </font>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" stretch="2,1">
+     <property name="styleSheet">
+      <string notr="true">#widget_0{background-color : none;}
+#widget_0:disabled{background-color : rgba(255, 255, 127, 100);}
+</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5" stretch="2,1">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -57,12 +67,24 @@
        <number>3</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QLabel" name="btn_p0">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Pretendard Medium</family>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+border-image: url(:/newPrefix/images/worker_red.png);</string>
         </property>
         <property name="text">
          <string/>
@@ -70,12 +92,21 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_5">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Pretendard Medium</family>
+          <pointsize>20</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>x 3</string>
@@ -89,12 +120,25 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="widget_2" native="true">
+    <widget class="QWidget" name="widget_1" native="true">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>Pretendard Medium</family>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#widget_1{background-color : none;}
+#widget_1:disabled{background-color : rgba(255, 255, 127, 100);}
+</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="2,1">
       <property name="spacing">
@@ -113,12 +157,23 @@
        <number>3</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QLabel" name="btn_p1">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Pretendard Medium</family>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/newPrefix/images/worker_green.png);</string>
         </property>
         <property name="text">
          <string/>
@@ -127,11 +182,20 @@
       </item>
       <item>
        <widget class="QLabel" name="label_2">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Pretendard Medium</family>
+          <pointsize>20</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>x 3</string>
@@ -145,12 +209,25 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="widget_3" native="true">
+    <widget class="QWidget" name="widget_2" native="true">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>Pretendard Medium</family>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#widget_2{background-color : none;}
+#widget_2:disabled{background-color : rgba(255, 255, 127, 100);}
+</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="2,1">
       <property name="spacing">
@@ -169,12 +246,23 @@
        <number>3</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QLabel" name="btn_p2">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Pretendard Medium</family>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/newPrefix/images/worker_blue.png);</string>
         </property>
         <property name="text">
          <string/>
@@ -183,11 +271,20 @@
       </item>
       <item>
        <widget class="QLabel" name="label_3">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Pretendard Medium</family>
+          <pointsize>20</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>x 3</string>
@@ -201,12 +298,25 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="widget_4" native="true">
+    <widget class="QWidget" name="widget_3" native="true">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>Pretendard Medium</family>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#widget_3{background-color : none;}
+#widget_3:disabled{background-color : rgba(255, 255, 127, 100);}
+</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4" stretch="2,1">
       <property name="spacing">
@@ -225,12 +335,23 @@
        <number>3</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QLabel" name="btn_p3">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Pretendard Medium</family>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/newPrefix/images/worker_purple.png);</string>
         </property>
         <property name="text">
          <string/>
@@ -239,11 +360,20 @@
       </item>
       <item>
        <widget class="QLabel" name="label_4">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Pretendard Medium</family>
+          <pointsize>20</pointsize>
+         </font>
         </property>
         <property name="text">
          <string>x 3</string>
@@ -259,7 +389,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../images/worker_purple.qrc"/>
+  <include location="../MyQRC.qrc"/>
  </resources>
  <connections/>
 </ui>

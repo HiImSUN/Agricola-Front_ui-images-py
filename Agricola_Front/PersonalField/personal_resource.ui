@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>332</height>
+    <width>304</width>
+    <height>225</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -38,7 +44,7 @@
       <number>1</number>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_0">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -58,12 +64,12 @@
         <number>0</number>
        </property>
        <item>
-        <layout class="QGridLayout" name="glo_0" rowstretch="1,1,1,1" columnstretch="1,1,1,1">
+        <layout class="QGridLayout" name="glo_0" rowstretch="1,1,1,1" columnstretch="4,5,4,5" rowminimumheight="1,1,1,1" columnminimumwidth="1,1,1,1">
          <property name="spacing">
           <number>0</number>
          </property>
          <item row="3" column="2">
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -81,48 +87,47 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_7">
+            <widget class="QLabel" name="lb_turn_icon_1">
              <property name="maximumSize">
               <size>
                <width>30</width>
                <height>16777215</height>
               </size>
              </property>
-             <property name="text">
-              <string>선턴</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_17">
-             <property name="maximumSize">
-              <size>
-               <width>40</width>
-               <height>16777215</height>
-              </size>
+             <property name="styleSheet">
+              <string notr="true">border-image: url(:/newPrefix/images/turn_icon.png);</string>
              </property>
              <property name="text">
-              <string>1</string>
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
           </layout>
          </item>
          <item row="1" column="1">
-          <widget class="QPushButton" name="pushButton_10">
+          <widget class="QLabel" name="pushButton_10">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/stone.png);</string>
+           </property>
            <property name="text">
-            <string>돌</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QLabel" name="count_dirt">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -131,11 +136,14 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QLabel" name="count_reed">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -144,11 +152,14 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QPushButton" name="pushButton_16">
+          <widget class="QLabel" name="count_meal">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -157,63 +168,71 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="1" column="3">
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QLabel" name="pushButton_4">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/reed.png);</string>
+           </property>
            <property name="text">
-            <string>갈대</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="pushButton_9">
+          <widget class="QLabel" name="pushButton_9">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/wood.png);</string>
+           </property>
            <property name="text">
-            <string>나무</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QPushButton" name="pushButton_11">
+          <widget class="QLabel" name="pushButton_11">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text">
-            <string>곡식</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="3">
-          <widget class="QPushButton" name="pushButton_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/grain.png);</string>
            </property>
            <property name="text">
-            <string>턴순서</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QPushButton" name="pushButton_13">
+          <widget class="QLabel" name="count_wood">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -223,23 +242,13 @@
            <property name="text">
             <string>0</string>
            </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QPushButton" name="pushButton_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>음식</string>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QPushButton" name="pushButton_14">
+          <widget class="QLabel" name="count_stone">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -248,11 +257,14 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QPushButton" name="pushButton_15">
+          <widget class="QLabel" name="count_grain">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -261,11 +273,14 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="2" column="2">
-          <widget class="QPushButton" name="pushButton_5">
+          <widget class="QLabel" name="count_vegetable">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -275,31 +290,95 @@
            <property name="text">
             <string>0</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item row="2" column="3">
-          <widget class="QPushButton" name="pushButton_6">
+          <widget class="QLabel" name="pushButton_6">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/vegetable.png);</string>
+           </property>
            <property name="text">
-            <string>야채</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="0" column="3">
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QLabel" name="pushButton_2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/dirt.png);</string>
+           </property>
            <property name="text">
-            <string>흙</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLabel" name="pushButton_12">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/food.png);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="3">
+          <widget class="QLabel" name="turn_info_1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <family>American Typewriter</family>
+             <pointsize>12</pointsize>
+             <weight>68</weight>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 70 12pt &quot;American Typewriter&quot;;
+font-weight: 550;
+color: rgb(253, 102, 102);</string>
+           </property>
+           <property name="text">
+            <string>NEXT</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -325,12 +404,12 @@
         <number>0</number>
        </property>
        <item>
-        <layout class="QGridLayout" name="glo_1" rowstretch="1,1,1,1" columnstretch="1,1,1,1">
+        <layout class="QGridLayout" name="glo_1" rowstretch="1,1,1,1" columnstretch="4,5,4,5">
          <property name="spacing">
           <number>0</number>
          </property>
          <item row="1" column="2">
-          <widget class="QPushButton" name="pushButton_22">
+          <widget class="QLabel" name="count_worker">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -339,11 +418,14 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QPushButton" name="pushButton_23">
+          <widget class="QLabel" name="count_beg_token">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -352,63 +434,90 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="1" column="3">
-          <widget class="QPushButton" name="pushButton_24">
+          <widget class="QLabel" name="pushButton_24">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/worker_none.png);</string>
+           </property>
            <property name="text">
-            <string>사람</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QPushButton" name="pushButton_26">
+          <widget class="QLabel" name="pushButton_26">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/fence_none.png);</string>
+           </property>
            <property name="text">
-            <string>울타리</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="pushButton_25">
+          <widget class="QLabel" name="pushButton_25">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/sheep.png);</string>
+           </property>
            <property name="text">
-            <string>양</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QPushButton" name="pushButton_29">
+          <widget class="QLabel" name="pushButton_29">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/begging_token.png);</string>
+           </property>
            <property name="text">
-            <string>구걸토큰</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QPushButton" name="pushButton_30">
+          <widget class="QLabel" name="count_cow">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -417,11 +526,14 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QPushButton" name="pushButton_31">
+          <widget class="QLabel" name="count_fence">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -430,11 +542,14 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QPushButton" name="pushButton_28">
+          <widget class="QLabel" name="count_sheep">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -443,24 +558,33 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="0" column="3">
-          <widget class="QPushButton" name="pushButton_34">
+          <widget class="QLabel" name="pushButton_34">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/pig.png);</string>
+           </property>
            <property name="text">
-            <string>돼지</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="2" column="2">
-          <widget class="QPushButton" name="pushButton_32">
+          <widget class="QLabel" name="count_barn">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -469,50 +593,52 @@
            </property>
            <property name="text">
             <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="2" column="3">
-          <widget class="QPushButton" name="pushButton_33">
+          <widget class="QLabel" name="pushButton_33">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text">
-            <string>외양간</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="3">
-          <widget class="QPushButton" name="pushButton_19">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/barn_none.png);</string>
            </property>
            <property name="text">
             <string/>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QPushButton" name="pushButton_20">
+          <widget class="QLabel" name="pushButton_20">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-image: url(:/newPrefix/images/cow.png);</string>
+           </property>
            <property name="text">
-            <string>소</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QPushButton" name="pushButton_21">
+          <widget class="QLabel" name="count_pig">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -522,20 +648,70 @@
            <property name="text">
             <string>0</string>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
          </item>
-         <item row="3" column="2">
-          <widget class="QPushButton" name="pushButton_18">
+         <item row="3" column="3">
+          <widget class="QLabel" name="turn_info_2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="styleSheet">
+            <string notr="true">font: 70 12pt &quot;American Typewriter&quot;;
+font-weight: 550;
+color: rgb(253, 102, 102);</string>
+           </property>
            <property name="text">
-            <string/>
+            <string>NEXT</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
+         </item>
+         <item row="3" column="2">
+          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>1</width>
+               <height>1</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="lb_turn_icon_2">
+             <property name="maximumSize">
+              <size>
+               <width>30</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border-image: url(:/newPrefix/images/turn_icon.png);</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -545,6 +721,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../MyQRC.qrc"/>
+ </resources>
  <connections/>
 </ui>

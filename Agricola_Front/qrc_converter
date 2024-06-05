@@ -1,0 +1,3 @@
+#!/bin/bash
+ 
+pyrcc5 MyQRC.qrc -o data/MyQRC_rc.py

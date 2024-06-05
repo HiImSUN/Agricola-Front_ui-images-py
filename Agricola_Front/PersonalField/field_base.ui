@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>494</width>
-    <height>426</height>
+    <width>879</width>
+    <height>673</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -66,6 +66,7 @@
      </property>
      <property name="font">
       <font>
+       <family>Pretendard Medium</family>
        <pointsize>5</pointsize>
       </font>
      </property>
@@ -104,12 +105,34 @@
           <height>0</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="font">
          <font>
+          <family>Pretendard Medium</family>
           <pointsize>5</pointsize>
          </font>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
          <item>
           <spacer name="verticalSpacer">
            <property name="sizePolicy">
@@ -126,6 +149,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Pretendard Medium</family>
              <pointsize>5</pointsize>
             </font>
            </property>
@@ -143,37 +167,55 @@
          <item>
           <widget class="QPushButton" name="pushButton_2">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
-             <height>0</height>
+             <width>1</width>
+             <height>1</height>
             </size>
            </property>
            <property name="font">
             <font>
+             <family>Pretendard Medium</family>
              <pointsize>5</pointsize>
             </font>
            </property>
            <property name="text">
             <string>사람</string>
            </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_3">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <sizepolicy hsizetype="Ignored" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>1</width>
+             <height>1</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Pretendard Medium</family>
+            </font>
+           </property>
            <property name="text">
             <string>사람</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -193,6 +235,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Pretendard Medium</family>
              <pointsize>5</pointsize>
             </font>
            </property>
@@ -224,12 +267,34 @@
           <height>0</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="font">
          <font>
+          <family>Pretendard Medium</family>
           <pointsize>5</pointsize>
          </font>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
          <item>
           <spacer name="verticalSpacer_4">
            <property name="sizePolicy">
@@ -246,6 +311,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Pretendard Medium</family>
              <pointsize>5</pointsize>
             </font>
            </property>
@@ -261,31 +327,47 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_field_unit">
+          <widget class="QPushButton" name="btn_animal">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
-             <height>0</height>
+             <width>1</width>
+             <height>1</height>
             </size>
            </property>
            <property name="font">
             <font>
+             <family>Pretendard Medium</family>
              <pointsize>5</pointsize>
             </font>
            </property>
            <property name="text">
             <string>동물</string>
            </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="btn_field_unitcount">
+           <property name="minimumSize">
+            <size>
+             <width>1</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Pretendard Medium</family>
+             <pointsize>8</pointsize>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">border: none;</string>
            </property>
@@ -310,6 +392,7 @@
            </property>
            <property name="font">
             <font>
+             <family>Pretendard Medium</family>
              <pointsize>5</pointsize>
             </font>
            </property>
@@ -341,65 +424,112 @@
           <height>0</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="font">
          <font>
+          <family>Pretendard Medium</family>
           <pointsize>5</pointsize>
          </font>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
          <item>
-          <spacer name="verticalSpacer_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>5</pointsize>
-            </font>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>0</width>
-             <height>10</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_barn">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>5</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>외양간</string>
-           </property>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_4" stretch="2,1">
+           <item>
+            <spacer name="verticalSpacer_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Pretendard Medium</family>
+               <pointsize>5</pointsize>
+              </font>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Preferred</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>0</width>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_barn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>1</width>
+               <height>1</height>
+              </size>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>2</width>
+               <height>1</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Pretendard Medium</family>
+               <pointsize>5</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+QPushButton#btn_barn {border: none;}QPushButton#btn_barn:checked {border-image :url(:/newPrefix/images/barn_2.png);}</string>
+             </property>
+             <property name="text">
+              <string>외양간</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -418,8 +548,15 @@
           <height>0</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="font">
          <font>
+          <family>Pretendard Medium</family>
           <pointsize>5</pointsize>
          </font>
         </property>
@@ -449,12 +586,13 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>1</width>
              <height>0</height>
             </size>
            </property>
            <property name="font">
             <font>
+             <family>Pretendard Medium</family>
              <pointsize>5</pointsize>
             </font>
            </property>
@@ -474,6 +612,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../MyQRC.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Form{border-image: url(:/newPrefix/KakaoTalk_Photo_2024-05-31-16-29-49-removebg-preview.png);}</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="6">
    <property name="spacing">
@@ -116,7 +116,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../images/KakaoTalk_Photo_2024-05-31-15-59-59_011-removebg-preview.qrc"/>
+  <include location="../MyQRC.qrc"/>
  </resources>
  <connections/>
 </ui>

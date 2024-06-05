@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>456</width>
-    <height>178</height>
+    <width>1585</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -45,6 +45,12 @@
    </property>
    <item>
     <widget class="QWidget" name="Frame" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="styleSheet">
       <string notr="true">#Frame{background-color:green;}</string>
      </property>
@@ -67,7 +73,7 @@
       <item>
        <widget class="QWidget" name="horizontalWidget_11" native="true">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -97,7 +103,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="btn_fence_0">
+          <widget class="QPushButton" name="btn_fence_h00">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -111,7 +117,7 @@
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -120,7 +126,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_1">
+          <widget class="QPushButton" name="btn_fence_h01">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -140,7 +146,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             <number>-1</number>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -149,7 +155,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_2">
+          <widget class="QPushButton" name="btn_fence_h02">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -163,7 +169,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -172,7 +178,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_3">
+          <widget class="QPushButton" name="btn_fence_h03">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -186,7 +192,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -195,7 +201,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_4">
+          <widget class="QPushButton" name="btn_fence_h04">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -209,7 +215,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -232,7 +238,7 @@ background-color: rgba(0, 255, 0, 12);</string>
          <number>0</number>
         </property>
         <item>
-         <widget class="QPushButton" name="btn_fence_5">
+         <widget class="QPushButton" name="btn_fence_v00">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -241,7 +247,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
@@ -252,7 +258,7 @@ background-color: rgba(0, 255, 0, 12);</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -265,10 +271,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_6">
+         <widget class="QPushButton" name="btn_fence_v01">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -277,7 +295,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
@@ -288,7 +306,7 @@ background-color: rgba(0, 255, 0, 12);</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -301,13 +319,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_7">
+         <widget class="QPushButton" name="btn_fence_v02">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -316,7 +343,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
@@ -327,7 +354,7 @@ background-color: rgba(0, 255, 0, 12);</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -340,13 +367,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_8">
+         <widget class="QPushButton" name="btn_fence_v03">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -355,7 +391,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
@@ -366,7 +402,7 @@ background-color: rgba(0, 255, 0, 12);</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -379,13 +415,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_9">
+         <widget class="QPushButton" name="btn_fence_v04">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -394,7 +439,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
@@ -405,7 +450,7 @@ background-color: rgba(0, 255, 0, 12);</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -418,13 +463,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
           </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_10">
+         <widget class="QPushButton" name="btn_fence_v05">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -433,7 +487,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
@@ -444,7 +498,7 @@ background-color: rgba(0, 255, 0, 12);</string>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -456,6 +510,12 @@ background-color: rgba(0, 255, 0, 12);</string>
       </item>
       <item>
        <widget class="QWidget" name="horizontalWidget_14" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
          <string notr="true">QPushButton:pressed {
        background-color: rgb(222, 255, 220);
@@ -481,7 +541,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="btn_fence_11">
+          <widget class="QPushButton" name="btn_fence_h10">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -495,7 +555,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -504,7 +564,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_12">
+          <widget class="QPushButton" name="btn_fence_h11">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -524,7 +584,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             <number>-1</number>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -533,7 +593,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_13">
+          <widget class="QPushButton" name="btn_fence_h12">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -547,7 +607,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -556,7 +616,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_14">
+          <widget class="QPushButton" name="btn_fence_h13">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -570,7 +630,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -579,7 +639,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_15">
+          <widget class="QPushButton" name="btn_fence_h14">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -593,7 +653,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -616,7 +676,7 @@ background-color: rgba(0, 255, 0, 12);</string>
          <number>0</number>
         </property>
         <item>
-         <widget class="QPushButton" name="btn_fence_16">
+         <widget class="QPushButton" name="btn_fence_v10">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -625,12 +685,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -643,10 +703,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_17">
+         <widget class="QPushButton" name="btn_fence_v11">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -655,12 +727,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -673,10 +745,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_18">
+         <widget class="QPushButton" name="btn_fence_v12">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -685,12 +769,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -703,10 +787,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_19">
+         <widget class="QPushButton" name="btn_fence_v13">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -715,12 +811,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -733,10 +829,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_20">
+         <widget class="QPushButton" name="btn_fence_v14">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -745,12 +853,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -763,10 +871,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_21">
+         <widget class="QPushButton" name="btn_fence_v15">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -775,12 +895,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -792,6 +912,12 @@ background-color: rgba(0, 255, 0, 12);</string>
       </item>
       <item>
        <widget class="QWidget" name="horizontalWidget_16" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
          <string notr="true">QPushButton:pressed {
        background-color: rgb(222, 255, 220);
@@ -817,7 +943,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="btn_fence_22">
+          <widget class="QPushButton" name="btn_fence_h20">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -831,7 +957,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -840,7 +966,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_23">
+          <widget class="QPushButton" name="btn_fence_h21">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -860,7 +986,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             <number>-1</number>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -869,7 +995,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_24">
+          <widget class="QPushButton" name="btn_fence_h22">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -883,7 +1009,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -892,7 +1018,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_25">
+          <widget class="QPushButton" name="btn_fence_h23">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -906,7 +1032,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -915,7 +1041,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_26">
+          <widget class="QPushButton" name="btn_fence_h24">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -929,7 +1055,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -949,7 +1075,7 @@ background-color: rgba(0, 255, 0, 12);</string>
          <number>0</number>
         </property>
         <item>
-         <widget class="QPushButton" name="btn_fence_27">
+         <widget class="QPushButton" name="btn_fence_v20">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -958,12 +1084,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -976,10 +1102,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_28">
+         <widget class="QPushButton" name="btn_fence_v21">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -988,12 +1126,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -1006,10 +1144,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_29">
+         <widget class="QPushButton" name="btn_fence_v22">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -1018,12 +1168,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -1036,10 +1186,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_30">
+         <widget class="QPushButton" name="btn_fence_v23">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -1048,12 +1210,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -1066,10 +1228,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_31">
+         <widget class="QPushButton" name="btn_fence_v24">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -1078,12 +1252,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -1096,10 +1270,22 @@ background-color: rgba(0, 255, 0, 12);</string>
           <property name="spacing">
            <number>0</number>
           </property>
+          <property name="leftMargin">
+           <number>1</number>
+          </property>
+          <property name="topMargin">
+           <number>1</number>
+          </property>
+          <property name="rightMargin">
+           <number>1</number>
+          </property>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="btn_fence_32">
+         <widget class="QPushButton" name="btn_fence_v25">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -1108,12 +1294,12 @@ background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="minimumSize">
            <size>
-            <width>15</width>
+            <width>10</width>
             <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">border:0.5px solid white;
+           <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
           </property>
           <property name="text">
@@ -1126,7 +1312,7 @@ background-color: rgba(0, 255, 0, 12);</string>
       <item>
        <widget class="QWidget" name="horizontalWidget_20" native="true">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -1156,7 +1342,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="btn_fence_33">
+          <widget class="QPushButton" name="btn_fence_h30">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -1170,7 +1356,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -1179,7 +1365,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_34">
+          <widget class="QPushButton" name="btn_fence_h31">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -1199,7 +1385,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             <number>-1</number>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -1208,7 +1394,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_35">
+          <widget class="QPushButton" name="btn_fence_h32">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -1222,7 +1408,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -1231,7 +1417,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_36">
+          <widget class="QPushButton" name="btn_fence_h33">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -1245,7 +1431,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
@@ -1254,7 +1440,7 @@ background-color: rgba(0, 255, 0, 12);</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_fence_37">
+          <widget class="QPushButton" name="btn_fence_h34">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
              <horstretch>0</horstretch>
@@ -1268,7 +1454,7 @@ background-color: rgba(0, 255, 0, 12);</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">border:0.5px solid white;
+            <string notr="true">border:0.5px solid rgba(255, 255, 255, 28);
 background-color: rgba(0, 255, 0, 12);</string>
            </property>
            <property name="text">
