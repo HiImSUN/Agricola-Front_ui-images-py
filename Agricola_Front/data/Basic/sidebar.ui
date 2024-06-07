@@ -48,7 +48,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,8,1,5,2">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,8,2,6,3">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -328,12 +328,12 @@ QPushButton:disabled {background-color: yellow;}</string>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <property name="spacing">
-        <number>-1</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QPushButton" name="pushButton_dropanimal">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>

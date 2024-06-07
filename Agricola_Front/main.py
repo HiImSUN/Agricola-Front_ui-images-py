@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agrico
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 from qcr_converter import run_pyrcc5
-# run_pyrcc5()#QRC 업데이트/
+#run_pyrcc5()#QRC 업데이트/
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
@@ -12,12 +12,16 @@ from PyQt5.QtCore import QTimer,Qt
 import data.MyQRC_rc as MyQRC_rc
 from PyQt5.QtGui import QFont, QFontDatabase
 from Agricola.Agricola.repository import player_status_repository,game_status_repository,round_status_repository,undo_repository
+from Agricola.Agricola.repository.player_status_repository import player_status_repository
+from Agricola.Agricola.repository.round_status_repository import round_status_repository
+from Agricola.Agricola.repository.game_status_repository import game_status_repository
 from Agricola.Agricola.entity.field_type import FieldType
 from Agricola.Agricola.entity.house_type import HouseType
 from Agricola.Agricola.entity.crop_type import CropType
 from Agricola.Agricola.entity.animal_type import AnimalType
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
+from Agricola.Agricola.gamestate.game_context import GameContext
 # from Agricola.Agricola.behavior.basebehavior import construct_barn, construct_fence,animal_move_validation,animal_position_validation
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -58,9 +62,10 @@ class MainWindowClass(QMainWindow, main) :
         font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
         font = QFont(font_family, 13)  # 로드된 폰트를 기본 폰트로 설정
         app.setFont(font)
-        self.player_status = player_status_repository.PlayerStatusRepository().player_status
-        self.game_status = game_status_repository.GameStatusRepository().game_status
-        self.round_status = round_status_repository.RoundStatusRepository().round_status
+        self.game_context = GameContext()
+        self.player_status = player_status_repository.player_status
+        self.game_status = game_status_repository.game_status
+        self.round_status = round_status_repository.round_status
 #플레이어 필드 위젯 설정
         self.personal_field = [WidgetPersonalField(i,self) for i in range(5)]
         for i in range(4):getattr(self,f"frm_p{i}_0").addWidget(self.personal_field[i])
@@ -96,9 +101,6 @@ class MainWindowClass(QMainWindow, main) :
         self.worker_board = WorkerBoard(self)
         self.vlo_etc_workerboard.addWidget(self.worker_board)
 #인포메이션 칸(설정, 점수표)
-
-
-
 
         self.information = WidgetInformation(self)
         self.vlo_etc_information.addWidget(self.information)
@@ -161,9 +163,13 @@ class MainWindowClass(QMainWindow, main) :
 
     def game_start(self):
         pprint("게임이 시작되었습니다.")
-        
         self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
         self.play_sound()
+        print(self.player_status[0].card.hand_sub_card)
+        print("processing_algo")
+        self.game_context.next_state()
+        print(self.player_status[0].card.hand_sub_card)
+
         
     def round_test(self):
         self.game_status.now_round = (self.game_status.now_round+1)%15
@@ -479,11 +485,11 @@ class PersonalCard_small(QWidget, personal_card_small_ui):
     def update_state(self):
         player = self.parent.game_status.now_turn_player
 
-        list_sub = self.parent.player_status[player].card.start_handSubCard
-        list_put_sub = self.parent.player_status[player].card.putSubCard
-        list_job = self.parent.player_status[player].card.start_handJobCard
-        list_put_job = self.parent.player_status[player].card.putJobCard
-        list_put_job = self.parent.player_status[player].card.putMainCard
+        list_sub = self.parent.player_status[player].card.start_sub_card
+        list_put_sub = self.parent.player_status[player].card.put_sub_card
+        list_job = self.parent.player_status[player].card.start_job_card
+        list_put_job = self.parent.player_status[player].card.put_job_card
+        list_put_main = self.parent.player_status[player].card.put_main_card
 
         for i in range(3):
             index=i
@@ -513,10 +519,11 @@ class PersonalCard_big(QWidget, personal_card_big_ui):
     def update_state(self):
         player = self.parent.game_status.now_turn_player
 
-        list_sub = self.parent.player_status[player].card.start_handSubCard
-        list_put_sub = self.parent.player_status[player].card.putSubCard
-        list_job = self.parent.player_status[player].card.start_handJobCard
-        list_put_job = self.parent.player_status[player].card.putJobCard
+        list_sub = self.parent.player_status[player].card.start_sub_card
+        list_put_sub = self.parent.player_status[player].card.put_sub_card
+        list_job = self.parent.player_status[player].card.start_job_card
+        list_put_job = self.parent.player_status[player].card.put_job_card
+        list_put_main = self.parent.player_status[player].card.put_main_card
         for i in range(3):
             index=i
             if list_job[i] not in list_put_job: 
@@ -733,8 +740,12 @@ class FirstCardDistribution(QWidget, card_distribution_ui):
         self.setupUi(self)
         self.parent = parent
         self.player = player
-        list_sub = self.parent.player_status[self.player].card.handSubCard
-        list_job = self.parent.player_status[self.player].card.handJobCard
+
+        list_sub = self.parent.player_status[player].card.start_sub_card
+        list_put_sub = self.parent.player_status[player].card.put_sub_card
+        list_job = self.parent.player_status[player].card.start_job_card
+        list_put_job = self.parent.player_status[player].card.put_job_card
+        list_put_main = self.parent.player_status[player].card.put_main_card
         for i in range(3):getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/보조 설비/보조설비{i}.png);")
         for i in range(3):getattr(self,f"widget_job_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{i}.png);")
 class AllCard(QDialog, allcard_ui):
