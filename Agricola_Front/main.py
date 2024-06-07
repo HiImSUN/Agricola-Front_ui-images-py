@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agrico
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 from qcr_converter import run_pyrcc5
-#run_pyrcc5()#QRC 업데이트/
+# run_pyrcc5()#QRC 업데이트//
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
@@ -15,13 +15,14 @@ from Agricola.Agricola.repository import player_status_repository,game_status_re
 from Agricola.Agricola.repository.player_status_repository import player_status_repository
 from Agricola.Agricola.repository.round_status_repository import round_status_repository
 from Agricola.Agricola.repository.game_status_repository import game_status_repository
+
 from Agricola.Agricola.entity.field_type import FieldType
 from Agricola.Agricola.entity.house_type import HouseType
 from Agricola.Agricola.entity.crop_type import CropType
 from Agricola.Agricola.entity.animal_type import AnimalType
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
-from Agricola.Agricola.gamestate.game_context import GameContext
+from Agricola.Agricola.gamestate.game_context import game_context
 # from Agricola.Agricola.behavior.basebehavior import construct_barn, construct_fence,animal_move_validation,animal_position_validation
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -62,7 +63,7 @@ class MainWindowClass(QMainWindow, main) :
         font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
         font = QFont(font_family, 13)  # 로드된 폰트를 기본 폰트로 설정
         app.setFont(font)
-        self.game_context = GameContext()
+        self.game_context = game_context
         self.player_status = player_status_repository.player_status
         self.game_status = game_status_repository.game_status
         self.round_status = round_status_repository.round_status
@@ -155,20 +156,51 @@ class MainWindowClass(QMainWindow, main) :
 
 
     def open(self):
-
         self.verticalLayout.setStretch(0,1)
         self.verticalLayout.setStretch(2,1)
         for i in range(4):
             getattr(self,f'player_{i}_border').show()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     def game_start(self):
+
         pprint("게임이 시작되었습니다.")
         self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
         self.play_sound()
         print(self.player_status[0].card.hand_sub_card)
         print("processing_algo")
         self.game_context.next_state()
+        print('hi')
+        from Agricola.Agricola.repository.game_status_repository import game_status_repository
         print(self.player_status[0].card.hand_sub_card)
+        print(self.player_status[1].card.hand_sub_card)
+        print(self.player_status[2].card.hand_sub_card)
+        print(self.player_status[3].card.hand_sub_card)
+        print([i.vlaue for i in self.player_status[0].card.hand_sub_card[3:]])
+
+
+
+
+
+
+
+
+
+
+
+
 
         
     def round_test(self):
