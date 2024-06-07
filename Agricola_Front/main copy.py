@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agrico
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 from qcr_converter import run_pyrcc5
-# run_pyrcc5()#QRC 업데이트/
+run_pyrcc5()#QRC 업데이트
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
@@ -18,6 +18,7 @@ from Agricola.Agricola.entity.crop_type import CropType
 from Agricola.Agricola.entity.animal_type import AnimalType
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
+
 # from Agricola.Agricola.behavior.basebehavior import construct_barn, construct_fence,animal_move_validation,animal_position_validation
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -97,6 +98,9 @@ class MainWindowClass(QMainWindow, main) :
         self.vlo_etc_workerboard.addWidget(self.worker_board)
 #인포메이션 칸(설정, 점수표)
 
+
+
+
         self.information = WidgetInformation(self)
         self.vlo_etc_information.addWidget(self.information)
 
@@ -129,8 +133,9 @@ class MainWindowClass(QMainWindow, main) :
         self.verticalLayout.setStretch(2,0)
 
 
-    def play_sound(self):
-        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'data/media/strongcowsound.mp3')  # 절대 경로로 변경
+    def play_sound(self, file_name):
+        #file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'data/media/strongcowsound.mp3')  # 절대 경로로 변경
+        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'{file_name}')  # 절대 경로로 변경
         print(f"Trying to play: {file_path}")
 
         if not os.path.exists(file_path):
@@ -157,10 +162,10 @@ class MainWindowClass(QMainWindow, main) :
             getattr(self,f'player_{i}_border').show()
 
     def game_start(self):
-        pprint("게임이 시작되었습니다.")
-        
+        self.game_context.next_state()
+        #pprint(self.)
         self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
-        self.play_sound()
+        self.play_sound('data/media/strongcowsound.mp3')
         
     def round_test(self):
         self.game_status.now_round = (self.game_status.now_round+1)%15
@@ -240,8 +245,7 @@ class MainWindowClass(QMainWindow, main) :
         getattr(self,f"player_{i}_border").setStyleSheet(f"#player_{i}_border{{border:3px solid blue;}}")
 
     def update_state_of_all(self):
-# resource 업데이트
-# field 업데이트
+        #resource 업데이트
         for c in self.personal_field:
             c.update_state()
             for cc in c.field: cc.update_state()
@@ -251,22 +255,7 @@ class MainWindowClass(QMainWindow, main) :
             c.update_state()
         for widget in self.random_round:
             widget.update_state()
-#메인 플레이어 보더 업데이트
-        for widget in self.personal_card:
-            widget.update_state()
-        self.main_card.update_state()
-
         self.update_state()
-
-
-
-
-
-
-
-
-
-
 class WidgetPersonalField(QWidget, personal_field_ui) :
     def __init__(self, player,parent) :
         super().__init__()
@@ -473,31 +462,6 @@ class PersonalCard_small(QWidget, personal_card_small_ui):
         self.setEnabled(self.player == self.parent.game_status.now_turn_player)
         pprint(f"Pressed personalField Player ID : {self.player}")
         self.parent.change_main_stacked()  
-    def update_state(self):
-        player = self.parent.game_status.now_turn_player
-
-        list_sub = self.parent.player_status[player].card.start_sub_card
-        list_put_sub = self.parent.player_status[player].card.put_sub_card
-        list_job = self.parent.player_status[player].card.start_job_card
-        list_put_job = self.parent.player_status[player].card.put_job_card
-        list_put_main = self.parent.player_status[player].card.put_main_card
-
-        for i in range(3):
-            index=i
-            if list_job[i] not in list_put_job: 
-                index = "back"
-                print(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{index}.png);")  
-            getattr(self,f"widget_job_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{index}.png);")
-            index=i
-            if list_sub[i] not in list_put_sub: 
-                index = "back"
-            getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/보조 설비/보조설비{index}.png);")
-        for i in range(5):
-            if i<len(list_put_job):
-                getattr(self,f"widget_main_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/주요 설비/주요설비{list_put_job[i]}.png);")
-            else:
-                # getattr(self,f"widget_main_{i+1}").setStyleSheet(f"border:none;")
-                getattr(self,f"widget_main_{i+1}").hide()
 # 메인 창에 뜰 개인별 카드 창
 class PersonalCard_big(QWidget, personal_card_big_ui):
     def __init__(self, parent):
@@ -507,24 +471,6 @@ class PersonalCard_big(QWidget, personal_card_big_ui):
     def mousePressEvent(self, event):
         player = self.parent.game_status.now_turn_player
         pprint(f"Pressed personalField Player ID : {player}")
-    def update_state(self):
-        player = self.parent.game_status.now_turn_player
-
-        list_sub = self.parent.player_status[player].card.start_sub_card
-        list_put_sub = self.parent.player_status[player].card.put_sub_card
-        list_job = self.parent.player_status[player].card.start_job_card
-        list_put_job = self.parent.player_status[player].card.put_job_card
-        list_put_main = self.parent.player_status[player].card.put_main_card
-        for i in range(3):
-            index=i
-            if list_job[i] not in list_put_job: 
-                index = "back"
-                print(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{index}.png);")  
-            getattr(self,f"widget_job_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{index}.png);")
-            index=i
-            if list_sub[i] not in list_put_sub: 
-                index = "back"
-            getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/보조 설비/보조설비{index}.png);")
 
 class WidgetPersonalResource(QWidget, personal_resources_ui) :
     def __init__(self, player,parent) :
@@ -687,7 +633,6 @@ class Check(QWidget, check_ui):
         self.parent.set_undo()
         # else:
         #     pprint(fence.log_text)
-
     def mousePressEvent(self,event):
         pass
 
@@ -699,6 +644,7 @@ class WidgetTextLog(QWidget, text_log_ui):
     def mousePressEvent(self,event):
         # 팝업창으로 로그창 크게 보여주기 (중요도 하)
         pass
+    
 class WidgetInformation(QWidget, information_ui):
     def __init__(self, parent):
         super().__init__()
@@ -731,12 +677,8 @@ class FirstCardDistribution(QWidget, card_distribution_ui):
         self.setupUi(self)
         self.parent = parent
         self.player = player
-
-        list_sub = self.parent.player_status[player].card.start_sub_card
-        list_put_sub = self.parent.player_status[player].card.put_sub_card
-        list_job = self.parent.player_status[player].card.start_job_card
-        list_put_job = self.parent.player_status[player].card.put_job_card
-        list_put_main = self.parent.player_status[player].card.put_main_card
+        list_sub = self.parent.player_status[self.player].card.hand_sub_card
+        list_job = self.parent.player_status[self.player].card.hand_job_card
         for i in range(3):getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/보조 설비/보조설비{i}.png);")
         for i in range(3):getattr(self,f"widget_job_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{i}.png);")
 class AllCard(QDialog, allcard_ui):
@@ -776,9 +718,7 @@ class SideBar(QWidget, sidebar_ui):
         else: self.checked = ""
 
     def update_state(self):
-        # self.btn.
         pass
-
         # getattr(self,btn_name).setFocus(False)
         # # 모든 focus 값을 False로 설정
         # self.focus = [False] * len(self.focus)
@@ -798,7 +738,7 @@ def addStyleSheet(widget, new_style):
 ###실행 코드### 밑에 건들 필요 굳이 없음###
 if __name__ == "__main__" :
     #QApplication : 프로그램을 실행시켜주는 클래스
-    app = QApplication(sys.argv) 
+    app = QApplication(sys.argv)
     
     #WindowClass의 인스턴스 생성
     myWindow = MainWindowClass()
