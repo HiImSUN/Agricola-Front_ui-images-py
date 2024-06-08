@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agrico
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 from qcr_converter import run_pyrcc5
-# run_pyrcc5()#QRC 업데이트/
+run_pyrcc5()#QRC 업데이트/
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
@@ -444,33 +444,35 @@ class WidgetFieldBase(QWidget, field_base_ui) :
         pprint("change_unit")
         player = myWindow.game_status.now_turn_player
         # print("player : "+str(player))
-
+        selected_animal = getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper())
+        print(animal_move_validation(CONVERTER_to_VIRTUAL_FIELD(myWindow.player_status[player]),selected_animal,(self.i,self.j)))
         rand = [AnimalType.NONE,AnimalType.COW,AnimalType.PIG,AnimalType.SHEEP]#,CropType.GRAIN,CropType.NONE,CropType.VEGETABLE]
         # print(myWindow.player_status[player].farm.field[self.i][self.j].kind)
-        try:
-            rand.remove(getattr(AnimalType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
-        except:
-            try:
-                rand.remove(getattr(CropType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
-            except:
-                rand = [CropType.GRAIN,CropType.NONE,CropType.VEGETABLE]
+        # try:
+        #     rand.remove(getattr(AnimalType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
+        # except:
+        #     try:
+        #         rand.remove(getattr(CropType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
+        #     except:
+        #         rand = [CropType.GRAIN,CropType.NONE,CropType.VEGETABLE]
 
-        random.shuffle(rand)
-        animal = rand[0]
-        # print(rand)
-        print(animal)
-        print(animal, (self.i,self.j))
+        # random.shuffle(rand)
+        # animal = rand[0]
+        # # print(rand)
+        # print(animal)
+        # print(animal, (self.i,self.j))
         # self.vertical_fence=myWindow.player_status[player].farm.vertical_fence
         # self.horizontal_fence=myWindow.player_status[player].farm.horizon_fence
         # myWindow.player_status[player].farm.field[self.i][self.j].kind = rand[0]
+
         if True:
             if self.parent.parent.sidebar.checked!="":
                 print( myWindow.player_status[player].farm.field[self.i][self.j].kind)
-                print(getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper()))
-                print( myWindow.player_status[player].farm.field[self.i][self.j].kind==getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper()))
+                print(selected_animal)
+                print( myWindow.player_status[player].farm.field[self.i][self.j].kind==selected_animal)
                 print( myWindow.player_status[player].farm.field[self.i][self.j].kind.value==('NONE'))
-                if myWindow.player_status[player].farm.field[self.i][self.j].kind == getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper()) or myWindow.player_status[player].farm.field[self.i][self.j].kind.value==0:    
-                    myWindow.player_status[player].farm.field[self.i][self.j].kind = getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper())
+                if myWindow.player_status[player].farm.field[self.i][self.j].kind == selected_animal or myWindow.player_status[player].farm.field[self.i][self.j].kind.value==0:    
+                    myWindow.player_status[player].farm.field[self.i][self.j].kind = selected_animal
                     myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count+=1
                 else: pprint("다른 종류의 동물이 올라갈 수 없습니다.")
             else: 
@@ -649,13 +651,11 @@ class WidgetBasicRound(QWidget, basic_roundcard_ui) :
         self.btn_round_1.setText('')
         self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/기본행동/기본행동 ({self.num}).png);}}")
         self.btn_round_4.hide()
-        for i in range(5):
-            getattr(self,f"btn_round_{i}").clicked.connect(self.roundClick)
+        # for i in range(5):
+        #     getattr(self,f"btn_round_{i}").clicked.connect(self.roundClick)
 
     def mousePressEvent(self,event):
-        pprint(f"Pressed basic round num : {self.num}")
-    def roundClick(self,event):
-        pprint(f"Pressed basic round num : {self.num}")
+        pprint(f"Pressed basic card num : {self.num}")
 
 class WidgetrandomRound(QWidget, basic_roundcard_ui) :
     def __init__(self, cardnumber,imagenumber,parent) :
@@ -683,17 +683,21 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
         self.update_state()
     def mousePressEvent(self,event):
         pprint(f"Pressed basic round ID : {self.imagenum}")
+        # for act in round_card_command_factory(5)().execute:
+        #     act(a, b, c ,[]).execute()
+        #     act().log()
+
         # print(i)
         
     def update_state(self):
         round = self.parent.game_status.now_round
         print(self.imagenum)
         # print(i)
-        
+            
         if self.cardnum<=round-1:
             self.setEnabled(self.cardnum<=round-1)
-        if self.imagenum<5 and "랜덤/랜덤" in self.styleSheet():
-            self.btn_round_1.setText(str(1))
+            if self.imagenum<5 and "랜덤/랜덤" in self.styleSheet():
+                self.btn_round_1.setText(str(1))
         else:
             self.btn_round_1.setText("")
         if  self.cardnum in [3,6,8,10,12,13]:
@@ -725,7 +729,7 @@ class WorkerBoard(QWidget, worker_board_ui):
         # pprint(f"player{myWindow.game_status.now_turn_player} 번 말 선택")
         for i in range(4):
             getattr(self,f"widget_{i}").setEnabled(True)
-        getattr(self,f"widget_{myWindow.game_status.now_turn_player}").setEnabled(False)
+        getattr(self,f"widget_{self.parent.game_status.now_turn_player}").setEnabled(False)
 
         # state = getattr(self,f"widget_{myWindow.game_status.now_turn_player}").isEnabled()
         """
