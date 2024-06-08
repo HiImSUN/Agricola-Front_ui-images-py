@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agrico
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 from qcr_converter import run_pyrcc5
-#run_pyrcc5()#QRC 업데이트/
+# run_pyrcc5()#QRC 업데이트/
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
@@ -12,9 +12,7 @@ from PyQt5.QtCore import QTimer,Qt
 import data.MyQRC_rc as MyQRC_rc
 from PyQt5.QtGui import QFont, QFontDatabase
 from Agricola.Agricola.repository import player_status_repository,game_status_repository,round_status_repository,undo_repository
-from Agricola.Agricola.repository.player_status_repository import player_status_repository
-from Agricola.Agricola.repository.round_status_repository import round_status_repository
-from Agricola.Agricola.repository.game_status_repository import game_status_repository
+# from Agricola.Agricola.repository import P ,round_status_repository ,game_status_repository
 from Agricola.Agricola.entity.field_type import FieldType
 from Agricola.Agricola.entity.house_type import HouseType
 from Agricola.Agricola.entity.crop_type import CropType
@@ -22,6 +20,11 @@ from Agricola.Agricola.entity.animal_type import AnimalType
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
 from Agricola.Agricola.gamestate.game_context import GameContext
+from def_list import *
+
+CARD_JOB_CONVERTER = {Greengrocer:0,Hedger:1,KilnBaker:2,LivestockDealer:3,Lumberjack:4,Magician:5,Priest:6,Roofer:7,SkilledBrickLayer:8,SmallFarmer:9,SubCultivator:10,WarehouseManager:11}
+CARD_SUB_CONVERTER = {Basket:0,Bottle:1,Canoe:2,GiantFarm:3,GrainShovel:4,JunkWarehouse:5,LoamMiningSite:6,Manger:7,Pincer:8,Pitchfork:9,SilPan:10,WoolBlanket:11}
+
 # from Agricola.Agricola.behavior.basebehavior import construct_barn, construct_fence,animal_move_validation,animal_position_validation
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -56,16 +59,28 @@ class MainWindowClass(QMainWindow, main) :
     def __init__(self) :
         super().__init__()
         self.setupUi(self)
+        self.init = True
 # 폰트 파일 로드
         font_path = os.path.join(os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'),'font'),'Pretendard-Medium.otf')
         font_id = QFontDatabase.addApplicationFont(font_path)
         font_family = QFontDatabase.applicationFontFamilies(font_id)[0]
         font = QFont(font_family, 13)  # 로드된 폰트를 기본 폰트로 설정
         app.setFont(font)
-        self.game_context = GameContext()
-        self.player_status = player_status_repository.player_status
-        self.game_status = game_status_repository.game_status
-        self.round_status = round_status_repository.round_status
+        self.player_status = player_status_repository.PlayerStatusRepository().player_status
+        self.game_status = game_status_repository.GameStatusRepository().game_status
+        self.round_status = round_status_repository.RoundStatusRepository().round_status
+        self.game_context = GameContext(self.game_status,self.player_status,self.round_status)
+        from Agricola.Agricola.gameready import start_resource_distribution,round_card_shuffle
+        print(StartResourceDistribution(self))  # 리소스 할당
+        print(RoundCardShuffle(self))           # 라운드 카드 할당
+        print(CardDistribution(self))           # 개인 카드 할당
+        for i in range(4):
+            self.player_status[i].card.start_job_card = deepcopy(self.player_status[i].card.hand_job_card)
+            self.player_status[i].card.start_sub_card = deepcopy(self.player_status[i].card.hand_sub_card)
+            self.player_status[i].card.put_job_card = deepcopy(self.player_status[i].card.hand_job_card)
+            self.player_status[i].card.put_sub_card = deepcopy(self.player_status[i].card.hand_sub_card)
+        
+
 #플레이어 필드 위젯 설정
         self.personal_field = [WidgetPersonalField(i,self) for i in range(5)]
         for i in range(4):getattr(self,f"frm_p{i}_0").addWidget(self.personal_field[i])
@@ -79,12 +94,13 @@ class MainWindowClass(QMainWindow, main) :
 #플레이어 카드 위젯 설정
         self.personal_card = [PersonalCard_small(i,self) for i in range(4)]
         for i in range(4):getattr(self,f"frm_p{i}_1").addWidget(self.personal_card[i])
+#메인 카드 위젯 설정
+        self.main_card = [PersonalCard_big(self,player) for player in range(4)]
+        for i in range(4):
+            getattr(self,f"main_card__{i}").addWidget(self.main_card[i])
 #사이드바 위젯 설정
         self.sidebar = SideBar(self)
         self.frm_main_sidebar.addWidget(self.sidebar)
-#메인 카드 위젯 설정
-        self.main_card = PersonalCard_big(self)
-        self.frm_main_card.addWidget(self.main_card)
         
 #플레이어 리소스 위젯 설정
         self.personal_resource = [WidgetPersonalResource(i,self) for i in range(4)]
@@ -134,6 +150,10 @@ class MainWindowClass(QMainWindow, main) :
         self.verticalLayout.setStretch(2,0)
 
 
+
+
+
+
     def play_sound(self):
         file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'data/media/strongcowsound.mp3')  # 절대 경로로 변경
         print(f"Trying to play: {file_path}")
@@ -161,14 +181,24 @@ class MainWindowClass(QMainWindow, main) :
         for i in range(4):
             getattr(self,f'player_{i}_border').show()
 
+
+
+
     def game_start(self):
         pprint("게임이 시작되었습니다.")
         self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
         self.play_sound()
-        print(self.player_status[0].card.hand_sub_card)
-        print("processing_algo")
-        self.game_context.next_state()
-        print(self.player_status[0].card.hand_sub_card)
+        
+
+
+
+
+
+
+
+
+
+
 
         
     def round_test(self):
@@ -178,9 +208,9 @@ class MainWindowClass(QMainWindow, main) :
         [getattr(self,f"basic_{i+16}").addWidget(self.random_round[i]) for i in range(13)]
 
     def set_undo(self):
-        self.undo_player = copy.deepcopy(self.player_status)
-        self.undo_gameStatus = copy.deepcopy(self.game_status)
-        self.undo_round = copy.deepcopy(self.round_status)
+        self.undo_player = deepcopy(self.player_status)
+        hand_undo_gameStatus = deepcopy(self.game_status)
+        self.undo_round = deepcopy(self.round_status)
         
     def undo(self):
         self.player_status = self.undo_player
@@ -243,10 +273,11 @@ class MainWindowClass(QMainWindow, main) :
             if self.current_timer_count == 0:
                 self.timer_open.stop()
     def update_state(self):
-        for i in range(4):
-            getattr(self,f"player_{i}_border").setStyleSheet("")
+        # for i in range(4):
+        #     getattr(self,f"player_{i}_border").setStyleSheet("")
         i = self.game_status.now_turn_player
-        getattr(self,f"player_{i}_border").setStyleSheet(f"#player_{i}_border{{border:3px solid blue;}}")
+        # getattr(self,f"player_{i}_border").setStyleSheet(f"#player_{i}_border{{border:3px solid blue;}}")
+        self.stcked_main_card.setCurrentWidget(getattr(self,f"main_card_{i}"))
 
     def update_state_of_all(self):
 # resource 업데이트
@@ -263,9 +294,25 @@ class MainWindowClass(QMainWindow, main) :
 #메인 플레이어 보더 업데이트
         for widget in self.personal_card:
             widget.update_state()
-        self.main_card.update_state()
+        for widget in self.main_card:
+            widget.update_state()
 
+        # self.main_card.update_state()
+        self.worker_board.update_state()
         self.update_state()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -336,7 +383,7 @@ class WidgetPersonalField(QWidget, personal_field_ui) :
             player = self.parent.game_status.now_turn_player
         else:
             player = self.player
-        self.setEnabled(player == self.parent.game_status.now_turn_player)
+        # self.setEnabled(player == self.parent.game_status.now_turn_player)
         
         # 펜스 state
         for j in range(4):
@@ -478,63 +525,74 @@ class PersonalCard_small(QWidget, personal_card_small_ui):
         self.setupUi(self)
         self.player = player
         self.parent = parent
+        list_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.start_sub_card]
+        list_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.start_job_card]
+        
+        for i in range(3):
+            getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"#widget_sub_{i+1}{{border-image: url(:/newPrefix/images/보조 설비/보조설비{list_sub[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/보조 설비/보조설비back.png);}}")
+            getattr(self,f"widget_job_{i+1}").setStyleSheet(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_job_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
+            print(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
+            getattr(self,f"widget_main_{i+1}").setStyleSheet(f"#widget_main_{i+1}{{border-image: url(:/newPrefix/images/주요 설비/주요설비아이콘.png);}}#widget_job_{i+1}:disabled{{border:none;}}")
+        
+        # self.setEnabled(False)
+        
+        self.update_state()
     def mousePressEvent(self, event):
         self.setEnabled(self.player == self.parent.game_status.now_turn_player)
         pprint(f"Pressed personalField Player ID : {self.player}")
         self.parent.change_main_stacked()  
     def update_state(self):
-        player = self.parent.game_status.now_turn_player
-
-        list_sub = self.parent.player_status[player].card.start_sub_card
-        list_put_sub = self.parent.player_status[player].card.put_sub_card
-        list_job = self.parent.player_status[player].card.start_job_card
-        list_put_job = self.parent.player_status[player].card.put_job_card
+        # player = self.parent.game_status.now_turn_player
+        player = self.player
+        list_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.start_sub_card]
+        list_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.start_job_card]
+        list_put_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.put_sub_card]
+        list_put_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.put_job_card]
         list_put_main = self.parent.player_status[player].card.put_main_card
-
+        print(list_job,list_put_job,list_job[0] not in list_put_job)
         for i in range(3):
-            index=i
-            if list_job[i] not in list_put_job: 
-                index = "back"
-                print(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{index}.png);")  
-            getattr(self,f"widget_job_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{index}.png);")
-            index=i
-            if list_sub[i] not in list_put_sub: 
-                index = "back"
-            getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/보조 설비/보조설비{index}.png);")
-        for i in range(5):
-            if i<len(list_put_job):
-                getattr(self,f"widget_main_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/주요 설비/주요설비{list_put_job[i]}.png);")
-            else:
-                # getattr(self,f"widget_main_{i+1}").setStyleSheet(f"border:none;")
-                getattr(self,f"widget_main_{i+1}").hide()
+            getattr(self,f"widget_sub_{i+1}").setEnabled(list_sub[i] in list_put_sub)
+            getattr(self,f"widget_job_{i+1}").setEnabled(list_job[i] in list_put_job)
+
+        # for i in range(5):
+        #     if i<len(list_put_job):
+        #         getattr(self,f"widget_main_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/주요 설비/주요설비{list_put_job[i]}.png);")
+        #     else:
+        #         # getattr(self,f"widget_main_{i+1}").setStyleSheet(f"border:none;")
+        #         getattr(self,f"widget_main_{i+1}").hide()
 # 메인 창에 뜰 개인별 카드 창
 class PersonalCard_big(QWidget, personal_card_big_ui):
-    def __init__(self, parent):
+    def __init__(self, parent,player):
         super().__init__()
         self.setupUi(self)
+        self.player = player
         self.parent = parent
+        list_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.start_sub_card]
+        list_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.start_job_card]
+        
+        for i in range(3):
+            getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"#widget_sub_{i+1}{{border-image: url(:/newPrefix/images/보조 설비/보조설비{list_sub[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/보조 설비/보조설비back.png);}}")
+            getattr(self,f"widget_job_{i+1}").setStyleSheet(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_job_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
+            
+            print(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
     def mousePressEvent(self, event):
         player = self.parent.game_status.now_turn_player
         pprint(f"Pressed personalField Player ID : {player}")
     def update_state(self):
         player = self.parent.game_status.now_turn_player
 
-        list_sub = self.parent.player_status[player].card.start_sub_card
-        list_put_sub = self.parent.player_status[player].card.put_sub_card
-        list_job = self.parent.player_status[player].card.start_job_card
-        list_put_job = self.parent.player_status[player].card.put_job_card
+        player = self.player
+        list_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.start_sub_card]
+        list_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.start_job_card]
+        list_put_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.put_sub_card]
+        list_put_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.put_job_card]
         list_put_main = self.parent.player_status[player].card.put_main_card
+        print(list_job,list_put_job,list_job[0] not in list_put_job)
         for i in range(3):
-            index=i
-            if list_job[i] not in list_put_job: 
-                index = "back"
-                print(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{index}.png);")  
-            getattr(self,f"widget_job_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{index}.png);")
-            index=i
-            if list_sub[i] not in list_put_sub: 
-                index = "back"
-            getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/보조 설비/보조설비{index}.png);")
-
+            getattr(self,f"widget_sub_{i+1}").setEnabled(list_sub[i] in list_put_sub)
+            getattr(self,f"widget_job_{i+1}").setEnabled(list_job[i] in list_put_job)
+            getattr(self,f"label_sub_{i+1}").setText(str(list_sub[i]) if list_sub[i] in list_put_sub else "")
+            getattr(self,f"label_job_{i+1}").setText(str(list_job[i]) if list_job[i] in list_put_job else "")
 class WidgetPersonalResource(QWidget, personal_resources_ui) :
     def __init__(self, player,parent) :
         super().__init__()  # 부모 클래스의 __init__ 함수 호출
@@ -621,6 +679,7 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
             self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_5.png);}}")
         elif self.cardnum<=13:
             self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_6.png);}}")
+        self.setEnabled(False)
         self.update_state()
     def mousePressEvent(self,event):
         pprint(f"Pressed basic round ID : {self.imagenum}")
@@ -628,11 +687,11 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
         
     def update_state(self):
         round = self.parent.game_status.now_round
-        # print(self.imagenum)
+        print(self.imagenum)
         # print(i)
         
-        # if self.cardnum<=round-1:/
-        self.setEnabled(self.cardnum<=round-1)
+        if self.cardnum<=round-1:
+            self.setEnabled(self.cardnum<=round-1)
         if self.imagenum<5 and "랜덤/랜덤" in self.styleSheet():
             self.btn_round_1.setText(str(1))
         else:
@@ -660,10 +719,15 @@ class WorkerBoard(QWidget, worker_board_ui):
         super().__init__()  # 부모 클래스의 __init__ 함수 호출
         self.setupUi(self)
         self.parent = parent
-    def mousePressEvent(self,event):
-        pprint(f"player{myWindow.game_status.now_turn_player} 번 말 선택")
-        state = getattr(self,f"widget_{myWindow.game_status.now_turn_player}").isEnabled()
-        getattr(self,f"widget_{myWindow.game_status.now_turn_player}").setEnabled(not state)
+        for i in range(4):
+            getattr(self,f"widget_{i}").setEnabled(False)
+    def update_state(self):
+        # pprint(f"player{myWindow.game_status.now_turn_player} 번 말 선택")
+        for i in range(4):
+            getattr(self,f"widget_{i}").setEnabled(True)
+        getattr(self,f"widget_{myWindow.game_status.now_turn_player}").setEnabled(False)
+
+        # state = getattr(self,f"widget_{myWindow.game_status.now_turn_player}").isEnabled()
         """
         옵저버에게 status를 전달 받고 라운드카드 활성화 및 안내
         """
@@ -680,7 +744,7 @@ class Check(QWidget, check_ui):
         
         # pf = myWindow.player_status[myWindow.game_status.now_turn_player].farm
         # print(construct_fence.ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence).execute())
-        # fence = construct_fence.ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
+        fence = ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
         # fence_ex = fence.execute()# if log:
         # # barn = construct_barn.ConstructBarn(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
         # # barn_ex = barn.execute()# if log:
@@ -708,6 +772,8 @@ class WidgetTextLog(QWidget, text_log_ui):
     def mousePressEvent(self,event):
         # 팝업창으로 로그창 크게 보여주기 (중요도 하)
         pass
+
+
 class WidgetInformation(QWidget, information_ui):
     def __init__(self, parent):
         super().__init__()
@@ -726,6 +792,8 @@ class WidgetInformation(QWidget, information_ui):
     def show_scoreboard(self):
         self.scoreboard = Scoreboard(self.parent)
         self.scoreboard.exec_()
+
+
 class Scoreboard(QDialog, scoreboard_ui):
     def __init__(self, parent):
         super().__init__()
@@ -734,6 +802,8 @@ class Scoreboard(QDialog, scoreboard_ui):
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
     def mousePressEvent(self,event):
         self.close()
+
+
 class FirstCardDistribution(QWidget, card_distribution_ui):
     def __init__(self,  parent,player):
         super().__init__()
@@ -741,13 +811,17 @@ class FirstCardDistribution(QWidget, card_distribution_ui):
         self.parent = parent
         self.player = player
 
-        list_sub = self.parent.player_status[player].card.start_sub_card
-        list_put_sub = self.parent.player_status[player].card.put_sub_card
-        list_job = self.parent.player_status[player].card.start_job_card
-        list_put_job = self.parent.player_status[player].card.put_job_card
+        list_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.start_sub_card]
+        list_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.start_job_card]
+        list_put_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.put_sub_card]
+        list_put_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.put_job_card]
         list_put_main = self.parent.player_status[player].card.put_main_card
-        for i in range(3):getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/보조 설비/보조설비{i}.png);")
-        for i in range(3):getattr(self,f"widget_job_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{i}.png);")
+        for i in range(3):
+            getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/보조 설비/보조설비{list_sub[i]}.png);")
+            getattr(self,f"widget_job_{i+1}").setStyleSheet(f"border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);")
+            getattr(self,f"label_sub_{i+1}").setText(str(list_sub[i]))
+            getattr(self,f"label_job_{i+1}").setText(str(list_job[i]))
+
 class AllCard(QDialog, allcard_ui):
     def __init__(self, parent):
         super().__init__()
@@ -756,12 +830,16 @@ class AllCard(QDialog, allcard_ui):
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
     def mousePressEvent(self,event):
         self.close()
+
+
 class Setting(QDialog, setting_ui):
     def __init__(self, parent):
         super().__init__()
         self.setupUi(self)
         self.parent = parent
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+
+
 class SideBar(QWidget, sidebar_ui):
     def __init__(self, parent):
         super().__init__()
@@ -774,8 +852,10 @@ class SideBar(QWidget, sidebar_ui):
             getattr(self,name).clicked.connect(lambda _, name=name :self.btnClick(name))
         for name in ["btn_chg_sheep", "btn_chg_pig", "btn_chg_cow", "btn_chg_vegetable", "btn_trade_grain", "btn_trade_vegetable"]:
             pass
+
+
     def btnClick(self, btn_name):
-        btns = copy.deepcopy(self.btns)
+        btns = deepcopy(self.btns)
         btns.remove(btn_name)
         for name in btns:
             getattr(self,name).setChecked(False)

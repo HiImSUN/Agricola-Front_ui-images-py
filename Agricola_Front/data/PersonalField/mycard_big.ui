@@ -194,7 +194,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_number_1">
          <item>
-          <widget class="QLabel" name="label_number_1">
+          <widget class="QLabel" name="label_job_1">
            <property name="text">
             <string>1</string>
            </property>
@@ -204,7 +204,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_number_2">
+          <widget class="QLabel" name="label_job_2">
            <property name="text">
             <string>6</string>
            </property>
@@ -214,7 +214,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_number_3">
+          <widget class="QLabel" name="label_job_3">
            <property name="text">
             <string>19</string>
            </property>
@@ -274,7 +274,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_number_2">
          <item>
-          <widget class="QLabel" name="label_number_4">
+          <widget class="QLabel" name="label_sub_1">
            <property name="text">
             <string>14</string>
            </property>
@@ -284,7 +284,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_number_5">
+          <widget class="QLabel" name="label_sub_2">
            <property name="text">
             <string>2</string>
            </property>
@@ -294,7 +294,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_number_6">
+          <widget class="QLabel" name="label_sub_3">
            <property name="text">
             <string>24</string>
            </property>

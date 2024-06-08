@@ -389,7 +389,7 @@ border-image: url(:/newPrefix/images/worker_red.png);</string>
   </layout>
  </widget>
  <resources>
-  <include location="../MyQRC.qrc"/>
+  <include location="../../MyQRC.qrc"/>
  </resources>
  <connections/>
 </ui>
