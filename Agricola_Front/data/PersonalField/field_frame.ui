@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>187</width>
-    <height>134</height>
+    <width>703</width>
+    <height>451</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -52,7 +52,7 @@
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">#Frame{background-color:green;}</string>
+      <string notr="true">#Frame{background-color:rgb(162, 255, 157);}</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout1" stretch="0">
       <property name="spacing">
