@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agrico
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 from qcr_converter import run_pyrcc5
-run_pyrcc5()#QRC 업데이트/
+#run_pyrcc5()#QRC 업데이트/
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
@@ -69,7 +69,7 @@ class MainWindowClass(QMainWindow, main) :
         self.player_status = player_status_repository.PlayerStatusRepository().player_status
         self.game_status = game_status_repository.GameStatusRepository().game_status
         self.round_status = round_status_repository.RoundStatusRepository().round_status
-        self.game_context = GameContext(self.game_status,self.player_status,self.round_status)
+        #self.game_context = GameContext(self.game_status,self.player_status,self.round_status)
         from Agricola.Agricola.gameready import start_resource_distribution,round_card_shuffle
         print(StartResourceDistribution(self))  # 리소스 할당
         print(RoundCardShuffle(self))           # 라운드 카드 할당
@@ -195,11 +195,6 @@ class MainWindowClass(QMainWindow, main) :
 
 
 
-
-
-
-
-
         
     def round_test(self):
         self.game_status.now_round = (self.game_status.now_round+1)%15
@@ -300,12 +295,6 @@ class MainWindowClass(QMainWindow, main) :
         # self.main_card.update_state()
         self.worker_board.update_state()
         self.update_state()
-
-
-
-
-
-
 
 
 
