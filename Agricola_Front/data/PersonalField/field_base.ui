@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>94</width>
-    <height>58</height>
+    <width>278</width>
+    <height>254</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -134,39 +134,12 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="btn_unit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>1</width>
-             <height>1</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <family>Pretendard Medium</family>
-             <pointsize>5</pointsize>
-            </font>
-           </property>
+          <widget class="QLabel" name="lb_unit">
            <property name="styleSheet">
-            <string notr="true">#btn_unit{border-image : url(:/newPrefix/images/pig.png);}</string>
+            <string notr="true">border-image: url(:/newPrefix/images/pig.png);</string>
            </property>
            <property name="text">
-            <string>동물</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-           <property name="autoRepeatDelay">
-            <number>0</number>
-           </property>
-           <property name="autoRepeatInterval">
-            <number>0</number>
+            <string/>
            </property>
           </widget>
          </item>
@@ -266,49 +239,9 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_barn">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>10</width>
-             <height>1</height>
-            </size>
-           </property>
-           <property name="sizeIncrement">
-            <size>
-             <width>2</width>
-             <height>1</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <family>Pretendard Medium</family>
-             <pointsize>5</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">
-QPushButton#btn_barn {border: none;}QPushButton#btn_barn:checked {border-image :url(:/newPrefix/images/barn_2.png);}</string>
-           </property>
+          <widget class="QLabel" name="lb_barn">
            <property name="text">
-            <string>외양간</string>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-           <property name="autoRepeatDelay">
-            <number>0</number>
-           </property>
-           <property name="autoRepeatInterval">
-            <number>0</number>
+            <string/>
            </property>
           </widget>
          </item>
@@ -321,7 +254,7 @@ QPushButton#btn_barn {border: none;}QPushButton#btn_barn:checked {border-image :
   </layout>
  </widget>
  <resources>
-  <include location="../MyQRC.qrc"/>
+  <include location="../../MyQRC.qrc"/>
  </resources>
  <connections/>
 </ui>
