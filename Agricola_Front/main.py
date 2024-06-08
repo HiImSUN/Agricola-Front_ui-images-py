@@ -175,7 +175,6 @@ class MainWindowClass(QMainWindow, main) :
 
 
     def open(self):
-
         self.verticalLayout.setStretch(0,1)
         self.verticalLayout.setStretch(2,1)
         for i in range(4):
@@ -185,6 +184,7 @@ class MainWindowClass(QMainWindow, main) :
 
 
     def game_start(self):
+
         pprint("게임이 시작되었습니다.")
         self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
         self.play_sound()
