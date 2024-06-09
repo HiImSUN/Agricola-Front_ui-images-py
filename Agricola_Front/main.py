@@ -98,7 +98,7 @@ class MainWindowClass(QMainWindow, main) :
         self.card_check_p3.clicked.connect(self.open)
         self.verticalLayout.setStretch(0,0)
         self.verticalLayout.setStretch(2,0)
-
+        self.update_state_of_check()
 
 
 
@@ -421,41 +421,21 @@ class WidgetFieldBase(QWidget, field_base_ui) :
     def change_unit(self):
         pprint("change_unit")
         player = myWindow.game_status.now_turn_player
-        # print("player : "+str(player))
-
-        rand = [AnimalType.NONE,AnimalType.COW,AnimalType.PIG,AnimalType.SHEEP]#,CropType.GRAIN,CropType.NONE,CropType.VEGETABLE]
-        # print(myWindow.player_status[player].farm.field[self.i][self.j].kind)
-        try:
-            rand.remove(getattr(AnimalType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
-        except:
-            try:
-                rand.remove(getattr(CropType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
-            except:
-                rand = [CropType.GRAIN,CropType.NONE,CropType.VEGETABLE]
-
-        random.shuffle(rand)
-        animal = rand[0]
-        # print(rand)
-        print(animal)
-        print(animal, (self.i,self.j))
         # self.vertical_fence=myWindow.player_status[player].farm.vertical_fence
         # self.horizontal_fence=myWindow.player_status[player].farm.horizon_fence
         # myWindow.player_status[player].farm.field[self.i][self.j].kind = rand[0]
         if True:
+            Type = CropType if self.parent.parent.sidebar.checked.split('_')[-1].upper() in TYPE_Crop else AnimalType
             if self.parent.parent.sidebar.checked!="":
-                print( myWindow.player_status[player].farm.field[self.i][self.j].kind)
-                print(getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper()))
-                print( myWindow.player_status[player].farm.field[self.i][self.j].kind==getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper()))
-                print( myWindow.player_status[player].farm.field[self.i][self.j].kind.value==('NONE'))
-                if myWindow.player_status[player].farm.field[self.i][self.j].kind == getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper()) or myWindow.player_status[player].farm.field[self.i][self.j].kind.value==0:    
-                    myWindow.player_status[player].farm.field[self.i][self.j].kind = getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper())
+                if myWindow.player_status[player].farm.field[self.i][self.j].kind == getattr(Type,self.parent.parent.sidebar.checked.split('_')[-1].upper()) or myWindow.player_status[player].farm.field[self.i][self.j].kind==None:    
+                    myWindow.player_status[player].farm.field[self.i][self.j].kind = getattr(Type,self.parent.parent.sidebar.checked.split('_')[-1].upper())
                     myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count+=1
-                else: pprint("다른 종류의 동물이 올라갈 수 없습니다.")
+
             else: 
                 if myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count>0:
                     myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count-=1
                 if myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count==0:
-                    myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind = AnimalType.NONE
+                    myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind = None
 
 
         myWindow.update_state_of_all()
@@ -824,7 +804,7 @@ class SideBar(QWidget, sidebar_ui):
         self.setupUi(self)
         self.parent = parent
         self.checked = ""
-        self.btns = ["btn_sheep", "btn_pig", "btn_cow"]
+        self.btns = ["btn_sheep", "btn_pig", "btn_cow", "btn_vegetable", "btn_grain"]
         for name in self.btns:
             getattr(self,name).setStyleSheet(f"QPushButton:checked {{background-color: yellow;border-image: url(:/newPrefix/images/{name.split('_')[-1]}.png);}}QPushButton {{border-image: url(:/newPrefix/images/{name.split('_')[-1]}.png);}}")
             getattr(self,name).clicked.connect(lambda _, name=name :self.btnClick(name))
