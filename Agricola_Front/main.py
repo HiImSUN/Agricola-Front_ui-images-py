@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agrico
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 from list_import import *
-# run_pyrcc5()#QRC 업데이트/
+run_pyrcc5()#QRC 업데이트/
 # MAIN
 class MainWindowClass(QMainWindow, main) :
     def __init__(self) :
@@ -285,7 +285,7 @@ class MainWindowClass(QMainWindow, main) :
     def update_state_of_all(self):
         # self.update_main_personal_field()
         self.update_main_presonal_card()
-        # self.update_main_personal_resource()
+        #self.update_main_personal_resource()
         self.update_main_main_field()
         self.update_main_round()
         self.update_main_card()

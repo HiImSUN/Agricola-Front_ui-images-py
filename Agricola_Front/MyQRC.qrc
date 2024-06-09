@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>images/grain_big.png</file>
+    <file>images/vegetable_big.png</file>
     <file>images/보조 설비/보조설비0.png</file>
     <file>images/보조 설비/보조설비1.png</file>
     <file>images/보조 설비/보조설비2.png</file>
