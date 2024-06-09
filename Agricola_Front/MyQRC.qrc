@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>images/PASS.png</file>
     <file>images/background.png</file>
     <file>images/grain_big.png</file>
     <file>images/vegetable_big.png</file>

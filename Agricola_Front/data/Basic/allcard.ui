@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1167</width>
-    <height>635</height>
+    <width>1057</width>
+    <height>965</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,7 +80,7 @@
               </sizepolicy>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color: rgb(154, 255, 127);</string>
+              <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비0.png);</string>
              </property>
             </widget>
            </item>
@@ -911,6 +911,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../MyQRC.qrc"/>
+ </resources>
  <connections/>
 </ui>
