@@ -980,9 +980,18 @@ class AllCard(QDialog, allcard_ui):
         self.setupUi(self)
         self.parent = parent
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-    def mousePressEvent(self,event):
+        self.pagenum = 0
+        self.nextPageBtn.clicked.connect(self.nextpage)
+        self.beforePageBtn.clicked.connect(self.beforepage)
+        self.closeBtn.clicked.connect(self.closepage)
+    def nextpage(self):
+        self.pagenum = (self.pagenum+1)%3
+        self.sw_cardpage.setCurrentIndex(self.pagenum)
+    def beforepage(self):
+        self.pagenum = ((self.pagenum - 1) % 3 + 3) % 3
+        self.sw_cardpage.setCurrentIndex(self.pagenum)
+    def closepage(self):
         self.close()
-
 
 class Setting(QDialog, setting_ui):
     def __init__(self, parent):

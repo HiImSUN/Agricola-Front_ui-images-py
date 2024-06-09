@@ -935,7 +935,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>확인</string>
+        <string>닫기</string>
        </property>
       </widget>
      </item>
