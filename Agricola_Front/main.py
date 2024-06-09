@@ -28,8 +28,8 @@ class MainWindowClass(QMainWindow, main) :
         self.player_status = player_status_repository.PlayerStatusRepository().player_status
         self.game_status = game_status_repository.GameStatusRepository().game_status
         self.round_status = round_status_repository.RoundStatusRepository().round_status
-        self.random_card_resource = {"sheep":[1,1],"pig":[1,1],"horse":[1,1],"east":[1,1],"west":[1,1]}
-        self.basic_card_resource = [[1,1],[2,2],[],[2,2],[],[1,1],[],[1,1],[],[],[],[],[1,1],[1,1],[1,1],[3,3],[]]
+        self.random_card_resource = {"sheep":[1,1],"pig":[1,1],"cow":[1,1],"east":[1,1],"west":[1,1]}
+        self.basic_card_resource = [[1,1],[2,2],[],[2,2],[],[1,1],[],[],[],[],[],[2,0],[1,1],[1,1],[1,1],[3,3],[]]
         # self.game_context = GameContext(self.game_status,self.player_status,self.round_status)
         from Agricola_Back.Agricola.gameready import start_resource_distribution,round_card_shuffle
         StartResourceDistribution(self)         # 리소스 할당
@@ -39,8 +39,8 @@ class MainWindowClass(QMainWindow, main) :
         for i in range(4):
             self.player_status[i].card.start_job_card = deepcopy(self.player_status[i].card.hand_job_card)
             self.player_status[i].card.start_sub_card = deepcopy(self.player_status[i].card.hand_sub_card)
-            self.player_status[i].card.put_job_card = deepcopy(self.player_status[i].card.hand_job_card)
-            self.player_status[i].card.put_sub_card = deepcopy(self.player_status[i].card.hand_sub_card)
+            # self.player_status[i].card.put_job_card = deepcopy(self.player_status[i].card.hand_job_card)
+            # self.player_status[i].card.put_sub_card = deepcopy(self.player_status[i].card.hand_sub_card)
         
 
 #플레이어 필드 위젯 설정
@@ -92,7 +92,7 @@ class MainWindowClass(QMainWindow, main) :
             elif self.game_status.round_card_order[i] == 7:
                 self.random_card_resource["pig"] = [-i+1,1]
             elif self.game_status.round_card_order[i] == 9:
-                self.random_card_resource["horse"] = [-i+1,1]
+                self.random_card_resource["cow"] = [-i+1,1]
             elif self.game_status.round_card_order[i] == 10:
                 self.random_card_resource["west"] = [-i+1,1]
                 
@@ -187,8 +187,7 @@ class MainWindowClass(QMainWindow, main) :
         self.game_status.now_round = (self.game_status.now_round+1)%15
         pprint(f"현재 라운드는 {self.game_status.now_round}라운드입니다.")
         # [getattr(self,f"basic_{i+16}").addWidget(self.round_round[i]) for i in range(13)]
-        self.game_status.round_card_put = [None for i in range(14)] 
-        self.game_status.basic_card_put = [None for i in range(16)] 
+        self.game_status.round_reset()
         self.next_round()
         self.update_state_of_all()
         self.update_state_of_check()
@@ -316,9 +315,9 @@ class MainWindowClass(QMainWindow, main) :
         # stack_resources(self.game_status)
         for name,d in self.random_card_resource.items():
             self.random_card_resource[name]=[d[0]+d[1],d[1]]
-        # for i in range(len(self.basic_card_resource)):
-        #     if self.basic_card_resource[i] !=[]:
-        #         self.basic_card_resource[i]=[self.basic_card_resource[i][0]+self.basic_card_resource[i][1],self.basic_card_resource[i][1]]
+        for i in range(len(self.basic_card_resource)):
+            if self.basic_card_resource[i] !=[]:
+                self.basic_card_resource[i]=[self.basic_card_resource[i][0]+self.basic_card_resource[i][1],self.basic_card_resource[i][1]]
         pass
 
 
@@ -473,7 +472,7 @@ class WidgetFieldBase(QWidget, field_base_ui) :
         myWindow.player_status[player].farm.house_status = rand[0]
         myWindow.update_state_of_all()
     def change_unit(self):
-        pprint("change_unit")
+        # pprint("change_unit")
         player = myWindow.game_status.now_turn_player
         # self.vertical_fence=myWindow.player_status[player].farm.vertical_fence
         # self.horizontal_fence=myWindow.player_status[player].farm.horizon_fence
@@ -499,7 +498,7 @@ class WidgetFieldBase(QWidget, field_base_ui) :
                     print()
                     test = AnimalMoveValidation(myWindow,self.parent.parent.sidebar.checked.split('_')[-1].upper(),(self.i,self.j))
                     result = test.execute()
-                    pprint(str(test.log()))
+                    # pprint(str(test.log()))
                     if not result:
                         pprint(str(result))
                     else:
@@ -511,7 +510,7 @@ class WidgetFieldBase(QWidget, field_base_ui) :
                         else:
                             count = getattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1])
                             setattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1],count+1)
-                            print(f"btn_{self.parent.parent.sidebar.checked.split('_')[-1]}_count")
+                            # print(f"btn_{self.parent.parent.sidebar.checked.split('_')[-1]}_count")
                         if getattr(myWindow.sidebar,f"btn_{self.parent.parent.sidebar.checked.split('_')[-1]}_count").text()=="x0":
                             myWindow.sidebar.btn_disabled()
                 else: 
@@ -716,26 +715,44 @@ class WidgetBasicRound(QWidget, basic_roundcard_ui) :
 
     def mousePressEvent(self,event):
         # pprint(f"Pressed basic round num : {self.num}")
-        if self.parent.game_status.basic_card_put[self.num] == None:
+        if self.parent.game_status.basic_card_put[self.num] == None and myWindow.game_status.worker_count[myWindow.game_status.now_turn_player]!=0:
+            myWindow.game_status.worker_count[myWindow.game_status.now_turn_player]-=1
             self.parent.game_status.basic_card_put[self.num] = self.parent.game_status.now_turn_player
             # if self.imagenum == 0:    
             #     pass
             if self.num in [0,1,15]:
                 Wood(self.parent,self.num)
+            elif self.num == 2:
+                get_three_resource(self.parent)
+            elif self.num == 3:
+                get_basic_resource(self.parent,self.num,"흙","dirt")
+            elif self.num == 5:
+                get_basic_resource(self.parent,self.num,"밥","food")
+            elif self.num == 8:
+                grain(self.parent)
+            elif self.num == 11:
+                get_basic_resource(self.parent,self.num,"밥","food")
+            elif self.num == 12:
+                get_basic_resource(self.parent,self.num,"갈대","reed")
             elif self.num == 13:
                 reed(self.parent,self.num)
+            elif self.num == 14:
+                get_basic_resource(self.parent,self.num,"흙","dirt")
+            # elif self.num == :
+            #     get_basic_resource(self.parent,self.num,"흙","dirt")
+            
+        
         
 
         self.parent.update_state_of_check()
         self.parent.update_state_of_all()
-        self.parent.update_state_of_all()
     def update_state(self):
-        if self.parent.basic_card_resource[self.num] != []:
+        if self.parent.basic_card_resource[self.num] != [] and self.parent.basic_card_resource[self.num][1]!=0:
             self.btn_round_1.setText(str(self.parent.basic_card_resource[self.num][0]))
 
         color_convert = {None:"none",0:"red",1:"green",2:"blue",3:"purple"}
         self.btn_round_0.setStyleSheet(f"background-color:{color_convert[self.parent.game_status.basic_card_put[self.num]]};")
-        print(f"background-color:{color_convert[self.parent.game_status.basic_card_put[self.num]]}")
+        # print(f"background-color:{color_convert[self.parent.game_status.basic_card_put[self.num]]}")
 
 
 
@@ -766,7 +783,8 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
 
     def mousePressEvent(self,event):
         pprint(f"Pressed basic round ID : {self.imagenum}")
-        if self.parent.game_status.round_card_put[self.cardnum] == None:
+        if self.parent.game_status.round_card_put[self.cardnum] == None and myWindow.game_status.worker_count[myWindow.game_status.now_turn_player] !=0:
+            myWindow.game_status.worker_count[myWindow.game_status.now_turn_player]-=1
             self.parent.game_status.round_card_put[self.cardnum] = self.parent.game_status.now_turn_player
             if self.imagenum == 0:    
                 Facilities(myWindow)
@@ -797,6 +815,9 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
             if self.imagenum == 13:
                 print(UpgradeFence(myWindow))
         # print(i)
+   
+        self.parent.update_state_of_check()
+        self.parent.update_state_of_all()     
         
     def update_state(self):
         round = self.parent.game_status.now_round
@@ -814,7 +835,7 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
             elif self.imagenum == 7 :
                 self.btn_round_1.setText(str(self.parent.random_card_resource["pig"][0]))
             elif self.imagenum == 9 :
-                self.btn_round_1.setText(str(self.parent.random_card_resource["horse"][0]))
+                self.btn_round_1.setText(str(self.parent.random_card_resource["cow"][0]))
             elif self.imagenum == 10 :
                 self.btn_round_1.setText(str(self.parent.random_card_resource["west"][0]))
             else:
@@ -824,7 +845,7 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
 
         color_convert = {None:"none",0:"red",1:"green",2:"blue",3:"purple"}
         self.btn_round_0.setStyleSheet(f"background-color:{color_convert[self.parent.game_status.round_card_put[self.cardnum]]};")
-        print(f"background-color:{color_convert[self.parent.game_status.round_card_put[self.cardnum]]}")
+        # print(f"background-color:{color_convert[self.parent.game_status.round_card_put[self.cardnum]]}")
             
 class Log_viewer(QDialog,log_viewer_ui):
     def __init__(self,main):
@@ -852,6 +873,7 @@ class WorkerBoard(QWidget, worker_board_ui):
         # pprint(f"player{myWindow.game_status.now_turn_player} 번 말 선택")
         for i in range(4):
             getattr(self,f"widget_{i}").setEnabled(True)
+            getattr(self,f"count_{i}").setText(f"X{self.parent.game_status.worker_count[i]}")
         getattr(self,f"widget_{self.parent.game_status.now_turn_player}").setEnabled(False)
 
         # state = getattr(self,f"widget_{myWindow.game_status.now_turn_player}").isEnabled()
@@ -889,6 +911,7 @@ class Check(QWidget, check_ui):
         else:
             pprint(fence.log())
         
+
     def mousePressEvent(self,event):
         pass
 
@@ -908,12 +931,21 @@ class Check(QWidget, check_ui):
             nowturn = self.parent.game_status.now_turn_player
             self.parent.game_status.now_turn_player = (nowturn+1)%4
             self.parent.game_status.next_turn_player = (nowturn+2)%4
-            self.parent.update_state_of_all()
             pprint(f"현재 턴은 {self.parent.game_status.now_turn_player}플레이어 입니다.")
+            if self.parent.game_status.worker_count==[0,0,0,0]:
+                myWindow.round_test()
+            self.parent.update_state_of_all()
             myWindow.update_state_of_check()
             self.parent.set_undo()
             # else:
             #     pprint(fence.log_text)
+            self.parent.sidebar.btn_cow_count.setText("x0")
+            self.parent.sidebar.btn_pig_count.setText("x0")
+            self.parent.sidebar.btn_sheep_count.setText("x0")
+            self.parent.sidebar.btn_grain_count.setText("x0")
+            self.parent.sidebar.btn_vegetable_count.setText("x0")
+            self.parent.sidebar.checked=""
+            self.parent.change_stacked_page("round_page")
         else:
             pprint(str(fence.log()))
 class WidgetTextLog(QWidget, text_log_ui):
