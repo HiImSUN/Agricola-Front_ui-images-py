@@ -1,6 +1,8 @@
 import sys,os,copy,random,traceback
-# 모듈이 위치한 디렉토리를 지정합니다.
+# # 모듈이 위치한 디렉토리를 지정합니다.
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola'))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola/behavior'))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola/entity'))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 def custom_exception_handler(exctype, value, tb):
@@ -139,7 +141,7 @@ class MainWindowClass(QMainWindow, main) :
         self.verticalLayout.setStretch(0,0)
         self.verticalLayout.setStretch(2,0)
         # self.next_round()
-        self.open()
+        # self.open()
         self.update_state_of_check()
         self.update_state_of_all()
 
@@ -172,7 +174,6 @@ class MainWindowClass(QMainWindow, main) :
         self.verticalLayout.setStretch(2,1)
         for i in range(4):
             getattr(self,f'player_{i}_border').show()
-        self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
 
 
 
@@ -180,6 +181,7 @@ class MainWindowClass(QMainWindow, main) :
     def game_start(self):
         pprint("게임이 시작되었습니다.")
         self.play_sound()
+        self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
         
 
         
