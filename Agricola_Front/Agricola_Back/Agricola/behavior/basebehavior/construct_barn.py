@@ -14,12 +14,14 @@ from entity.field_type import FieldType
 
 class ConstructBarn(BaseBehaviorInterface):
 
-    def __init__(self, field_status, vertical_fence, horizontal_fence, barn_index):
+    def __init__(self,myWindow, position):
         self.log_text = ""
-        self.field_status = copy.deepcopy(field_status)
-        self.vertical_fence = copy.deepcopy(vertical_fence)
-        self.horizontal_fence = copy.deepcopy(horizontal_fence)
-        self.barn_index = barn_index
+        self.field_status = myWindow.player_status[myWindow.game_status.now_turn_player].farm.field
+        self.vertical_fence = myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence
+        self.horizontal_fence = myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence
+        self.barn_index = position
+        self.player_status_repository = myWindow
+        self.game_status_repository = myWindow
 
     def execute(self):
         barn_cnt = 0

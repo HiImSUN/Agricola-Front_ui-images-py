@@ -16,14 +16,29 @@ from entity.animal_type import AnimalType
 from entity.farm.none_field import NoneField
 from entity.field_type import FieldType
 
+from typing import List
+from entity.farm.field import Field
 
 class AnimalMoveValidation(BaseBehaviorInterface):
-    def __init__(self, field_status, animal_type, position):
-        self.field_status = deepcopy(field_status)
+    def __init__(self, myWindow, animal_type, position):
         self.animal_type = animal_type
         self.position = position
         self.log_text = ""
 
+        self.field_status = myWindow.player_status[myWindow.game_status.now_turn_player].farm.field
+        self.vertical_fence = myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence
+        self.horizontal_fence = myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence
+        expanded_field: List[List[Field]] = [[NoneField() for _ in range(11)] for _ in range(11)]
+        for i in range(3):
+            for j in range(5):
+                expanded_field[i * 2 + 1][j * 2 + 1] = self.field_status[i][j]
+        for i in range(4):
+            for j in range(5):
+                expanded_field[i * 2][j * 2 + 1].field_type = FieldType.FENCE
+        for i in range(3):
+            for j in range(6):
+                expanded_field[i * 2 + 1][j * 2].field_type = FieldType.FENCE
+        self.field_status = expanded_field
     def execute(self):
         return self.check_already_placed() and self.check_same_type()
 
@@ -37,7 +52,7 @@ class AnimalMoveValidation(BaseBehaviorInterface):
     def check_same_type(self):
         check = [[0 for i in range(11)] for j in range(7)]
         queue = deque()
-        if self.field_status[self.position[0] * 2 + 1][self.position[1] * 2 + 1].kind != AnimalType.NONE \
+        if self.field_status[self.position[0] * 2 + 1][self.position[1] * 2 + 1].kind != None \
                 and self.field_status[self.position[0] * 2 + 1][self.position[1] * 2 + 1].kind != self.animal_type:
             self.log_text = "한 울타리 안에는 서로 다른 종류의 동물이 존재할 수 없습니다."
             return False
@@ -58,7 +73,7 @@ class AnimalMoveValidation(BaseBehaviorInterface):
                 if 7 > r >= 0 and 0 <= s < 11 \
                         and check[r][s] == 0 and self.field_status[p][q].field_type != FieldType.FENCE \
                         and not (self.field_status[r][s].barn and isinstance(self.field_status[r][s], NoneField)):
-                    if self.field_status[r][s].kind != AnimalType.NONE \
+                    if self.field_status[r][s].kind != None \
                             and self.field_status[r][s].kind != self.animal_type:
                         self.log_text = "한 울타리 안에는 서로 다른 종류의 동물이 존재할 수 없습니다."
                         return False

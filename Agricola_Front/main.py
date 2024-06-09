@@ -29,6 +29,7 @@ class MainWindowClass(QMainWindow, main) :
         self.game_status = game_status_repository.GameStatusRepository().game_status
         self.round_status = round_status_repository.RoundStatusRepository().round_status
         self.random_card_resource = {"sheep":[1,1],"pig":[1,1],"horse":[1,1],"east":[1,1],"west":[1,1]}
+        self.basic_card_resource = [[1,1],[2,2],[],[2,2],[],[1,1],[],[1,1],[],[],[],[],[1,1],[1,1],[1,1],[3,3],[]]
         # self.game_context = GameContext(self.game_status,self.player_status,self.round_status)
         from Agricola_Back.Agricola.gameready import start_resource_distribution,round_card_shuffle
         StartResourceDistribution(self)         # 리소스 할당
@@ -116,6 +117,7 @@ class MainWindowClass(QMainWindow, main) :
         self.log.clicked.connect(self.change_main_stacked)
         self.log.clicked.connect(self.update_state_of_all)
         self.pushButton_3.clicked.connect(self.round_test)
+        # self.Class_check.btn_next_turn.clicked.connect(self.round_test)
         self.log_popup = Log_viewer(self)
         self.media_player = QMediaPlayer()
         self.set_undo()
@@ -139,7 +141,6 @@ class MainWindowClass(QMainWindow, main) :
         # self.next_round()
         self.open()
         self.update_state_of_check()
-
         self.update_state_of_all()
 
 
@@ -181,23 +182,16 @@ class MainWindowClass(QMainWindow, main) :
         self.play_sound()
         
 
-
-
-
-
-
-
-
-
-
-
         
     def round_test(self):
         self.game_status.now_round = (self.game_status.now_round+1)%15
         pprint(f"현재 라운드는 {self.game_status.now_round}라운드입니다.")
+        # [getattr(self,f"basic_{i+16}").addWidget(self.round_round[i]) for i in range(13)]
+        self.game_status.round_card_put = [None for i in range(14)] 
+        self.game_status.basic_card_put = [None for i in range(16)] 
         self.next_round()
         self.update_state_of_all()
-        [getattr(self,f"basic_{i+16}").addWidget(self.round_round[i]) for i in range(13)]
+        self.update_state_of_check()
         
 
     def set_undo(self):
@@ -287,6 +281,9 @@ class MainWindowClass(QMainWindow, main) :
     def update_main_main_field(self):
             self.personal_field[-1].update_state()
             for cc in self.personal_field[-1].field: cc.update_state()
+    def update_main_basic(self):
+        for widget in self.basic_round:
+            widget.update_state()
     def update_main_round(self):
         for widget in self.round_round:
             widget.update_state()
@@ -302,15 +299,16 @@ class MainWindowClass(QMainWindow, main) :
 
 
     def update_state_of_all(self):
+        print(self.game_status.round_card_put)
         # self.update_main_personal_field()
         self.update_main_presonal_card()
         #self.update_main_personal_resource()
         self.update_main_main_field()
         self.update_main_round()
+        self.update_main_basic()
         self.update_main_card()
         self.worker_board.update_state()
         self.update_state()
-
 
 
 
@@ -318,6 +316,9 @@ class MainWindowClass(QMainWindow, main) :
         # stack_resources(self.game_status)
         for name,d in self.random_card_resource.items():
             self.random_card_resource[name]=[d[0]+d[1],d[1]]
+        # for i in range(len(self.basic_card_resource)):
+        #     if self.basic_card_resource[i] !=[]:
+        #         self.basic_card_resource[i]=[self.basic_card_resource[i][0]+self.basic_card_resource[i][1],self.basic_card_resource[i][1]]
         pass
 
 
@@ -383,7 +384,7 @@ class WidgetPersonalField(QWidget, personal_field_ui) :
                     getattr(self, f'btn_fence_v{j}{i}').setCheckable(False)
 
     def mousePressEvent(self,event):
-        pprint(f"Pressed personalField Player ID : {self.player}")
+        # pprint(f"Pressed personalField Player ID : {self.player}")
         if self.player != 4:
             self.parent.change_main_stacked()            
     
@@ -444,18 +445,24 @@ class WidgetFieldBase(QWidget, field_base_ui) :
         if self.player != 4:
             self.parent.parent.change_main_stacked()
         else:
-            pprint(f"Pressed Fance Player ID : {self.parent.player} |  ID: {self.id}")
+            # pprint(f"Pressed Fance Player ID : {self.parent.player} f  ID: {self.id}")
             self.change_house ()
             myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count+=1
             myWindow.update_state_of_all()
 
     def change_barn(self):
         player = myWindow.game_status.now_turn_player
-        pprint(f"Player ID : {player} | Fence ID: {self.id} | Type: barn")
+        
+        # pprint(f"Player ID : {player} | Fence ID: {self.id} | Type: barn")
+        test = ConstructBarn(myWindow,(self.i,self.j))
+        test_result = test.execute()
+        if test_result:
+            myWindow.player_status[player].farm.field[self.i][self.j].barn = not myWindow.player_status[player].farm.field[self.i][self.j].barn
+            myWindow.update_state_of_all()
+            pprint("외양간 변경")
+        pprint(str(test.log()))
 
-        myWindow.player_status[player].farm.field[self.i][self.j].barn = not myWindow.player_status[player].farm.field[self.i][self.j].barn
-        myWindow.update_state_of_all()
-        pprint("외양간 변경")
+
     def change_house(self):
         player = myWindow.game_status.now_turn_player
         # print("player : "+str(player))
@@ -479,9 +486,24 @@ class WidgetFieldBase(QWidget, field_base_ui) :
             else:
                 if self.parent.parent.sidebar.checked:
                     Type = CropType if self.parent.parent.sidebar.checked.split('_')[-1].upper() in TYPE_Crop else AnimalType
-                    if myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind != self.parent.parent.sidebar.checked.split('_')[-1].upper() and myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind != None:
-                        pprint("같은 종류만 둘 수 있습니다.")
+                    # if myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind != self.parent.parent.sidebar.checked.split('_')[-1].upper() and myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind != None:
+                    #     pprint("같은 종류만 둘 수 있습니다.")
+                    from Agricola_Back.Agricola.behavior.validation.animal_move_validation import AnimalMoveValidation
+                    from Agricola_Back.Agricola.behavior.validation.animal_position_validation import AnimalPositionValidation
+
+                    print()
+                    print(self.parent.parent.sidebar.checked.split('_')[-1].upper())
+                    
+                    print(type(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind))
+                    print(self.parent.parent.sidebar.checked.split('_')[-1].upper() == myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind)
+                    print()
+                    test = AnimalMoveValidation(myWindow,self.parent.parent.sidebar.checked.split('_')[-1].upper(),(self.i,self.j))
+                    result = test.execute()
+                    pprint(str(test.log()))
+                    if not result:
+                        pprint(str(result))
                     else:
+
                         myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind = self.parent.parent.sidebar.checked.split('_')[-1].upper()
                         getattr(myWindow.sidebar,f"btn_{self.parent.parent.sidebar.checked.split('_')[-1]}_count").setText(f"x{int(getattr(myWindow.sidebar,f"btn_{self.parent.parent.sidebar.checked.split('_')[-1]}_count").text().replace("x",""))-1}")
                         if Type == AnimalType:       
@@ -693,7 +715,29 @@ class WidgetBasicRound(QWidget, basic_roundcard_ui) :
         self.btn_round_4.hide()
 
     def mousePressEvent(self,event):
-        pprint(f"Pressed basic round num : {self.num}")
+        # pprint(f"Pressed basic round num : {self.num}")
+        if self.parent.game_status.basic_card_put[self.num] == None:
+            self.parent.game_status.basic_card_put[self.num] = self.parent.game_status.now_turn_player
+            # if self.imagenum == 0:    
+            #     pass
+            if self.num in [0,1,15]:
+                Wood(self.parent,self.num)
+            elif self.num == 13:
+                reed(self.parent,self.num)
+        
+
+        self.parent.update_state_of_check()
+        self.parent.update_state_of_all()
+        self.parent.update_state_of_all()
+    def update_state(self):
+        if self.parent.basic_card_resource[self.num] != []:
+            self.btn_round_1.setText(str(self.parent.basic_card_resource[self.num][0]))
+
+        color_convert = {None:"none",0:"red",1:"green",2:"blue",3:"purple"}
+        self.btn_round_0.setStyleSheet(f"background-color:{color_convert[self.parent.game_status.basic_card_put[self.num]]};")
+        print(f"background-color:{color_convert[self.parent.game_status.basic_card_put[self.num]]}")
+
+
 
 class WidgetrandomRound(QWidget, basic_roundcard_ui) :
     def __init__(self, cardnumber,imagenumber,parent) :
@@ -722,34 +766,36 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
 
     def mousePressEvent(self,event):
         pprint(f"Pressed basic round ID : {self.imagenum}")
-        if self.imagenum == 0:    
-            SheepMarket(myWindow)
-        if self.imagenum == 1:
-            SheepMarket(myWindow)
-        if self.imagenum == 2:
-            print(Facilities(myWindow))
-        if self.imagenum == 3:
-            print(SeedBake(myWindow))
-        if self.imagenum == 4:
-            print(FamilyFacility(myWindow))
-        if self.imagenum == 5:
-            print(Stone2(myWindow))
-        if self.imagenum == 6:
-            print(UpgradeFacilities(myWindow))
-        if self.imagenum == 7:
-            print(PigMarket(myWindow))
-        if self.imagenum == 8:
-            print(VegetableSeed(myWindow))
-        if self.imagenum == 9:
-            print(CowMarket(myWindow))
-        if self.imagenum == 10:
-            print(Stone4(myWindow))
-        if self.imagenum == 11:
-            print(CultivateSeed(myWindow))
-        if self.imagenum == 12:
-            print(HurryFamily(myWindow))
-        if self.imagenum == 13:
-            print(UpgradeFence(myWindow))
+        if self.parent.game_status.round_card_put[self.cardnum] == None:
+            self.parent.game_status.round_card_put[self.cardnum] = self.parent.game_status.now_turn_player
+            if self.imagenum == 0:    
+                Facilities(myWindow)
+            if self.imagenum == 1:
+                SheepMarket(myWindow)
+            if self.imagenum == 2:
+                print(Facilities(myWindow))
+            if self.imagenum == 3:
+                print(SeedBake(myWindow))
+            if self.imagenum == 4:
+                print(FamilyFacility(myWindow))
+            if self.imagenum == 5:
+                print(Stone2(myWindow))
+            if self.imagenum == 6:
+                print(UpgradeFacilities(myWindow))
+            if self.imagenum == 7:
+                print(PigMarket(myWindow))
+            if self.imagenum == 8:
+                print(VegetableSeed(myWindow))
+            if self.imagenum == 9:
+                print(CowMarket(myWindow))
+            if self.imagenum == 10:
+                print(Stone4(myWindow))
+            if self.imagenum == 11:
+                print(CultivateSeed(myWindow))
+            if self.imagenum == 12:
+                print(HurryFamily(myWindow))
+            if self.imagenum == 13:
+                print(UpgradeFence(myWindow))
         # print(i)
         
     def update_state(self):
@@ -775,6 +821,10 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
                 self.btn_round_1.setText("")
         if  self.cardnum in [3,6,8,10,12,13]:
             self.btn_round_4.show()
+
+        color_convert = {None:"none",0:"red",1:"green",2:"blue",3:"purple"}
+        self.btn_round_0.setStyleSheet(f"background-color:{color_convert[self.parent.game_status.round_card_put[self.cardnum]]};")
+        print(f"background-color:{color_convert[self.parent.game_status.round_card_put[self.cardnum]]}")
             
 class Log_viewer(QDialog,log_viewer_ui):
     def __init__(self,main):
@@ -817,8 +867,9 @@ class Check(QWidget, check_ui):
         self.parent = parent
         self.btn_processing.clicked.connect(self.next_turn)
         self.btn_undo.clicked.connect(self.parent.undo)
+        self.btn_next_turn.clicked.connect(self.func_pass)
     def next_turn(self):
-        from Agricola_Back.Agricola.behavior.basebehavior.construct_fence import ConstructFence
+        
         
         fence_test = fence_validation(self.parent)
         print(fence_test)
@@ -831,7 +882,21 @@ class Check(QWidget, check_ui):
         fence_ex = fence.execute()# if log:
         print(fence_ex)
         print(fence.log())
+        if fence_ex:
+            myWindow.update_state_of_all()
+            myWindow.update_state_of_check()
+            pprint("검증이 완료되었습니다.")
+        else:
+            pprint(fence.log())
+        
+    def mousePressEvent(self,event):
+        pass
 
+    def func_pass(self):
+        fence = ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence,myWindow)
+        fence_ex = fence.execute()# if log:
+        print(fence_ex)
+        print(fence.log())
         if fence_ex:
             # pf = myWindow.player_status[myWindow.game_status.now_turn_player].farm
             # print(ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence).execute())
@@ -851,9 +916,6 @@ class Check(QWidget, check_ui):
             #     pprint(fence.log_text)
         else:
             pprint(str(fence.log()))
-    def mousePressEvent(self,event):
-        pass
-
 class WidgetTextLog(QWidget, text_log_ui):
     def __init__(self, parent):
         super().__init__()
