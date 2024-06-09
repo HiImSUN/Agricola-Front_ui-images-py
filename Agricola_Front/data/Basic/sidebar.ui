@@ -177,7 +177,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLabel" name="label_2_pigcount">
+            <widget class="QLabel" name="btn_cow_count">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -218,7 +218,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLabel" name="label_2_sheepcount">
+            <widget class="QLabel" name="btn_sheep_count">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -257,7 +257,7 @@ QPushButton:disabled {background-color: yellow;}</string>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLabel" name="label_2_cowcount">
+            <widget class="QLabel" name="btn_pig_count">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -273,7 +273,7 @@ QPushButton:disabled {background-color: yellow;}</string>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QLabel" name="btn_unit_count">
+            <widget class="QLabel" name="btn_vegetable_count">
              <property name="text">
               <string>x3</string>
              </property>

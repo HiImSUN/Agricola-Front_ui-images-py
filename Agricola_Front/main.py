@@ -1,9 +1,10 @@
 import sys,os,copy,random
 # 모듈이 위치한 디렉토리를 지정합니다.
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola/Agricola'))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola'))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 from list_import import *
+# run_pyrcc5()#QRC 업데이트/
 # MAIN
 class MainWindowClass(QMainWindow, main) :
     def __init__(self) :
@@ -19,11 +20,13 @@ class MainWindowClass(QMainWindow, main) :
         self.player_status = player_status_repository.PlayerStatusRepository().player_status
         self.game_status = game_status_repository.GameStatusRepository().game_status
         self.round_status = round_status_repository.RoundStatusRepository().round_status
+        self.random_card_resource = {"sheep":[1,1],"pig":[1,1],"horse":[1,1],"east":[1,1],"west":[1,1]}
         # self.game_context = GameContext(self.game_status,self.player_status,self.round_status)
-        from Agricola.Agricola.gameready import start_resource_distribution,round_card_shuffle
-        print(StartResourceDistribution(self))  # 리소스 할당
-        print(RoundCardShuffle(self))           # 라운드 카드 할당
-        print(CardDistribution(self))           # 개인 카드 할당
+        from Agricola_Back.Agricola.gameready import start_resource_distribution,round_card_shuffle
+        StartResourceDistribution(self)         # 리소스 할당
+        RoundCardShuffle(self)                  # 라운드 카드 할당
+        CardDistribution(self)                  # 개인 카드 할당
+        self.game_status.now_round+=1
         for i in range(4):
             self.player_status[i].card.start_job_card = deepcopy(self.player_status[i].card.hand_job_card)
             self.player_status[i].card.start_sub_card = deepcopy(self.player_status[i].card.hand_sub_card)
@@ -59,9 +62,26 @@ class MainWindowClass(QMainWindow, main) :
         self.basic_round = [WidgetBasicRound(i,self) for i in range(16)]
         [getattr(self,f"basic_{i}").addWidget(self.basic_round[i]) for i in range(16)]
 # 랜덤위젯 설정
-        numbers = list(range(14))
-        random.shuffle(numbers)
-        self.round_round = [WidgetrandomRound(i,numbers[i],self) for i in range(14)]
+        # for i, order in enumerate(self.game_status.round_card_order):
+        #     self.game_status.round_resource[i] -= order
+        # 라운드순서배정결과 = [1, 2, 0, 3, 5, 6, 4, 8, 7, 10, 9, 12, 11, 13]
+        # print(self.game_status.round_resource)
+        # print("self.game_status.round_card_order",self.game_status.round_card_order)
+        for i in range(len(self.game_status.round_card_order)):
+            if self.game_status.round_card_order[i] == 1:
+                self.random_card_resource["sheep"] = [-i+1,1]
+            elif self.game_status.round_card_order[i] == 5:
+                self.random_card_resource["east"] = [-i+1,1]
+            elif self.game_status.round_card_order[i] == 7:
+                self.random_card_resource["pig"] = [-i+1,1]
+            elif self.game_status.round_card_order[i] == 9:
+                self.random_card_resource["horse"] = [-i+1,1]
+            elif self.game_status.round_card_order[i] == 10:
+                self.random_card_resource["west"] = [-i+1,1]
+                
+                
+        print(self.game_status.round_resource)
+        self.round_round = [WidgetrandomRound(i,self.game_status.round_card_order[i],self) for i in range(14)]
         [getattr(self,f"basic_{i+16}").addWidget(self.round_round[i]) for i in range(14)]
 #워커보드 설정
         self.worker_board = WorkerBoard(self)
@@ -80,7 +100,6 @@ class MainWindowClass(QMainWindow, main) :
         self.pushButton_3.clicked.connect(self.round_test)
         self.log_popup = Log_viewer(self)
         self.media_player = QMediaPlayer()
-        self.update_state_of_all()
         self.set_undo()
         ############################################################################
         self.stackedWidget.setCurrentIndex(2) # 게임시작 화면
@@ -98,8 +117,11 @@ class MainWindowClass(QMainWindow, main) :
         self.card_check_p3.clicked.connect(self.open)
         self.verticalLayout.setStretch(0,0)
         self.verticalLayout.setStretch(2,0)
+        # self.next_round()
+        self.open()
         self.update_state_of_check()
 
+        self.update_state_of_all()
 
 
 
@@ -130,13 +152,13 @@ class MainWindowClass(QMainWindow, main) :
         self.verticalLayout.setStretch(2,1)
         for i in range(4):
             getattr(self,f'player_{i}_border').show()
+        self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
 
 
 
 
     def game_start(self):
         pprint("게임이 시작되었습니다.")
-        self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
         self.play_sound()
         
 
@@ -154,8 +176,10 @@ class MainWindowClass(QMainWindow, main) :
     def round_test(self):
         self.game_status.now_round = (self.game_status.now_round+1)%15
         pprint(f"현재 라운드는 {self.game_status.now_round}라운드입니다.")
+        self.next_round()
         self.update_state_of_all()
         [getattr(self,f"basic_{i+16}").addWidget(self.round_round[i]) for i in range(13)]
+        
 
     def set_undo(self):
         self.undo_player = deepcopy(self.player_status)
@@ -271,7 +295,11 @@ class MainWindowClass(QMainWindow, main) :
 
 
 
-
+    def next_round(self):
+        # stack_resources(self.game_status)
+        for name,d in self.random_card_resource.items():
+            self.random_card_resource[name]=[d[0]+d[1],d[1]]
+        pass
 
 
 
@@ -427,18 +455,30 @@ class WidgetFieldBase(QWidget, field_base_ui) :
         if True:
             Type = CropType if self.parent.parent.sidebar.checked.split('_')[-1].upper() in TYPE_Crop else AnimalType
             if self.parent.parent.sidebar.checked!="":
-                if myWindow.player_status[player].farm.field[self.i][self.j].kind == getattr(Type,self.parent.parent.sidebar.checked.split('_')[-1].upper()) or myWindow.player_status[player].farm.field[self.i][self.j].kind==None:    
-                    myWindow.player_status[player].farm.field[self.i][self.j].kind = getattr(Type,self.parent.parent.sidebar.checked.split('_')[-1].upper())
+                myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind = self.parent.parent.sidebar.checked.split('_')[-1].upper()
+                if Type == AnimalType:       
                     myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count+=1
-
+                else:
+                    count = getattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1])
+                    setattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1],count+1)
+                    getattr()
+                    
             else: 
-                if myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count>0:
-                    myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count-=1
-                if myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count==0:
-                    myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind = None
+                if Type == AnimalType:
+                    if myWindow.player_status[player].farm.field[self.i][self.j].count>0:
+                        myWindow.player_status[player].farm.field[self.i][self.j].count-=1
+                    if myWindow.player_status[player].farm.field[self.i][self.j].count==0:
+                        myWindow.player_status[player].farm.field[self.i][self.j].kind = None
+                else:
+                    count = getattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1])
+                    if count>0:
+                        setattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1],count-1)
+                    if count == 1:
+                        myWindow.player_status[player].farm.field[self.i][self.j].kind = None
 
 
         myWindow.update_state_of_all()
+        # myWindow.update_state_of_check()
 
     def update_state(self):
         if self.player == 4:
@@ -458,14 +498,18 @@ class WidgetFieldBase(QWidget, field_base_ui) :
         # 유닛 처리
         unit = self.parent.parent.player_status[player].farm.field[self.i][self.j].kind
         if not unit==None:
-            kind = self.parent.parent.player_status[player].farm.field[self.i][self.j].kind.name.lower()
+            kind = self.parent.parent.player_status[player].farm.field[self.i][self.j].kind.lower()
             if not kind == "none":
-                self.btn_unit.setStyleSheet(f"#btn_unit{{border-image : url(:/newPrefix/images/{self.parent.parent.player_status[player].farm.field[self.i][self.j].kind.name.lower()}.png);}}")
+                self.btn_unit.setStyleSheet(f"#btn_unit{{border-image : url(:/newPrefix/images/{self.parent.parent.player_status[player].farm.field[self.i][self.j].kind.lower()}.png);}}")
             else:
                 self.btn_unit.setStyleSheet(f"#btn_unit{{border:none;}}")
         else:
             self.btn_unit.setStyleSheet(f"#btn_unit{{border:none;}}")
         count = self.parent.parent.player_status[player].farm.field[self.i][self.j].count if self.parent.parent.player_status[player].farm.field[self.i][self.j].count not in [0,None] else ""
+        if count == "" and self.parent.parent.player_status[player].farm.field[self.i][self.j].kind!= None:
+            count = getattr(self.parent.parent.player_status[self.parent.parent.game_status.now_turn_player].resource,self.parent.parent.player_status[player].farm.field[self.i][self.j].kind.lower())
+        if count == 0:
+            count = ""
         self.count.setText(str(count))
         # 외양간 처리
         if self.parent.parent.player_status[player].farm.field[self.i][self.j].barn:
@@ -476,7 +520,7 @@ class WidgetFieldBase(QWidget, field_base_ui) :
 
         pass
         
-# 개인 농장 오른 쪽 아이콘으로 보이는 작은 카드창
+    # 개인 농장 오른 쪽 아이콘으로 보이는 작은 카드창
 class PersonalCard_small(QWidget, personal_card_small_ui):
     def __init__(self, player, parent):
         super().__init__()
@@ -489,7 +533,7 @@ class PersonalCard_small(QWidget, personal_card_small_ui):
         for i in range(3):
             getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"#widget_sub_{i+1}{{border-image: url(:/newPrefix/images/보조 설비/보조설비{list_sub[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/보조 설비/보조설비back.png);}}")
             getattr(self,f"widget_job_{i+1}").setStyleSheet(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_job_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
-            print(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
+            # print(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
             getattr(self,f"widget_main_{i+1}").setStyleSheet(f"#widget_main_{i+1}{{border-image: url(:/newPrefix/images/주요 설비/주요설비아이콘.png);}}#widget_job_{i+1}:disabled{{border:none;}}")
         
         # self.setEnabled(False)
@@ -507,7 +551,7 @@ class PersonalCard_small(QWidget, personal_card_small_ui):
         list_put_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.put_sub_card]
         list_put_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.put_job_card]
         list_put_main = self.parent.player_status[player].card.put_main_card
-        print(list_job,list_put_job,list_job[0] not in list_put_job)
+        # print(list_job,list_put_job,list_job[0] not in list_put_job)
         for i in range(3):
             getattr(self,f"widget_sub_{i+1}").setEnabled(list_sub[i] in list_put_sub)
             getattr(self,f"widget_job_{i+1}").setEnabled(list_job[i] in list_put_job)
@@ -518,7 +562,7 @@ class PersonalCard_small(QWidget, personal_card_small_ui):
         #     else:
         #         # getattr(self,f"widget_main_{i+1}").setStyleSheet(f"border:none;")
         #         getattr(self,f"widget_main_{i+1}").hide()
-# 메인 창에 뜰 개인별 카드 창
+    # 메인 창에 뜰 개인별 카드 창
 class PersonalCard_big(QWidget, personal_card_big_ui):
     def __init__(self, parent,player):
         super().__init__()
@@ -532,7 +576,7 @@ class PersonalCard_big(QWidget, personal_card_big_ui):
             getattr(self,f"widget_sub_{i+1}").setStyleSheet(f"#widget_sub_{i+1}{{border-image: url(:/newPrefix/images/보조 설비/보조설비{list_sub[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/보조 설비/보조설비back.png);}}")
             getattr(self,f"widget_job_{i+1}").setStyleSheet(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_job_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
             
-            print(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
+            # print(f"#widget_job_{i+1}{{border-image: url(:/newPrefix/images/직업 카드/직업카드{list_job[i]}.png);}}#widget_sub_{i+1}:disabled{{border-image: url(:/newPrefix/images/직업 카드/직업카드back.png);}}")
     def mousePressEvent(self, event):
         player = self.parent.game_status.now_turn_player
         pprint(f"Pressed personalField Player ID : {player}")
@@ -545,7 +589,7 @@ class PersonalCard_big(QWidget, personal_card_big_ui):
         list_put_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.put_sub_card]
         list_put_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.put_job_card]
         list_put_main = self.parent.player_status[player].card.put_main_card
-        print(list_job,list_put_job,list_job[0] not in list_put_job)
+        # print(list_job,list_put_job,list_job[0] not in list_put_job)
         for i in range(3):
             getattr(self,f"widget_sub_{i+1}").setEnabled(list_sub[i] in list_put_sub)
             getattr(self,f"widget_job_{i+1}").setEnabled(list_job[i] in list_put_job)
@@ -572,6 +616,7 @@ class WidgetPersonalResource(QWidget, personal_resources_ui) :
             getattr(self,f"count_{t}").setText(str(getattr(self.parent.player_status[player].resource,t)))
         for t in ['sheep','cow','pig','barn','fence']:
             getattr(self,f"count_{t}").setText(str(getattr(self.parent.player_status[player].farm,f"get_{t}_count")()))
+            # print("cow = ",getattr(self.parent.player_status[player].farm,f"get_cow_count")())
 
         #     # self.personal_resource[player].count_dirt.setText(str(self.player.player_status[player].resource.dirt))
         #     getattr(self,f"count_{t}").setText(str(getattr(self.parent.player_status[player].farm,t)))
@@ -607,12 +652,8 @@ class WidgetBasicRound(QWidget, basic_roundcard_ui) :
         self.btn_round_1.setText('')
         self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/기본행동/기본행동 ({self.num}).png);}}")
         self.btn_round_4.hide()
-        for i in range(5):
-            getattr(self,f"btn_round_{i}").clicked.connect(self.roundClick)
 
     def mousePressEvent(self,event):
-        pprint(f"Pressed basic round num : {self.num}")
-    def roundClick(self,event):
         pprint(f"Pressed basic round num : {self.num}")
 
 class WidgetrandomRound(QWidget, basic_roundcard_ui) :
@@ -623,37 +664,76 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
         self.imagenum = imagenumber
         self.setupUi(self)
         self.btn_round_1.setText('')
+        # self.btn_round_1.hide()
         self.btn_round_4.hide()
 
         if self.cardnum<=3:
-            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_1.png);}}")
+            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_1.png);}}#btn_round_1:disabled{{color:rgba(255, 255, 255, 0);}}")
         elif self.cardnum<=6:
-            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_2.png);}}")
+            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_2.png);}}#btn_round_1:disabled{{color:rgba(255, 255, 255, 0);}}")
         elif self.cardnum<=8:
-            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_3.png);}}")
+            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_3.png);}}#btn_round_1:disabled{{color:rgba(255, 255, 255, 0);}}")
         elif self.cardnum<=10:
-            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_4.png);}}")
+            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_4.png);}}#btn_round_1:disabled{{color:rgba(255, 255, 255, 0);}}")
         elif self.cardnum<=12:
-            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_5.png);}}")
+            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_5.png);}}#btn_round_1:disabled{{color:rgba(255, 255, 255, 0);}}")
         elif self.cardnum<=13:
-            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_6.png);}}")
+            self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/랜덤/랜덤 ({self.imagenum}).png);}}#widget:disabled{{border-image: url(:/newPrefix/images/라운드카드/number_6.png);}}#btn_round_1:disabled{{color:rgba(255, 255, 255, 0);}}")
         self.setEnabled(False)
-        self.update_state()
+
     def mousePressEvent(self,event):
         pprint(f"Pressed basic round ID : {self.imagenum}")
+        if self.imagenum == 0:    
+            SheepMarket(myWindow)
+        if self.imagenum == 1:
+            SheepMarket(myWindow)
+        if self.imagenum == 2:
+            print(Facilities(myWindow))
+        if self.imagenum == 3:
+            print(SeedBake(myWindow))
+        if self.imagenum == 4:
+            print(FamilyFacility(myWindow))
+        if self.imagenum == 5:
+            print(Stone2(myWindow))
+        if self.imagenum == 6:
+            print(UpgradeFacilities(myWindow))
+        if self.imagenum == 7:
+            print(PigMarket(myWindow))
+        if self.imagenum == 8:
+            print(VegetableSeed(myWindow))
+        if self.imagenum == 9:
+            print(CowMarket(myWindow))
+        if self.imagenum == 10:
+            print(Stone4(myWindow))
+        if self.imagenum == 11:
+            print(CultivateSeed(myWindow))
+        if self.imagenum == 12:
+            print(HurryFamily(myWindow))
+        if self.imagenum == 13:
+            print(UpgradeFence(myWindow))
         # print(i)
         
     def update_state(self):
         round = self.parent.game_status.now_round
-        print(self.imagenum)
+        # print("current_found = ",round)
+        # print(self.imagenum)
         # print(i)
         
         if self.cardnum<=round-1:
             self.setEnabled(self.cardnum<=round-1)
-        if self.imagenum<5 and "랜덤/랜덤" in self.styleSheet():
-            self.btn_round_1.setText(str(1))
-        else:
-            self.btn_round_1.setText("")
+        if self.imagenum in [1, 5, 7, 9, 10] :
+            if self.imagenum == 1  :
+                self.btn_round_1.setText(str(self.parent.random_card_resource["sheep"][0]))
+            elif self.imagenum == 5 :
+                self.btn_round_1.setText(str(self.parent.random_card_resource["east"][0]))
+            elif self.imagenum == 7 :
+                self.btn_round_1.setText(str(self.parent.random_card_resource["pig"][0]))
+            elif self.imagenum == 9 :
+                self.btn_round_1.setText(str(self.parent.random_card_resource["horse"][0]))
+            elif self.imagenum == 10 :
+                self.btn_round_1.setText(str(self.parent.random_card_resource["west"][0]))
+            else:
+                self.btn_round_1.setText("")
         if  self.cardnum in [3,6,8,10,12,13]:
             self.btn_round_4.show()
             
@@ -718,7 +798,6 @@ class Check(QWidget, check_ui):
         self.parent.set_undo()
         # else:
         #     pprint(fence.log_text)
-
     def mousePressEvent(self,event):
         pass
 
@@ -814,16 +893,20 @@ class SideBar(QWidget, sidebar_ui):
 
     def btnClick(self, btn_name):
         btns = deepcopy(self.btns)
-        btns.remove(btn_name)
-        for name in btns:
-            getattr(self,name).setChecked(False)
-        # getattr(self,btn_name).setChecked(True)
-        if getattr(self,btn_name).isChecked():
-            self.checked = btn_name
-        else: self.checked = ""
-
+        if not getattr(self,btn_name).text() == "x0":
+            btns.remove(btn_name)
+            for name in btns:
+                getattr(self,name).setChecked(False)
+            # getattr(self,btn_name).setChecked(True)
+            if getattr(self,btn_name).isChecked():
+                self.checked = btn_name
+            else: self.checked = ""
+        else:
+            for name in btns:
+                getattr(self,name).setChecked(False)
+                self.checked = ""
     def update_state(self):
-        # self.btn.
+        # self.label_2_sheepcount
         pass
 
         # getattr(self,btn_name).setFocus(False)
@@ -842,7 +925,7 @@ def addStyleSheet(widget, new_style):
     updated_style = current_style + '\n' + new_style
     # 업데이트된 스타일 시트를 설정한다
     widget.setStyleSheet(updated_style)
-###실행 코드### 밑에 건들 필요 굳이 없음###
+    ###실행 코드### 밑에 건들 필요 굳이 없음###
 if __name__ == "__main__" :
     #QApplication : 프로그램을 실행시켜주는 클래스
     app = QApplication(sys.argv) 
