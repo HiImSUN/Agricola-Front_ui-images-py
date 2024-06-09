@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>119</width>
-    <height>647</height>
+    <width>175</width>
+    <height>778</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -48,7 +48,7 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,8,2,6,3">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,8,3,6,3">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -64,6 +64,11 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>15</pointsize>
+          </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(193, 255, 215);</string>
@@ -133,7 +138,7 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <layout class="QGridLayout" name="gridLayout_5" rowstretch="1,1,1,1,1" columnstretch="4,5">
+          <layout class="QGridLayout" name="gridLayout_5" rowstretch="1,1,1,1,1" columnstretch="4,5" rowminimumheight="0,0,0,0,0">
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -152,8 +157,8 @@
            <property name="verticalSpacing">
             <number>-1</number>
            </property>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="btn_unit">
+           <item row="4" column="0">
+            <widget class="QPushButton" name="pushButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -161,15 +166,21 @@
               </sizepolicy>
              </property>
              <property name="styleSheet">
-              <string notr="true">border-image: url(:/newPrefix/images/grain.png);</string>
+              <string notr="true">border-image: url(:/newPrefix/images/vegetable.png);</string>
              </property>
              <property name="text">
               <string/>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="btn_unit_count">
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_2_pigcount">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string>x3</string>
              </property>
@@ -178,8 +189,8 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="btn_pig">
+           <item row="2" column="0">
+            <widget class="QPushButton" name="btn_cow">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -190,7 +201,7 @@
               </sizepolicy>
              </property>
              <property name="styleSheet">
-              <string notr="true">border-image: url(:/newPrefix/images/pig.png);</string>
+              <string notr="true">border-image: url(:/newPrefix/images/cow.png);</string>
              </property>
              <property name="text">
               <string/>
@@ -198,26 +209,13 @@
              <property name="checkable">
               <bool>true</bool>
              </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
             </widget>
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_2_sheepcount">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>x3</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_2_cowcount">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -255,30 +253,8 @@ QPushButton:disabled {background-color: yellow;}</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="btn_cow">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">border-image: url(:/newPrefix/images/cow.png);</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="label_2_pigcount">
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_2_cowcount">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -293,8 +269,21 @@ QPushButton:disabled {background-color: yellow;}</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
-            <widget class="QPushButton" name="pushButton">
+           <item row="3" column="1">
+            <widget class="QLabel" name="btn_unit_count">
+             <property name="text">
+              <string>x3</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="btn_pig">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -302,7 +291,26 @@ QPushButton:disabled {background-color: yellow;}</string>
               </sizepolicy>
              </property>
              <property name="styleSheet">
-              <string notr="true">border-image: url(:/newPrefix/images/vegetable.png);</string>
+              <string notr="true">border-image: url(:/newPrefix/images/pig.png);</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QPushButton" name="btn_unit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border-image: url(:/newPrefix/images/grain.png);</string>
              </property>
              <property name="text">
               <string/>
@@ -326,10 +334,85 @@ QPushButton:disabled {background-color: yellow;}</string>
       </widget>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="3,2">
        <property name="spacing">
         <number>0</number>
        </property>
+       <item>
+        <widget class="QWidget" name="widget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>10</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 134, 50);</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout" stretch="3,1">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>외양간</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_pet">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item>
         <widget class="QPushButton" name="pushButton_dropanimal">
          <property name="sizePolicy">

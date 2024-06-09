@@ -44,7 +44,7 @@ card_distribution_ui = uic.loadUiType(resource_path("data/Basic/mycard_firstchec
 log_viewer_ui= uic.loadUiType(resource_path("data/log_viewer_dialog.ui"))[0] # 로그
 basic_roundcard_ui= uic.loadUiType(resource_path("data/Basic/roundcard.ui"))[0] # 라운드카드 ui
 worker_board_ui = uic.loadUiType(resource_path("data/Basic/worker_board.ui"))[0] # worker 보드
-check_ui = uic.loadUiType(resource_path("data/check/check.ui"))[0] # worker 보드
+check_ui = uic.loadUiType(resource_path("data/check/check4.ui"))[0] # worker 보드
 text_log_ui = uic.loadUiType(resource_path("data/Basic/log.ui"))[0] # text log 박스
 information_ui = uic.loadUiType(resource_path("data/Basic/information.ui"))[0] # information(설정, 점수표)
 scoreboard_ui = uic.loadUiType(resource_path("data/Basic/scoreboard.ui"))[0] # 점수표
@@ -78,8 +78,6 @@ class MainWindowClass(QMainWindow, main) :
             self.player_status[i].card.start_sub_card = deepcopy(self.player_status[i].card.hand_sub_card)
             self.player_status[i].card.put_job_card = deepcopy(self.player_status[i].card.hand_job_card)
             self.player_status[i].card.put_sub_card = deepcopy(self.player_status[i].card.hand_sub_card)
-        
-
 #플레이어 필드 위젯 설정
         self.personal_field = [WidgetPersonalField(i,self) for i in range(5)]
         for i in range(4):getattr(self,f"frm_p{i}_0").addWidget(self.personal_field[i])
@@ -94,9 +92,11 @@ class MainWindowClass(QMainWindow, main) :
         self.personal_card = [PersonalCard_small(i,self) for i in range(4)]
         for i in range(4):getattr(self,f"frm_p{i}_1").addWidget(self.personal_card[i])
 #메인 카드 위젯 설정
-        self.main_card = [PersonalCard_big(self,player) for player in range(4)]
-        for i in range(4):
-            getattr(self,f"main_card__{i}").addWidget(self.main_card[i])
+        #self.main_card = [PersonalCard_big(self,player) for player in range(4)]
+        # for i in range(4):
+        #     getattr(self,f"main_card__{i}").addWidget(self.main_card[i]) #TODO
+        self.personal_card_big = PersonalCard_big(self)
+        self.frm_main_card.addWidget(self.personal_card_big)
 #사이드바 위젯 설정
         self.sidebar = SideBar(self)
         self.frm_main_sidebar.addWidget(self.sidebar)
@@ -149,26 +149,22 @@ class MainWindowClass(QMainWindow, main) :
         self.verticalLayout.setStretch(2,0)
 
 
+    # def play_sound(self, sound_name):
+    #     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'data/media/{sound_name}.mp3')  # 절대 경로로 변경
+    #     print(f"Trying to play: {file_path}")
+    #     if not os.path.exists(file_path):
+    #         print(f"File not found: {file_path}")
+    #         return
 
-
-
-
-    def play_sound(self, sound_name):
-        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'data/media/{sound_name}.mp3')  # 절대 경로로 변경
-        print(f"Trying to play: {file_path}")
-        if not os.path.exists(file_path):
-            print(f"File not found: {file_path}")
-            return
-
-        url = QUrl.fromLocalFile(file_path)
-        self.media_player.setMedia(QMediaContent(url))
-        if self.media_player.mediaStatus() == QMediaPlayer.NoMedia:
-            print("Failed to load media.")
-        else:
-            print("Media loaded successfully.")
+    #     url = QUrl.fromLocalFile(file_path)
+    #     self.media_player.setMedia(QMediaContent(url))
+    #     if self.media_player.mediaStatus() == QMediaPlayer.NoMedia:
+    #         print("Failed to load media.")
+    #     else:
+    #         print("Media loaded successfully.")
         
-        self.media_player.play()
-        print("Playing sound...")
+    #     self.media_player.play()
+    #     print("Playing sound...")
 
     def open(self):
         self.verticalLayout.setStretch(0,1)
@@ -183,7 +179,7 @@ class MainWindowClass(QMainWindow, main) :
 
         pprint("게임이 시작되었습니다.")
         self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
-        self.play_sound("bgm")
+        #self.play_sound("bgm")
 
     def update_main_field(self, player):
         field = player_status_repository.player_status_repository.player_status[5].farm.field = deepcopy(player_status_repository.player_status_repository.player_status[player].farm.field)
@@ -208,7 +204,6 @@ class MainWindowClass(QMainWindow, main) :
                 else:
                     getattr(myWindow.personal_field[4], f"btn_fence_v{i}{j}").setStyleSheet("border-image:none;")
 
-        
     def round_test(self):
         self.game_status.now_round = (self.game_status.now_round+1)%15
         pprint(f"현재 라운드는 {self.game_status.now_round}라운드입니다.")
@@ -217,7 +212,7 @@ class MainWindowClass(QMainWindow, main) :
 
     def set_undo(self):
         self.undo_player = deepcopy(self.player_status)
-        hand_undo_gameStatus = deepcopy(self.game_status)
+        self.undo_gameStatus = deepcopy(self.game_status)
         self.undo_round = deepcopy(self.round_status)
         
     def undo(self):
@@ -295,7 +290,7 @@ class MainWindowClass(QMainWindow, main) :
         #     getattr(self,f"player_{i}_border").setStyleSheet("")
         i = self.game_status.now_turn_player
         # getattr(self,f"player_{i}_border").setStyleSheet(f"#player_{i}_border{{border:3px solid blue;}}")
-        self.stcked_main_card.setCurrentWidget(getattr(self,f"main_card_{i}"))
+#        self.stcked_main_card.setCurrentWidget(getattr(self,f"main_card_{i}")) #TODO
 
     def update_state_of_all(self):
 # resource 업데이트
@@ -305,34 +300,19 @@ class MainWindowClass(QMainWindow, main) :
             for cc in c.field: cc.update_state()
         # for c in self.personal_card:
         #     c.update_state()
-        for c in self.personal_resource:
-            c.update_state()
-        for widget in self.random_round:
-            widget.update_state()
-#메인 플레이어 보더 업데이트
-        for widget in self.personal_card:
-            widget.update_state()
-        for widget in self.main_card:
-            widget.update_state()
+#         for c in self.personal_resource:
+#             c.update_state()
+#         for widget in self.random_round:
+#             widget.update_state()
+# #메인 플레이어 보더 업데이트
+#         for widget in self.personal_card:
+#             widget.update_state()
+#         for widget in self.main_card:
+#             widget.update_state()
 
         # self.main_card.update_state()
         self.worker_board.update_state()
         self.update_state()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class WidgetPersonalField(QWidget, personal_field_ui) :
@@ -375,11 +355,11 @@ class WidgetPersonalField(QWidget, personal_field_ui) :
         if self.state == 0:
             if self.player != 4:
                 if myWindow.stackedWidget.currentIndex() == 0: #라운드 화면이면
-                    self.parent.change_main_stacked() #창 바꿔주고
+                    self.parent.change_main_stacked(self.player) #창 바꿔주고
                 elif myWindow.stackedWidget.currentIndex() == 1: #이미 농장 칸이면
                     if myWindow.nowshow == self.player: #그리고 그 농장이 본인의 농장이면
                         print("#그리고 그 농장이 본인의 농장이면")
-                        self.parent.change_main_stacked() #창 바꿔주고
+                        self.parent.change_main_stacked(self.player) #창 바꿔주고
                     else: #본인의 농장이 아니라면 본인의 농장으로 화면 업데이트
                         print("본인의 농장이 아니라면 본인의 농장으로 화면 업데이트")
                         myWindow.nowshow = self.player
@@ -452,28 +432,42 @@ class WidgetFieldBase(QWidget, field_base_ui) :
             #self.lb_unit.clicked.connect(self.parent.parent.change_main_stacked)
             #self.lb_barn.clicked.connect(self.parent.parent.change_main_stacked)
 
-    def changeArableMode(self):
+    def changeDefaultMode(self):
+        self.state = 0
+    def changeSetSheepMode(self):
         self.state = 1
-    def changeSetUnitMode(self):
+    def changeSetPigMode(self):
         self.state = 2
-    def changeBarnMode(self):
+    def changeSetCowMode(self):
         self.state = 3
+    def changeBarnMode(self):
+        self.state = 4
+    def changeArableMode(self):
+        self.state = 5
+    
+
     #################################$%^$%^$%^
     def mousePressEvent(self,event):
         print(event)
         print('hi')
         if self.state == 0:
             if myWindow.stackedWidget.currentIndex() == 0: #라운드 화면이면
-                myWindow.change_main_stacked()
+                myWindow.change_main_stacked(self.player)
             elif myWindow.stackedWidget.currentIndex() == 1: #농장화면인데
                 if self.player == myWindow.nowshow :
-                    myWindow.change_main_stacked()
+                    myWindow.change_main_stacked(self.player)
                 else:
                     myWindow.nowshow = self.player
                     #self.player에 맞게 화면 재구성
-
-
-        if self.state == 1: #Arable
+        if self.state == 1: #sheep
+            pass
+        if self.state == 2: #pig
+            pass
+        if self.state == 3: #cow
+            pass
+        if self.state == 4: #barn
+            pass
+        if self.state == 5: #Arable
             from Agricola.Agricola.entity.farm.none_field import NoneField
             from Agricola.Agricola.entity.farm.arable_land import ArableLand
             if isinstance(player_status_repository.player_status_repository.player_status[game_status_repository.game_status_repository.game_status.now_turn_player].farm.field[self.i][self.j], NoneField):
@@ -486,10 +480,6 @@ class WidgetFieldBase(QWidget, field_base_ui) :
                     print("step3")
                     myWindow.personal_field[4].Form.setSyleSheet("border-image: url(:/newPrefix/images/empty_field.png);")
                     player_status_repository.player_status_repository.player_status[4].farm.field[self.i][self.j] = NoneField()
-        if self.state == 2:
-            pass
-        if self.state == 3:
-            pass
 
     # def mousePressEvent(self,event):
     #     if self.player != 4:
@@ -556,7 +546,6 @@ class WidgetFieldBase(QWidget, field_base_ui) :
                     myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count-=1
                 if myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count==0:
                     myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind = AnimalType.NONE
-
 
         #myWindow.update_state_of_all()
 
@@ -652,7 +641,7 @@ class PersonalCard_small(QWidget, personal_card_small_ui):
     def mousePressEvent(self, event):
         self.setEnabled(self.player == self.parent.game_status.now_turn_player)
         pprint(f"Pressed personalField Player ID : {self.player}")
-        self.parent.change_main_stacked()  
+        self.parent.change_main_stacked(self.player)
     def update_state(self):
         # player = self.parent.game_status.now_turn_player
         player = self.player
@@ -674,10 +663,10 @@ class PersonalCard_small(QWidget, personal_card_small_ui):
         #         getattr(self,f"widget_main_{i+1}").hide()
 # 메인 창에 뜰 개인별 카드 창
 class PersonalCard_big(QWidget, personal_card_big_ui):
-    def __init__(self, parent,player):
+    def __init__(self, parent):
         super().__init__()
         self.setupUi(self)
-        self.player = player
+        #self.player = player
         self.parent = parent
         list_sub = [CARD_SUB_CONVERTER[c] for c in self.parent.player_status[player].card.start_sub_card]
         list_job = [CARD_JOB_CONVERTER[c] for c in self.parent.player_status[player].card.start_job_card]
@@ -926,7 +915,7 @@ class Check(QWidget, check_ui):
         
         # pf = myWindow.player_status[myWindow.game_status.now_turn_player].farm
         # print(construct_fence.ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence).execute())
-        fence = ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
+        #fence = ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
         # fence_ex = fence.execute()# if log:
         # # barn = construct_barn.ConstructBarn(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
         # # barn_ex = barn.execute()# if log:
@@ -1035,7 +1024,6 @@ class SideBar(QWidget, sidebar_ui):
         for name in ["btn_chg_sheep", "btn_chg_pig", "btn_chg_cow", "btn_chg_vegetable", "btn_trade_grain", "btn_trade_vegetable"]:
             pass
 
-
     def btnClick(self, btn_name):
         btns = deepcopy(self.btns)
         btns.remove(btn_name)
@@ -1056,7 +1044,6 @@ class SideBar(QWidget, sidebar_ui):
         # # 클릭된 버튼의 인덱스에 해당하는 focus만 True로 설정
         # self.focus[index] = True
         # print(f"Button {self.btns[index]} clicked. Focus: {self.focus}")
-
         # addStyleSheet(getattr(self,f"{self.btns[index]}"), "background-color: yellow;")
 
 def addStyleSheet(widget, new_style):
