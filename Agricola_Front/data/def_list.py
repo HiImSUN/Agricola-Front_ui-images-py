@@ -205,6 +205,8 @@ class FenceValidation():
         self.log_text = ""
 
     def execute(self):
+        print("테스트해봄")
+        print(self.check_fence_form() , self.check_connected_component_fence() , self.check_inside_object() , self.check_fence_count())
         return self.check_fence_form() and self.check_connected_component_fence() and self.check_inside_object() and self.check_fence_count()
 
     def check_fence_form(self):
@@ -270,32 +272,32 @@ class FenceValidation():
             return True
 
     def check_inside_object(self):
-        expanded_field_status = [[FieldType.NONE_FIELD for i in range(13)]for j in range(9)]
-        check = [[0 for i in range(13)]for j in range(9)]
-        for i, item in enumerate(self.field_status):
-            for j, value in enumerate(item):
-                expanded_field_status[i+1][j+1] = value
-        queue = deque()
-        check[0][0] = 1
-        queue.append((0, 0))
-        while queue:
-            x, y = queue.popleft()
-            dx = [0, 0, -1, 1]
-            dy = [-1, 1, 0, 0]
-            for i in range(4):
-                p = x + dx[i]
-                q = y + dy[i]
-                r = p + dx[i]
-                s = q + dy[i]
-                if 0 <= r < 9 and 0 <= s < 13 and check[r][s] == 0 and expanded_field_status[p][q] != FieldType.FENCE:
-                    check[r][s] = 1
-                    queue.append((r, s))
-        for i in range(0, 9, 2):
-            for j in range(0, 13, 2):
-                if check[i][j] == 0 and expanded_field_status[i][j] != FieldType.NONE_FIELD \
-                        and expanded_field_status[i][j] != FieldType.CAGE:
-                    self.log_text = "울타리 안에는 외양간을 제외한 다른 구조물이 있을 수 없습니다."
-                    return False
+        # expanded_field_status = [[FieldType.NONE_FIELD for i in range(13)]for j in range(9)]
+        # check = [[0 for i in range(13)]for j in range(9)]
+        # for i, item in enumerate(self.field_status):
+        #     for j, value in enumerate(item):
+        #         expanded_field_status[i+1][j+1] = value
+        # queue = deque()
+        # check[0][0] = 1
+        # queue.append((0, 0))
+        # while queue:
+        #     x, y = queue.popleft()
+        #     dx = [0, 0, -1, 1]
+        #     dy = [-1, 1, 0, 0]
+        #     for i in range(4):
+        #         p = x + dx[i]
+        #         q = y + dy[i]
+        #         r = p + dx[i]
+        #         s = q + dy[i]
+        #         if 0 <= r < 9 and 0 <= s < 13 and check[r][s] == 0 and expanded_field_status[p][q] != FieldType.FENCE:
+        #             check[r][s] = 1
+        #             queue.append((r, s))
+        # for i in range(0, 9, 2):
+        #     for j in range(0, 13, 2):
+        #         if check[i][j] == 0 and expanded_field_status[i][j] != FieldType.NONE_FIELD \
+        #                 and expanded_field_status[i][j] != FieldType.CAGE:
+        #             self.log_text = "울타리 안에는 외양간을 제외한 다른 구조물이 있을 수 없습니다."
+        #             return False
         return True
 
     def check_fence_count(self):

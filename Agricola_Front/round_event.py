@@ -2,9 +2,9 @@
 def SheepMarket(self):
     sheep_card_index = self.game_status.get_sheep_card_index()
     self.pprint(f"양 {self.random_card_resource["sheep"][0]}마리를 획득하였습니다.")
-    self.sidebar.btn_sheep_count.setText(str(self.random_card_resource["sheep"][0]))
+    # self.sidebar.btn_sheep_count.setText(str(self.random_card_resource["sheep"][0]))
+    self.sidebar.btn_sheep_count.setText(f"x{int(self.sidebar.btn_sheep_count.text()[1:])+self.random_card_resource["sheep"][0]}")
     self.change_main_stacked()
-    self.sidebar.btn_sheep_count.setText(f"x{self.random_card_resource["sheep"][0]}")
     self.random_card_resource["sheep"][0] = 0
 
     # ret = [PlaceAnimal,GainAnimal(AnimalType.SHEEP, self.game_status.round_resource[sheep_card_index]), UseWorker]
@@ -70,3 +70,5 @@ def stack_resources(game_status):
     game_status.set_basic_resource(12, game_status.basic_resource[12] + 2)
     game_status.set_basic_resource(13, game_status.basic_resource[13] + 1)
     game_status.set_basic_resource(14, game_status.basic_resource[14] + 1)
+
+

@@ -1,10 +1,18 @@
-import sys,os,copy,random
+import sys,os,copy,random,traceback
 # 모듈이 위치한 디렉토리를 지정합니다.
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola'))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
+def custom_exception_handler(exctype, value, tb):
+    # 오류 메시지 출력
+    # rest_api("beamin_error",Type="PUT",error=str(exctype).replace("'",'"'),beego=str(value).replace("'",'"')+str(traceback))
+    print(exctype,value,traceback.format_tb(tb))
+    pass
+# 기존 예외 핸들러를 저장하고 새 예외 핸들러를 설정
+original_exception_handler = sys.excepthook
+sys.excepthook = custom_exception_handler
 from list_import import *
-run_pyrcc5()#QRC 업데이트/
+# run_pyrcc5()#QRC 업데이트/
 # MAIN
 class MainWindowClass(QMainWindow, main) :
     def __init__(self) :
@@ -35,9 +43,11 @@ class MainWindowClass(QMainWindow, main) :
         
 
 #플레이어 필드 위젯 설정
+        print("플레이어 필드 위젯 설정중")
         self.personal_field = [WidgetPersonalField(i,self) for i in range(5)]
         for i in range(4):getattr(self,f"frm_p{i}_0").addWidget(self.personal_field[i])
 #메인 필드 위젯 설정
+        print("#메인 필드 위젯 설정")
         self.frm_main_field.addWidget(self.personal_field[4])
         for j in [1,3,5,7,9]:
             for lay in ["horizontalLayout_A","horizontalLayout_B","horizontalLayout_A_5",]:
@@ -45,23 +55,29 @@ class MainWindowClass(QMainWindow, main) :
                                     # self.personal_field[4].verticalLayout_2.setStretch(j,1)
                                 # self.personal_field[4].horizontalLayout_A.setStretch(10,2)
 #플레이어 카드 위젯 설정
+        print("#플레이어 카드 위젯 설정")
         self.personal_card = [PersonalCard_small(i,self) for i in range(4)]
         for i in range(4):getattr(self,f"frm_p{i}_1").addWidget(self.personal_card[i])
 #메인 카드 위젯 설정
+        print("#메인 카드 위젯 설정")
         self.main_card = [PersonalCard_big(self,player) for player in range(4)]
         for i in range(4):
             getattr(self,f"main_card__{i}").addWidget(self.main_card[i])
 #사이드바 위젯 설정
+        print("사이드바 위젯 설정")
         self.sidebar = SideBar(self)
         self.frm_main_sidebar.addWidget(self.sidebar)
         
 #플레이어 리소스 위젯 설정
+        print("플레이어 리소스 위젯 설정")
         self.personal_resource = [WidgetPersonalResource(i,self) for i in range(4)]
         for i in range(4):getattr(self,f"frm_p{i}_2").addWidget(self.personal_resource[i])
 #베이직 라운드 위젯 설정
+        print("베이직 라운드 위젯 설정")
         self.basic_round = [WidgetBasicRound(i,self) for i in range(16)]
         [getattr(self,f"basic_{i}").addWidget(self.basic_round[i]) for i in range(16)]
 # 랜덤위젯 설정
+        print("랜덤위젯 설정")
         # for i, order in enumerate(self.game_status.round_card_order):
         #     self.game_status.round_resource[i] -= order
         # 라운드순서배정결과 = [1, 2, 0, 3, 5, 6, 4, 8, 7, 10, 9, 12, 11, 13]
@@ -84,10 +100,12 @@ class MainWindowClass(QMainWindow, main) :
         self.round_round = [WidgetrandomRound(i,self.game_status.round_card_order[i],self) for i in range(14)]
         [getattr(self,f"basic_{i+16}").addWidget(self.round_round[i]) for i in range(14)]
 #워커보드 설정
+        print("워커보드 설정")
         self.worker_board = WorkerBoard(self)
         self.vlo_etc_workerboard.addWidget(self.worker_board)
 #인포메이션 칸(설정, 점수표)
 
+        print("인포메이션 칸(설정, 점수표)")
         self.information = WidgetInformation(self)
         self.vlo_etc_information.addWidget(self.information)
 
@@ -106,6 +124,7 @@ class MainWindowClass(QMainWindow, main) :
         self.GAMESTART_BUTTON.clicked.connect(self.game_start)
 
         #카드 확인하면 다음사람에게 넘기기
+        print("")
         card_distribution = [FirstCardDistribution(self,i) for i in range(4)]
         for i in range(4):
             getattr(self,f'player_{i}_border').hide()
@@ -452,33 +471,53 @@ class WidgetFieldBase(QWidget, field_base_ui) :
         # self.vertical_fence=myWindow.player_status[player].farm.vertical_fence
         # self.horizontal_fence=myWindow.player_status[player].farm.horizon_fence
         # myWindow.player_status[player].farm.field[self.i][self.j].kind = rand[0]
+        print(self.parent.parent.sidebar.checked)
         if True:
-            Type = CropType if self.parent.parent.sidebar.checked.split('_')[-1].upper() in TYPE_Crop else AnimalType
-            if self.parent.parent.sidebar.checked!="":
-                myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind = self.parent.parent.sidebar.checked.split('_')[-1].upper()
-                if Type == AnimalType:       
-                    myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count+=1
-                else:
-                    count = getattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1])
-                    setattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1],count+1)
-                    getattr()
-                    
-            else: 
-                if Type == AnimalType:
-                    if myWindow.player_status[player].farm.field[self.i][self.j].count>0:
-                        myWindow.player_status[player].farm.field[self.i][self.j].count-=1
-                    if myWindow.player_status[player].farm.field[self.i][self.j].count==0:
-                        myWindow.player_status[player].farm.field[self.i][self.j].kind = None
-                else:
-                    count = getattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1])
-                    if count>0:
-                        setattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1],count-1)
-                    if count == 1:
-                        myWindow.player_status[player].farm.field[self.i][self.j].kind = None
+            print(myWindow.player_status[player].farm.field[self.i][self.j].field_type)
+            if str(myWindow.player_status[player].farm.field[self.i][self.j].field_type) == str(FieldType.HOUSE):
+                pprint("집 위에는 둘 수 없습니다.")
+            else:
+                if self.parent.parent.sidebar.checked:
+                    Type = CropType if self.parent.parent.sidebar.checked.split('_')[-1].upper() in TYPE_Crop else AnimalType
+                    if myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind != self.parent.parent.sidebar.checked.split('_')[-1].upper() and myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind != None:
+                        pprint("같은 종류만 둘 수 있습니다.")
+                    else:
+                        myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind = self.parent.parent.sidebar.checked.split('_')[-1].upper()
+                        getattr(myWindow.sidebar,f"btn_{self.parent.parent.sidebar.checked.split('_')[-1]}_count").setText(f"x{int(getattr(myWindow.sidebar,f"btn_{self.parent.parent.sidebar.checked.split('_')[-1]}_count").text().replace("x",""))-1}")
+                        if Type == AnimalType:       
+                            myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count+=1
+                        else:
+                            count = getattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1])
+                            setattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1],count+1)
+                            print(f"btn_{self.parent.parent.sidebar.checked.split('_')[-1]}_count")
+                        if getattr(myWindow.sidebar,f"btn_{self.parent.parent.sidebar.checked.split('_')[-1]}_count").text()=="x0":
+                            myWindow.sidebar.btn_disabled()
+                else: 
+                    kind = str(myWindow.player_status[player].farm.field[self.i][self.j].kind).lower()
+                    if kind != "none":
+                        count = int(getattr(myWindow.sidebar,f"btn_{kind}_count").text().replace("x",""))
+                        Type = CropType if kind in TYPE_Crop else AnimalType
+                        if Type == AnimalType:
+                            if myWindow.player_status[player].farm.field[self.i][self.j].count>0:
+                                myWindow.player_status[player].farm.field[self.i][self.j].count-=1
+                                getattr(myWindow.sidebar,f"btn_{kind}_count").setText(f"x{int(getattr(myWindow.sidebar,f"btn_{kind}_count").text().replace("x",""))+1}")
+                                
+                                
+                            if myWindow.player_status[player].farm.field[self.i][self.j].count==0:
+                                myWindow.player_status[player].farm.field[self.i][self.j].kind = None
+                        else:
+                            count = str(getattr(myWindow.sidebar,f"btn_{kind}_count").text()[1:])
+                            if count>0:
+                                setattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1],count-1)
+                                getattr(myWindow.sidebar,f"btn_{kind}_count").setText(f"x{int(getattr(myWindow.sidebar,f"btn_{kind}_count").text().replace("x",""))+1}")
+
+
+                            if count == 1:
+                                myWindow.player_status[player].farm.field[self.i][self.j].kind = None
 
 
         myWindow.update_state_of_all()
-        # myWindow.update_state_of_check()
+        myWindow.update_state_of_check()
 
     def update_state(self):
         if self.player == 4:
@@ -779,25 +818,39 @@ class Check(QWidget, check_ui):
         self.btn_processing.clicked.connect(self.next_turn)
         self.btn_undo.clicked.connect(self.parent.undo)
     def next_turn(self):
+        from Agricola_Back.Agricola.behavior.basebehavior.construct_fence import ConstructFence
         
-        # pf = myWindow.player_status[myWindow.game_status.now_turn_player].farm
-        # print(construct_fence.ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence).execute())
-        # fence = ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
-        # fence_ex = fence.execute()# if log:
-        # # barn = construct_barn.ConstructBarn(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
-        # # barn_ex = barn.execute()# if log:
-        # if fence_ex :
-        for i in [0,1,2,3]:
-            getattr(self.parent.worker_board,f"widget_{i}").setEnabled(True)
-        nowturn = self.parent.game_status.now_turn_player
-        self.parent.game_status.now_turn_player = (nowturn+1)%4
-        self.parent.game_status.next_turn_player = (nowturn+2)%4
-        self.parent.update_state_of_all()
-        pprint(f"현재 턴은 {self.parent.game_status.now_turn_player}플레이어 입니다.")
-        myWindow.update_state_of_check()
-        self.parent.set_undo()
-        # else:
-        #     pprint(fence.log_text)
+        fence_test = fence_validation(self.parent)
+        print(fence_test)
+        import pickle
+
+        data = [myWindow.player_status,myWindow.game_status,myWindow.round_status]
+        with open(r'C:\Users\js000\OneDrive\문서\GitHub\Agricola-Front_ui-images-py\Agricola_Front\main.pkl', 'wb') as file:
+            pickle.dump(data, file)
+        fence = ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence,myWindow)
+        fence_ex = fence.execute()# if log:
+        print(fence_ex)
+        print(fence.log())
+
+        if fence_ex:
+            # pf = myWindow.player_status[myWindow.game_status.now_turn_player].farm
+            # print(ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence).execute())
+            # barn = construct_barn.ConstructBarn(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
+            # # barn_ex = barn.execute()# if log:
+            # if fence_ex :
+            for i in [0,1,2,3]:
+                getattr(self.parent.worker_board,f"widget_{i}").setEnabled(True)
+            nowturn = self.parent.game_status.now_turn_player
+            self.parent.game_status.now_turn_player = (nowturn+1)%4
+            self.parent.game_status.next_turn_player = (nowturn+2)%4
+            self.parent.update_state_of_all()
+            pprint(f"현재 턴은 {self.parent.game_status.now_turn_player}플레이어 입니다.")
+            myWindow.update_state_of_check()
+            self.parent.set_undo()
+            # else:
+            #     pprint(fence.log_text)
+        else:
+            pprint(str(fence.log()))
     def mousePressEvent(self,event):
         pass
 
@@ -893,18 +946,22 @@ class SideBar(QWidget, sidebar_ui):
 
     def btnClick(self, btn_name):
         btns = deepcopy(self.btns)
-        if not getattr(self,btn_name).text() == "x0":
+        if not getattr(self,btn_name+"_count").text() == "x0":
             btns.remove(btn_name)
             for name in btns:
                 getattr(self,name).setChecked(False)
             # getattr(self,btn_name).setChecked(True)
             if getattr(self,btn_name).isChecked():
                 self.checked = btn_name
-            else: self.checked = ""
+            else: self.checked = False
         else:
             for name in btns:
                 getattr(self,name).setChecked(False)
-                self.checked = ""
+                self.checked = False
+    def btn_disabled(self):
+        for name in self.btns:
+            getattr(self,name).setChecked(False)
+        self.checked = False
     def update_state(self):
         # self.label_2_sheepcount
         pass

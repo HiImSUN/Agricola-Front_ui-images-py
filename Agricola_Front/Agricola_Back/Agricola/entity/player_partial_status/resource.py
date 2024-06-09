@@ -6,7 +6,7 @@
 class Resource:
     def __init__(self):
         self.observers = []
-        self.wood = 0
+        self.wood = 10
         self.dirt = 0
         self.reed = 0
         self.stone = 0

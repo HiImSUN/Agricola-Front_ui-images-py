@@ -3,7 +3,7 @@ import subprocess
 def run_pyrcc5():
     try:
         # Run the pyrcc5 command
-        subprocess.run(['pyinstaller', 'main.spec', '--noconfirm'], check=True)
+        subprocess.run(['pyinstaller', 'main.spec'], check=True)
         print("Command executed successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Command failed with error: {e}")

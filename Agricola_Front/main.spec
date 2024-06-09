@@ -5,7 +5,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('MyQRC_rc.py','.'),('data',"data"),('Agricola',"Agricola")],
+    datas=[('data',"data"),('Agricola_Back',"Agricola_Back"),('list_import.py','.'),('round_event.py','.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

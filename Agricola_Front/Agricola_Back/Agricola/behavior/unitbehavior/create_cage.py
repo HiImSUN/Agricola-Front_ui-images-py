@@ -13,8 +13,8 @@ from entity.farm.cage import Cage
 from entity.farm.field import Field
 from entity.farm.none_field import NoneField
 from entity.field_type import FieldType
-from repository.game_status_repository import game_status_repository
-from repository.player_status_repository import player_status_repository
+# from repository.game_status_repository import game_status_repository
+# from repository.player_status_repository import player_status_repository
 
 
 class CreateCage(Command):
@@ -112,9 +112,9 @@ class CreateCage(Command):
         if not AnimalPositionValidation(field_status).execute():
             self.log_text = "잘못된 동물 배치"
             return False
-        player_status_repository.player_status[game_status_repository.game_status.now_turn_player].farm.field = field_status
-        player_status_repository.player_status[game_status_repository.game_status.now_turn_player].farm.horizon_fence = self.horizontal_fence
-        player_status_repository.player_status[game_status_repository.game_status.now_turn_player].farm.vertical_fence = self.vertical_fence
+        # player_status_repository.player_status[game_status_repository.game_status.now_turn_player].farm.field = field_status
+        # player_status_repository.player_status[game_status_repository.game_status.now_turn_player].farm.horizon_fence = self.horizontal_fence
+        # player_status_repository.player_status[game_status_repository.game_status.now_turn_player].farm.vertical_fence = self.vertical_fence
         self.log_text = "건설 성공"
         return True
 
