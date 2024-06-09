@@ -20,6 +20,7 @@ class PlayerStatus:
         self.worker = 0
         self.baby = 0
         self.score = 0
+        self.mode = False
 
     def attach(self, observer):
         self.observers.append(observer)

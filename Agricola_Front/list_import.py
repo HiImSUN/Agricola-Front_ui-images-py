@@ -16,7 +16,8 @@ from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
 from Agricola_Back.Agricola.gamestate.game_context import GameContext
 from data.def_list import *
-
+from Agricola_Back.Agricola.behavior.basebehavior.construct_barn import ConstructBarn
+from Agricola_Back.Agricola.behavior.basebehavior.construct_fence import ConstructFence
 from Agricola_Back.Agricola.entity.house_type import HouseType
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola'))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))

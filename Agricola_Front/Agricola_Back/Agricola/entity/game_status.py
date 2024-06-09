@@ -13,6 +13,8 @@ class GameStatus:
         self.now_turn_player = 0  # 현재 턴 플레이어
         self.next_turn_player = 0  # 다음 턴 플레이어
         self.round_card_order = [0 for i in range(14)]  # 라운드 카드의 순서. reverse map으로 탐색
+        self.round_card_put = [None for i in range(14)] 
+        self.basic_card_put = [None for i in range(14)] 
         self.opened_round = [False for i in range(14)]  # 해당 라운드의 카드 공개 여부
         self.round_resource = [0 for i in range(14)]  # 라운드 기준 해당 라운드 칸 내부 자원 수 -> 프론트가 자원 표기하기 좋도록
         self.basic_resource = [0 for i in range(16)]  # 행동 Enum 기준 해당 행동 칸 내부 자원 수

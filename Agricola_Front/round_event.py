@@ -1,11 +1,25 @@
 # from Agricola_Back.Agricola.behavior.roundbehavior.sheep_market import SheepMarket
 def SheepMarket(self):
-    sheep_card_index = self.game_status.get_sheep_card_index()
     self.pprint(f"양 {self.random_card_resource["sheep"][0]}마리를 획득하였습니다.")
     # self.sidebar.btn_sheep_count.setText(str(self.random_card_resource["sheep"][0]))
     self.sidebar.btn_sheep_count.setText(f"x{int(self.sidebar.btn_sheep_count.text()[1:])+self.random_card_resource["sheep"][0]}")
     self.change_main_stacked()
     self.random_card_resource["sheep"][0] = 0
+
+    # ret = [PlaceAnimal,GainAnimal(AnimalType.SHEEP, self.game_status.round_resource[sheep_card_index]), UseWorker]
+def Wood(self,i):
+    self.pprint(f"나무 {self.basic_card_resource[i][0]}개를 획득하였습니다.")
+    self.player_status[self.game_status.now_turn_player].resource.wood+=self.basic_card_resource[i][0]
+    self.basic_card_resource[i][0] = 0
+
+def reed(self,i):
+    self.pprint(f"갈대 {self.basic_card_resource[i][0]}개를 획득하였습니다.")
+    self.player_status[self.game_status.now_turn_player].resource.wood+=self.basic_card_resource[i][0]
+    self.basic_card_resource[i][0] = 0
+    # self.sidebar.btn_sheep_count.setText(str(self.random_card_resource["sheep"][0]))
+    # self.sidebar.btn_sheep_count.setText(f"x{int(self.sidebar.btn_sheep_count.text()[1:])+self.random_card_resource["sheep"][0]}")
+    # self.change_main_stacked()
+    # self.random_card_resource["sheep"][0] = 0
 
     # ret = [PlaceAnimal,GainAnimal(AnimalType.SHEEP, self.game_status.round_resource[sheep_card_index]), UseWorker]
 def FenceConstructionRound(self):
