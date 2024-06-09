@@ -31,6 +31,9 @@
     <file>images/직업 카드/직업카드10.png</file>
     <file>images/직업 카드/직업카드11.png</file>
     <file>images/agricola.png</file>
+    <file>images/직업 카드/직업카드back.png</file>
+    <file>images/주요 설비/주요설비back.png</file>
+    <file>images/보조 설비/보조설비back.png</file>
     <file>images/보조 설비/보조설비0.png</file>
     <file>images/직업 카드/직업카드9.png</file>
     <file>images/직업 카드/직업카드8.png</file>
@@ -100,13 +103,45 @@
     <file>images/기본행동/기본행동 (15).png</file>
     <file>images/undo.png</file>
     <file>images/check.png</file>
+    <file>images/갈대밭.png</file>
+    <file>images/곡식 활용.png</file>
+    <file>images/곡식종자.png</file>
+    <file>images/급한 가족 늘리기.png</file>
+    <file>images/기본 가족 늘리기.png</file>
+    <file>images/낚시.png</file>
+    <file>images/납품팔이.png</file>
+    <file>images/농장 개조.png</file>
+    <file>images/농장확장.png</file>
+    <file>images/농지.png</file>
+    <file>images/덤불.png</file>
+    <file>images/동부채석장.png</file>
+    <file>images/돼지 시장.png</file>
+    <file>images/밭 농사.png</file>
+    <file>images/부업.png</file>
+    <file>images/서부채석장.png</file>
+    <file>images/소시장.png</file>
+    <file>images/수풀.png</file>
+    <file>images/숲.png</file>
+    <file>images/양 시장.png</file>
+    <file>images/울타리.png</file>
+    <file>images/유랑극단.png</file>
+    <file>images/자원시장.png</file>
+    <file>images/점토채굴장.png</file>
+    <file>images/주요설비.png</file>
+    <file>images/집 개조 크기.png</file>
+    <file>images/채소 종자.png</file>
+    <file>images/회합장소.png</file>
     <file>images/scoreboard.png</file>
     <file>images/arable_land.png</file>
+    <file>images/barn_blue.png</file>
     <file>images/barn_0.png</file>
     <file>images/barn_1.png</file>
     <file>images/barn_2.png</file>
     <file>images/barn_3.png</file>
+    <file>images/barn_green.png</file>
     <file>images/barn_none.png</file>
+    <file>images/barn_purple.png</file>
+    <file>images/barn_red.png</file>
     <file>images/begging_token.png</file>
     <file>images/cow.png</file>
     <file>images/dirt.png</file>
@@ -129,9 +164,13 @@
     <file>images/harvest.png</file>
     <file>images/house_dirt.png</file>
     <file>images/house_stone.png</file>
+    <file>images/IMG_0402.PNG</file>
     <file>images/house_wood.png</file>
+    <file>images/IMG_0403.PNG</file>
+    <file>images/IMG_0404.PNG</file>
     <file>images/pig.png</file>
     <file>images/reed.png</file>
+    <file>images/round_circle.svg</file>
     <file>images/sheep.png</file>
     <file>images/stone.png</file>
     <file>images/turn_icon.png</file>

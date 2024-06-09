@@ -56,7 +56,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="btn_round_0">
+         <widget class="QPushButton" name="btn_round_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -72,7 +72,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="btn_round_1">
+         <widget class="QPushButton" name="btn_round_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -88,10 +88,7 @@
            <string notr="true">border: none;</string>
           </property>
           <property name="text">
-           <string> </string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <string>3</string>
           </property>
          </widget>
         </item>
@@ -103,7 +100,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="btn_round_2">
+         <widget class="QPushButton" name="btn_round_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -124,7 +121,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QLabel" name="btn_round_3">
+           <widget class="QPushButton" name="btn_round_3">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -140,7 +137,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="btn_round_4">
+           <widget class="QPushButton" name="btn_round_4">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>

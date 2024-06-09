@@ -4,7 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agrico
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 from qcr_converter import run_pyrcc5
-#run_pyrcc5()#QRC 업데이트/
+# run_pyrcc5()#QRC 업데이트/
 
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
@@ -36,9 +36,11 @@ main = uic.loadUiType(resource_path("data/mainwindow_v1.ui"))[0] # 진짜 메인
 personal_field_ui = uic.loadUiType(resource_path("data/PersonalField/field_frame.ui"))[0] # 농장 15개 빈칸 뚫린 ui
 field_base_ui = uic.loadUiType(resource_path("data/PersonalField/field_base.ui"))[0] # field 하나 ui
 personal_resources_ui= uic.loadUiType(resource_path("data/PersonalField/personal_resource.ui"))[0] # 화면 전환되는 개인 자원
-personal_card_small_ui = uic.loadUiType(resource_path("data/PersonalField/mycard_small.ui"))[0] #mycard_small
-personal_card_big_ui = uic.loadUiType(resource_path("data/PersonalField/mycard_big.ui"))[0] #mycard_big
+personal_card_ui= uic.loadUiType(resource_path("data/PersonalField/personal_card.ui"))[0] # 내가 낸 카드 ui
+personal_card_small_ui = uic.loadUiType(resource_path("data/PersonalField/mycard_small.ui"))[0]
+personal_card_big_ui = uic.loadUiType(resource_path("data/PersonalField/mycard_big.ui"))[0]
 card_distribution_ui = uic.loadUiType(resource_path("data/Basic/mycard_firstcheck.ui"))[0] # 내가 낸 카드 ui
+#personal_card_ui= uic.loadUiType(resource_path("PersonalField/mycards.ui"))[0] # 개인 카드 ui
 
 ###공동 영역 UI들###
 log_viewer_ui= uic.loadUiType(resource_path("data/log_viewer_dialog.ui"))[0] # 로그
@@ -67,8 +69,7 @@ class MainWindowClass(QMainWindow, main) :
         self.player_status = player_status_repository.PlayerStatusRepository().player_status
         self.game_status = game_status_repository.GameStatusRepository().game_status
         self.round_status = round_status_repository.RoundStatusRepository().round_status
-        self.nowshow = 0
-        #self.game_context = GameContext(self.game_status,self.player_status,self.round_status)
+        # self.game_context = GameContext(self.game_status,self.player_status,self.round_status)
         from Agricola.Agricola.gameready import start_resource_distribution,round_card_shuffle
         print(StartResourceDistribution(self))  # 리소스 할당
         print(RoundCardShuffle(self))           # 라운드 카드 할당
@@ -153,15 +154,17 @@ class MainWindowClass(QMainWindow, main) :
 
 
 
-    def play_sound(self, sound_name):
-        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'data/media/{sound_name}.mp3')  # 절대 경로로 변경
+    def play_sound(self):
+        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'data/media/strongcowsound.mp3')  # 절대 경로로 변경
         print(f"Trying to play: {file_path}")
+
         if not os.path.exists(file_path):
             print(f"File not found: {file_path}")
             return
 
         url = QUrl.fromLocalFile(file_path)
         self.media_player.setMedia(QMediaContent(url))
+
         if self.media_player.mediaStatus() == QMediaPlayer.NoMedia:
             print("Failed to load media.")
         else:
@@ -170,7 +173,9 @@ class MainWindowClass(QMainWindow, main) :
         self.media_player.play()
         print("Playing sound...")
 
+
     def open(self):
+
         self.verticalLayout.setStretch(0,1)
         self.verticalLayout.setStretch(2,1)
         for i in range(4):
@@ -180,33 +185,20 @@ class MainWindowClass(QMainWindow, main) :
 
 
     def game_start(self):
-
         pprint("게임이 시작되었습니다.")
         self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
-        self.play_sound("bgm")
+        self.play_sound()
+        
 
-    def update_main_field(self, player):
-        field = player_status_repository.player_status_repository.player_status[5].farm.field = deepcopy(player_status_repository.player_status_repository.player_status[player].farm.field)
-        horizon_fence = player_status_repository.player_status_repository.player_status[5].farm.horizon_fence = deepcopy(player_status_repository.player_status_repository.player_status[player].farm.horizon_fence)
-        vertical_fence = player_status_repository.player_status_repository.player_status[5].farm.vertical_fence = deepcopy(player_status_repository.player_status_repository.player_status[player].farm.vertical_fence)        
-        for _ in range(15):
-            i = _ // 5
-            j = _ % 5
-            myWindow.personal_field[4].field[_].update_state_want_field(field[i][j])
-        for i, row in enumerate(horizon_fence):
-            for j, fence in enumerate(row):
-                getattr(myWindow.personal_field[4], f"btn_fence_h{i}{j}").setEnabled(False)
-                if fence:
-                    getattr(myWindow.personal_field[4], f"btn_fence_h{i}{j}").setStyleSheet(f"border-image: url(:/newPrefix/images/fence_h_{self.parent.game_status.now_turn_player};")
-                else:
-                    getattr(myWindow.personal_field[4], f"btn_fence_h{i}{j}").setStyleSheet("border-image:none;")
-        for i, row in enumerate(vertical_fence):
-            for j, fence in enumerate(row):
-                getattr(myWindow.personal_field[4], f"btn_fence_v{i}{j}").setEnabled(False)
-                if fence:
-                    getattr(myWindow.personal_field[4], f"btn_fence_v{i}{j}").setStyleSheet(f"border-image: url(:/newPrefix/images/fence_v_{self.parent.game_status.now_turn_player};")
-                else:
-                    getattr(myWindow.personal_field[4], f"btn_fence_v{i}{j}").setStyleSheet("border-image:none;")
+
+
+
+
+
+
+
+
+
 
         
     def round_test(self):
@@ -235,23 +227,13 @@ class MainWindowClass(QMainWindow, main) :
         scroll_bar.setValue(scroll_bar.maximum())
         self.log_popup.logging(text)
 
-    # def change_main_stacked(self):
-    #     self.update_state_of_all()
-    #     currentWidget = self.stackedWidget.currentWidget().objectName()
-    #     # if index == 0:self.stackedWidget.setCurrentIndex(1)
-    #     # else:self.stackedWidget.setCurrentIndex(0)
-    #     if currentWidget == "round_page":self.change_stacked_page("personal_page")
-    #     else:self.change_stacked_page("round_page")
-    def change_main_stacked(self, player):
-        self.update_main_field(player)
-        current = myWindow.stackedWidget.currentIndex()
-        if current == 0: #라운드 화면이면
-            #값 업데이트 해주고
-            myWindow.stackedWidget.setCurrentIndex(1)
-        elif current == 1:
-            myWindow.stackedWidget.setCurrentIndex(0)
-        else:
-            pprint("현재 페이지에선 창전환을 할 수 없습니다.")
+    def change_main_stacked(self):
+        self.update_state_of_all()
+        currentWidget = self.stackedWidget.currentWidget().objectName()
+        # if index == 0:self.stackedWidget.setCurrentIndex(1)
+        # else:self.stackedWidget.setCurrentIndex(0)
+        if currentWidget == "round_page":self.change_stacked_page("personal_page")
+        else:self.change_stacked_page("round_page")
 
 
     def change_stacked_page(self, after_page):
@@ -335,6 +317,12 @@ class MainWindowClass(QMainWindow, main) :
 
 
 
+
+
+
+
+
+
 class WidgetPersonalField(QWidget, personal_field_ui) :
     def __init__(self, player,parent) :
         super().__init__()
@@ -342,7 +330,6 @@ class WidgetPersonalField(QWidget, personal_field_ui) :
         self.player = player
         self.parent = parent
         self.field = [WidgetFieldBase(i,self) for i in range(15) ]# field_0 ~ field_14 까지
-        self.state = 0
         
         tmp_field_num = 0
         for i in range(3):
@@ -363,38 +350,18 @@ class WidgetPersonalField(QWidget, personal_field_ui) :
         else :
             for j in range(4):
                 for i in range(5):
-                    getattr(self, f'btn_fence_h{j}{i}').clicked.connect(self.parent.change_main_stacked) #TODO
+                    getattr(self, f'btn_fence_h{j}{i}').clicked.connect(self.parent.change_main_stacked)
                     getattr(self, f'btn_fence_h{j}{i}').setCheckable(False)
             for j in range(3):
                 for i in range(6):
-                    getattr(self, f'btn_fence_v{j}{i}').clicked.connect(self.parent.change_main_stacked) #TODO
+                    getattr(self, f'btn_fence_v{j}{i}').clicked.connect(self.parent.change_main_stacked)
                     getattr(self, f'btn_fence_v{j}{i}').setCheckable(False)
 
     def mousePressEvent(self,event):
         pprint(f"Pressed personalField Player ID : {self.player}")
-        if self.state == 0:
-            if self.player != 4:
-                if myWindow.stackedWidget.currentIndex() == 0: #라운드 화면이면
-                    self.parent.change_main_stacked() #창 바꿔주고
-                elif myWindow.stackedWidget.currentIndex() == 1: #이미 농장 칸이면
-                    if myWindow.nowshow == self.player: #그리고 그 농장이 본인의 농장이면
-                        print("#그리고 그 농장이 본인의 농장이면")
-                        self.parent.change_main_stacked() #창 바꿔주고
-                    else: #본인의 농장이 아니라면 본인의 농장으로 화면 업데이트
-                        print("본인의 농장이 아니라면 본인의 농장으로 화면 업데이트")
-                        myWindow.nowshow = self.player
-                        #확대 농장을 player걸로 업데이트
-                        pass
-                    
-                
-            
-
-    def changeDefaultMode(self): # 창을 전환만 해야 한다.
-        self.state = 0
-
-    def changeSetFenceMode(self):
-        self.state = 1
-
+        if self.player != 4:
+            self.parent.change_main_stacked()            
+    
     def press_fence(self, v,j,i):
         # try:
         player = myWindow.game_status.now_turn_player
@@ -413,24 +380,24 @@ class WidgetPersonalField(QWidget, personal_field_ui) :
     def update_state(self):
         # 턴 비활성화
         if self.player == 4:
-            now_player = self.parent.game_status.now_turn_player
+            player = self.parent.game_status.now_turn_player
         else:
             player = self.player
-        #self.setEnabled(self.player == self.parent.game_status.now_turn_player)
+        # self.setEnabled(player == self.parent.game_status.now_turn_player)
         
-        #펜스 state
-        # for j in range(4):
-        #     for i in range(5):
-        #         if self.parent.player_status[player].farm.horizon_fence[j][i] == True:
-        #             getattr(self, f'btn_fence_h{j}{i}').setStyleSheet(f"border:0.5px solid rgba(255, 255, 255, 128);border-image : url(:/newPrefix/images/fence_h_{player}.png);")
-        #         else:
-        #             getattr(self, f'btn_fence_h{j}{i}').setStyleSheet("border:0.5px solid rgba(255, 255, 255, 128);border-image : none;")
-        # for j in range(3):
-        #     for i in range(6):
-        #         if self.parent.player_status[player].farm.vertical_fence[j][i] == True:
-        #             getattr(self, f'btn_fence_v{j}{i}').setStyleSheet(f"border:0.5px solid rgba(255, 255, 255, 128);border-image : url(:/newPrefix/images/fence_v_{player}.png);")
-        #         else:
-        #             getattr(self, f'btn_fence_v{j}{i}').setStyleSheet("border:0.5px solid rgba(255, 255, 255, 128);border-image : none;")
+        # 펜스 state
+        for j in range(4):
+            for i in range(5):
+                if self.parent.player_status[player].farm.horizon_fence[j][i] == True:
+                    getattr(self, f'btn_fence_h{j}{i}').setStyleSheet(f"border:0.5px solid rgba(255, 255, 255, 128);border-image : url(:/newPrefix/images/fence_h_{player}.png);")
+                else:
+                    getattr(self, f'btn_fence_h{j}{i}').setStyleSheet("border:0.5px solid rgba(255, 255, 255, 128);border-image : none;")
+        for j in range(3):
+            for i in range(6):
+                if self.parent.player_status[player].farm.vertical_fence[j][i] == True:
+                    getattr(self, f'btn_fence_v{j}{i}').setStyleSheet(f"border:0.5px solid rgba(255, 255, 255, 128);border-image : url(:/newPrefix/images/fence_v_{player}.png);")
+                else:
+                    getattr(self, f'btn_fence_v{j}{i}').setStyleSheet("border:0.5px solid rgba(255, 255, 255, 128);border-image : none;")
 
 class WidgetFieldBase(QWidget, field_base_ui) :
     def __init__(self, id,parent):
@@ -440,65 +407,22 @@ class WidgetFieldBase(QWidget, field_base_ui) :
         self.i = self.id//5
         self.j = self.id%5
         self.parent = parent
-        self.player = self.parent.player #어떤 플레이어의 땅인지
-        self.lb_unit.setStyleSheet("border:none;")
-        self.lb_barn.setStyleSheet("border:none;")
-        self.count.setText("")
-        self.state = 0 # 0:창전환용 1:경작지 2:동물옮기기 3:식물심기
-        if self.player == 4: pass
-            #self.lb_unit.clicked.connect(self.change_unit) #########################################
-            #self.lb_barn.clicked.connect(self.change_barn) #########################################
-        else: pass
-            #self.lb_unit.clicked.connect(self.parent.parent.change_main_stacked)
-            #self.lb_barn.clicked.connect(self.parent.parent.change_main_stacked)
-
-    def changeArableMode(self):
-        self.state = 1
-    def changeSetUnitMode(self):
-        self.state = 2
-    def changeBarnMode(self):
-        self.state = 3
-    #################################$%^$%^$%^
+        self.player = self.parent.player
+        if self.player == 4:
+            self.btn_unit.clicked.connect(self.change_unit)
+            self.btn_barn.clicked.connect(self.change_barn)
+        else:
+            self.btn_unit.clicked.connect(self.parent.parent.change_main_stacked)
+            self.btn_barn.clicked.connect(self.parent.parent.change_main_stacked)
+          
     def mousePressEvent(self,event):
-        print(event)
-        print('hi')
-        if self.state == 0:
-            if myWindow.stackedWidget.currentIndex() == 0: #라운드 화면이면
-                myWindow.change_main_stacked()
-            elif myWindow.stackedWidget.currentIndex() == 1: #농장화면인데
-                if self.player == myWindow.nowshow :
-                    myWindow.change_main_stacked()
-                else:
-                    myWindow.nowshow = self.player
-                    #self.player에 맞게 화면 재구성
-
-
-        if self.state == 1: #Arable
-            from Agricola.Agricola.entity.farm.none_field import NoneField
-            from Agricola.Agricola.entity.farm.arable_land import ArableLand
-            if isinstance(player_status_repository.player_status_repository.player_status[game_status_repository.game_status_repository.game_status.now_turn_player].farm.field[self.i][self.j], NoneField):
-                print("step1")
-                if isinstance(player_status_repository.player_status_repository.player_status[5].farm.field[self.i][self.j], NoneField):
-                    print("step2")
-                    myWindow.personal_field[4].Form.setSyleSheet("border-image: url(:/newPrefix/images/arable_land.png);")
-                    player_status_repository.player_status_repository.player_status[4].farm.field[self.i][self.j] = ArableLand()
-                else :
-                    print("step3")
-                    myWindow.personal_field[4].Form.setSyleSheet("border-image: url(:/newPrefix/images/empty_field.png);")
-                    player_status_repository.player_status_repository.player_status[4].farm.field[self.i][self.j] = NoneField()
-        if self.state == 2:
-            pass
-        if self.state == 3:
-            pass
-
-    # def mousePressEvent(self,event):
-    #     if self.player != 4:
-    #         self.parent.parent.change_main_stacked()
-    #     else:
-    #         pprint(f"Pressed Fance Player ID : {self.parent.player} |  ID: {self.id}")
-    #         self.change_house ()
-    #         myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count+=1
-    #         myWindow.update_state_of_all()
+        if self.player != 4:
+            self.parent.parent.change_main_stacked()
+        else:
+            pprint(f"Pressed Fance Player ID : {self.parent.player} |  ID: {self.id}")
+            self.change_house ()
+            myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count+=1
+            myWindow.update_state_of_all()
 
     def change_barn(self):
         player = myWindow.game_status.now_turn_player
@@ -520,35 +444,33 @@ class WidgetFieldBase(QWidget, field_base_ui) :
         pprint("change_unit")
         player = myWindow.game_status.now_turn_player
         # print("player : "+str(player))
-        selected_animal = getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper())
-        print(animal_move_validation(CONVERTER_to_VIRTUAL_FIELD(myWindow.player_status[player]),selected_animal,(self.i,self.j)))
+
         rand = [AnimalType.NONE,AnimalType.COW,AnimalType.PIG,AnimalType.SHEEP]#,CropType.GRAIN,CropType.NONE,CropType.VEGETABLE]
         # print(myWindow.player_status[player].farm.field[self.i][self.j].kind)
-        # try:
-        #     rand.remove(getattr(AnimalType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
-        # except:
-        #     try:
-        #         rand.remove(getattr(CropType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
-        #     except:
-        #         rand = [CropType.GRAIN,CropType.NONE,CropType.VEGETABLE]
+        try:
+            rand.remove(getattr(AnimalType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
+        except:
+            try:
+                rand.remove(getattr(CropType,myWindow.player_status[player].farm.field[self.i][self.j].kind.name))
+            except:
+                rand = [CropType.GRAIN,CropType.NONE,CropType.VEGETABLE]
 
-        # random.shuffle(rand)
-        # animal = rand[0]
-        # # print(rand)
-        # print(animal)
-        # print(animal, (self.i,self.j))
+        random.shuffle(rand)
+        animal = rand[0]
+        # print(rand)
+        print(animal)
+        print(animal, (self.i,self.j))
         # self.vertical_fence=myWindow.player_status[player].farm.vertical_fence
         # self.horizontal_fence=myWindow.player_status[player].farm.horizon_fence
         # myWindow.player_status[player].farm.field[self.i][self.j].kind = rand[0]
-
         if True:
             if self.parent.parent.sidebar.checked!="":
                 print( myWindow.player_status[player].farm.field[self.i][self.j].kind)
-                print(selected_animal)
-                print( myWindow.player_status[player].farm.field[self.i][self.j].kind==selected_animal)
+                print(getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper()))
+                print( myWindow.player_status[player].farm.field[self.i][self.j].kind==getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper()))
                 print( myWindow.player_status[player].farm.field[self.i][self.j].kind.value==('NONE'))
-                if myWindow.player_status[player].farm.field[self.i][self.j].kind == selected_animal or myWindow.player_status[player].farm.field[self.i][self.j].kind.value==0:    
-                    myWindow.player_status[player].farm.field[self.i][self.j].kind = selected_animal
+                if myWindow.player_status[player].farm.field[self.i][self.j].kind == getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper()) or myWindow.player_status[player].farm.field[self.i][self.j].kind.value==0:    
+                    myWindow.player_status[player].farm.field[self.i][self.j].kind = getattr(AnimalType,self.parent.parent.sidebar.checked.split('_')[-1].upper())
                     myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].count+=1
                 else: pprint("다른 종류의 동물이 올라갈 수 없습니다.")
             else: 
@@ -558,7 +480,7 @@ class WidgetFieldBase(QWidget, field_base_ui) :
                     myWindow.player_status[myWindow.game_status.now_turn_player].farm.field[self.i][self.j].kind = AnimalType.NONE
 
 
-        #myWindow.update_state_of_all()
+        myWindow.update_state_of_all()
 
     def update_state(self):
         if self.player == 4:
@@ -580,55 +502,21 @@ class WidgetFieldBase(QWidget, field_base_ui) :
         if not unit==None:
             kind = self.parent.parent.player_status[player].farm.field[self.i][self.j].kind.name.lower()
             if not kind == "none":
-                self.lb_unit.setStyleSheet(f"#lb_unit{{border-image : url(:/newPrefix/images/{self.parent.parent.player_status[player].farm.field[self.i][self.j].kind.name.lower()}.png);}}")
+                self.btn_unit.setStyleSheet(f"#btn_unit{{border-image : url(:/newPrefix/images/{self.parent.parent.player_status[player].farm.field[self.i][self.j].kind.name.lower()}.png);}}")
             else:
-                self.lb_unit.setStyleSheet(f"#lb_unit{{border:none;}}")
+                self.btn_unit.setStyleSheet(f"#btn_unit{{border:none;}}")
         else:
-            self.lb_unit.setStyleSheet(f"#lb_unit{{border:none;}}")
+            self.btn_unit.setStyleSheet(f"#btn_unit{{border:none;}}")
         count = self.parent.parent.player_status[player].farm.field[self.i][self.j].count if self.parent.parent.player_status[player].farm.field[self.i][self.j].count not in [0,None] else ""
         self.count.setText(str(count))
         # 외양간 처리
         if self.parent.parent.player_status[player].farm.field[self.i][self.j].barn:
-            styleSheet = f"QPushButton#lb_barn {{border-image: url(:/newPrefix/images/barn_{player}.png);}}"
+            styleSheet = f"QPushButton#btn_barn {{border-image: url(:/newPrefix/images/barn_{player}.png);}}"
         else:
-            styleSheet = f"QPushButton#lb_barn {{border: none;}}"
-        self.lb_barn.setStyleSheet(styleSheet)
+            styleSheet = f"QPushButton#btn_barn {{border: none;}}"
+        self.btn_barn.setStyleSheet(styleSheet)
+
         pass
-
-    def update_state_want_field(self, field):
-        if self.player == 4:
-            player = self.parent.parent.game_status.now_turn_player
-        else:
-            player = self.player
-
-        CONVERTER_image={(0,0):"empty_field",(0,1):"empty_field",(0,2):"empty_field",(0,3):"empty_field",(1,0):"arable_land",(1,1):"arable_land",(1,2):"arable_land",(1,3):"arable_land",(2,0):"empty_field",(2,1):"empty_field",(2,2):"empty_field",(2,3):"empty_field",(3,1):"house_dirt",(3,2):"house_wood",(3,3):"house_stone"}
-        
-        # for player in range(4):
-        house_status = self.parent.parent.player_status[player].farm.house_status.value # 집 종류 파악
-        # print(house_status)
-
-        # 배경화면 바꾸기
-        field_status = field.field_type.value
-        self.widget.setStyleSheet(f"#widget{{border-image : url(:/newPrefix/images/{CONVERTER_image[field_status,house_status]}.png);}}")
-        # 유닛 처리
-        unit = field.kind
-        if not unit==None:
-            kind = field.kind.name.lower()
-            if not kind == "none":
-                self.lb_unit.setStyleSheet(f"#lb_unit{{border-image : url(:/newPrefix/images/{field.kind.name.lower()}.png);}}")
-            else:
-                self.lb_unit.setStyleSheet(f"#lb_unit{{border:none;}}")
-        else:
-            self.lb_unit.setStyleSheet(f"#lb_unit{{border:none;}}")
-        count = field.count if field.count not in [0,None] else ""
-        self.count.setText(str(count))
-        # 외양간 처리
-        if field.barn:
-            styleSheet = f"QPushButton#lb_barn {{border-image: url(:/newPrefix/images/barn_{player}.png);}}"
-        else:
-            styleSheet = f"QPushButton#lb_barn {{border: none;}}"
-        self.lb_barn.setStyleSheet(styleSheet)
-
         
 # 개인 농장 오른 쪽 아이콘으로 보이는 작은 카드창
 class PersonalCard_small(QWidget, personal_card_small_ui):
@@ -761,79 +649,13 @@ class WidgetBasicRound(QWidget, basic_roundcard_ui) :
         self.btn_round_1.setText('')
         self.setStyleSheet(f"#widget{{border-image: url(:/newPrefix/images/기본행동/기본행동 ({self.num}).png);}}")
         self.btn_round_4.hide()
-        # for i in range(5):
-        #     getattr(self,f"btn_round_{i}").clicked.connect(self.roundClick)
+        for i in range(5):
+            getattr(self,f"btn_round_{i}").clicked.connect(self.roundClick)
 
     def mousePressEvent(self,event):
-        from Agricola.Agricola.entity.card_factory import basic_card_command_factory
-        from Agricola.Agricola.behavior.can_enter_base_behavior import CanEnterBaseBehavior
-        can = CanEnterBaseBehavior(self.num)
-        if can.execute():
-            act = basic_card_command_factory(self.num)
-            print(act)
-            playlist = act().execute()
-            print(playlist)
-            from Agricola.Agricola.behavior.basebehavior.arable_expansion import ArableExpansion
-            from Agricola.Agricola.behavior.basebehavior.house_expansion import HouseExpansion
-            from Agricola.Agricola.behavior.basebehavior.construct_barn import ConstructBarn
-            from Agricola.Agricola.behavior.unitbehavior.playable_sub_facility_listup import PlayableSubCardListup
-            from Agricola.Agricola.behavior.basebehavior.buy_sub_card import BuySubCard
-            from Agricola.Agricola.behavior.unitbehavior.playable_sub_job_listup import PlayableJobCardListup
-            from Agricola.Agricola.behavior.basebehavior.buy_job_card_1 import BuyJobCard1
-            from Agricola.Agricola.behavior.basebehavior.buy_job_card_2 import BuyJobCard2
-            from Agricola.Agricola.behavior.unitbehavior.use_worker import UseWorker
-            #############################!@#!@#@!#!@#!@#!@#!!@#!@#!@#!@#
-            for play in playlist:
-                if play.__name__ == "ArableExpansion":
-                    field = player_status_repository.player_status_repository.player_status[5].farm.field = deepcopy(player_status_repository.player_status_repository.player_status[game_status_repository.game_status_repository.game_status.now_turn_player].farm.field)
-                    horizon_fence = player_status_repository.player_status_repository.player_status[5].farm.horizon_fence = deepcopy(player_status_repository.player_status_repository.player_status[game_status_repository.game_status_repository.game_status.now_turn_player].farm.horizon_fence)
-                    vertical_fence = player_status_repository.player_status_repository.player_status[5].farm.vertical_fence = deepcopy(player_status_repository.player_status_repository.player_status[game_status_repository.game_status_repository.game_status.now_turn_player].farm.vertical_fence)        
-                    for _ in range(15):
-                        i = _ // 5
-                        j = _ % 5
-                        myWindow.personal_field[4].field[_].changeArableMode()
-                        myWindow.personal_field[4].field[_].update_state_want_field(field[i][j])
-                    for i, row in enumerate(horizon_fence):
-                        for j, fence in enumerate(row):
-                            getattr(myWindow.personal_field[4], f"btn_fence_h{i}{j}").setEnabled(False)
-                            if fence:
-                                getattr(myWindow.personal_field[4], f"btn_fence_h{i}{j}").setStyleSheet(f"border-image: url(:/newPrefix/images/fence_h_{self.parent.game_status.now_turn_player};")
-                            else:
-                                getattr(myWindow.personal_field[4], f"btn_fence_h{i}{j}").setStyleSheet("border-image:none;")
-                    for i, row in enumerate(vertical_fence):
-                        for j, fence in enumerate(row):
-                            getattr(myWindow.personal_field[4], f"btn_fence_v{i}{j}").setEnabled(False)
-                            if fence:
-                                getattr(myWindow.personal_field[4], f"btn_fence_v{i}{j}").setStyleSheet(f"border-image: url(:/newPrefix/images/fence_v_{self.parent.game_status.now_turn_player};")
-                            else:
-                                getattr(myWindow.personal_field[4], f"btn_fence_v{i}{j}").setStyleSheet("border-image:none;")
-                    myWindow.stackedWidget.setCurrentIndex(1) # 개인 창으로 전환하기
-                    for player in range(4):
-                        myWindow.personal_field[player].setEnabled(False)
-                    myWindow.personal_field[4].setEnabled(True)
-                    acted = ArableExpansion(field)
-                    if acted.execute():
-                        pprint(acted.log())
-                        break
-                    pprint(acted.log())
-        #         if play is HouseExpansion:
-                
-        #         if play is ConstructBarn:
-                
-        #         if play is PlayableSubCardListup:
-                
-        #         if play is BuySubCard:
-                
-        #         if play is PlayableJobCardListup:
-                
-        #         if play is BuyJobCard1:
-                
-        #         if play is BuyJobCard2:
-
-        #         if play is UseWorker:
-                
-        # else:
-        #     pprint(can.log())
+        pprint(f"Pressed basic round num : {self.num}")
+    def roundClick(self,event):
+        pprint(f"Pressed basic round num : {self.num}")
 
 class WidgetrandomRound(QWidget, basic_roundcard_ui) :
     def __init__(self, cardnumber,imagenumber,parent) :
@@ -861,21 +683,17 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
         self.update_state()
     def mousePressEvent(self,event):
         pprint(f"Pressed basic round ID : {self.imagenum}")
-        # for act in round_card_command_factory(5)().execute:
-        #     act(a, b, c ,[]).execute()
-        #     act().log()
-
         # print(i)
         
     def update_state(self):
         round = self.parent.game_status.now_round
         print(self.imagenum)
         # print(i)
-            
+        
         if self.cardnum<=round-1:
             self.setEnabled(self.cardnum<=round-1)
-            if self.imagenum<5 and "랜덤/랜덤" in self.styleSheet():
-                self.btn_round_1.setText(str(1))
+        if self.imagenum<5 and "랜덤/랜덤" in self.styleSheet():
+            self.btn_round_1.setText(str(1))
         else:
             self.btn_round_1.setText("")
         if  self.cardnum in [3,6,8,10,12,13]:
@@ -926,7 +744,7 @@ class Check(QWidget, check_ui):
         
         # pf = myWindow.player_status[myWindow.game_status.now_turn_player].farm
         # print(construct_fence.ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence).execute())
-        fence = ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
+        # fence = ConstructFence(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
         # fence_ex = fence.execute()# if log:
         # # barn = construct_barn.ConstructBarn(myWindow.player_status[myWindow.game_status.now_turn_player].farm.field,myWindow.player_status[myWindow.game_status.now_turn_player].farm.vertical_fence,myWindow.player_status[myWindow.game_status.now_turn_player].farm.horizon_fence)
         # # barn_ex = barn.execute()# if log:
