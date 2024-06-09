@@ -539,7 +539,7 @@ class WidgetFieldBase(QWidget, field_base_ui) :
                                 myWindow.player_status[player].farm.field[self.i][self.j].kind = None
 
 
-        myWindow.update_state_of_all()
+        # myWindow.update_state_of_all()
         myWindow.update_state_of_check()
 
     def update_state(self):
