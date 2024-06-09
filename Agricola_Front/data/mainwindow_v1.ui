@@ -19,7 +19,13 @@
   <property name="windowTitle">
    <string>Agricola_내가너무시대에뒤떨어진사람인가</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="background_widget">
+   <property name="styleSheet">
+    <string notr="true">#background_widget{border-image: url(:/newPrefix/images/background.png);}</string>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="spacing">
      <number>0</number>

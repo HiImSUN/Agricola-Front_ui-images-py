@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Form_personal_resource</class>
+ <widget class="QWidget" name="Form_personal_resource">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -18,6 +18,12 @@
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Form_personal_resource{
+	
+	background-color: rgba(196, 255, 218, 12);
+}</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="spacing">

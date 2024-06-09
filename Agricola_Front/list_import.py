@@ -53,7 +53,7 @@ information_ui = uic.loadUiType(resource_path("data/Basic/information.ui"))[0] #
 scoreboard_ui = uic.loadUiType(resource_path("data/Basic/scoreboard.ui"))[0] # 점수표
 sidebar_ui = uic.loadUiType(resource_path("data/Basic/sidebar.ui"))[0] # 농장확대창 옆 사이드바
 setting_ui = uic.loadUiType(resource_path("data/Basic/setting_pop.ui"))[0] # 세팅창
-allcard_ui = uic.loadUiType(resource_path("data/Basic/allcard.ui"))[0] # 모든 카드
+allcard_ui = uic.loadUiType(resource_path("data/Basic/allcard_v2.ui"))[0] # 모든 카드
 
 
 
