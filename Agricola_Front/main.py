@@ -188,7 +188,7 @@ class MainWindowClass(QMainWindow, main) :
         pprint(f"현재 라운드는 {self.game_status.now_round}라운드입니다.")
         # [getattr(self,f"basic_{i+16}").addWidget(self.round_round[i]) for i in range(13)]
         self.game_status.round_card_put = [None for i in range(14)] 
-        self.game_status.basic_card_put = [None for i in range(14)] 
+        self.game_status.basic_card_put = [None for i in range(16)] 
         self.next_round()
         self.update_state_of_all()
         self.update_state_of_check()
