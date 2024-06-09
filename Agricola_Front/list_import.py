@@ -1,26 +1,29 @@
 from qcr_converter import run_pyrcc5
-# run_pyrcc5()#QRC 업데이트/
+
 import sys,os,copy,random
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QTimer,Qt
 import data.MyQRC_rc as MyQRC_rc
 from PyQt5.QtGui import QFont, QFontDatabase
-from Agricola.Agricola.repository import player_status_repository,game_status_repository,round_status_repository,undo_repository
-# from Agricola.Agricola.repository import P ,round_status_repository ,game_status_repository
-from Agricola.Agricola.entity.field_type import FieldType
-from Agricola.Agricola.entity.house_type import HouseType
-from Agricola.Agricola.entity.crop_type import CropType
-from Agricola.Agricola.entity.animal_type import AnimalType
+from Agricola_Back.Agricola.repository import player_status_repository,game_status_repository,round_status_repository,undo_repository
+# from Agricola_Back.Agricola.repository import P ,round_status_repository ,game_status_repository
+from Agricola_Back.Agricola.entity.field_type import FieldType
+from Agricola_Back.Agricola.entity.house_type import HouseType
+from Agricola_Back.Agricola.entity.crop_type import CropType
+from Agricola_Back.Agricola.entity.animal_type import AnimalType
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
-from Agricola.Agricola.gamestate.game_context import GameContext
-from def_list import *
+from Agricola_Back.Agricola.gamestate.game_context import GameContext
+from data.def_list import *
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola'))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
+from round_event import *
 TYPE_Crop = ["GRAIN","VEGETABLE"]
 CARD_JOB_CONVERTER = {Greengrocer:0,Hedger:1,KilnBaker:2,LivestockDealer:3,Lumberjack:4,Magician:5,Priest:6,Roofer:7,SkilledBrickLayer:8,SmallFarmer:9,SubCultivator:10,WarehouseManager:11}
 CARD_SUB_CONVERTER = {Basket:0,Bottle:1,Canoe:2,GiantFarm:3,GrainShovel:4,JunkWarehouse:5,LoamMiningSite:6,Manger:7,Pincer:8,Pitchfork:9,SilPan:10,WoolBlanket:11}
 
-# from Agricola.Agricola.behavior.basebehavior import construct_barn, construct_fence,animal_move_validation,animal_position_validation
+# from Agricola_Back.Agricola.behavior.basebehavior import construct_barn, construct_fence,animal_move_validation,animal_position_validation
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
