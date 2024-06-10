@@ -3,7 +3,7 @@ import subprocess
 def run_pyrcc5():
     try:
         # Run the pyrcc5 command
-        subprocess.run(['pyrcc5', 'MyQRC.qrc', '-o', 'MyQRC_rc.py'], check=True)
+        subprocess.run(['pyrcc5', 'MyQRC.qrc', '-o', 'data/MyQRC_rc.py'], check=True)
         print("Command executed successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Command failed with error: {e}")

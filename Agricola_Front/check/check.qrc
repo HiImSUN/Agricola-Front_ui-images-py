@@ -1,8 +1,0 @@
-<RCC>
-  <qresource prefix="newPrefix">
-    <file>check_12901779.png</file>
-    <file>check.png</file>
-    <file>undo.png</file>
-    <file>refresh_9497297.png</file>
-  </qresource>
-</RCC>
