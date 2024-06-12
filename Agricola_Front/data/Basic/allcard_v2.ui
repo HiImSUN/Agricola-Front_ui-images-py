@@ -29,7 +29,7 @@
    <item>
     <widget class="QStackedWidget" name="sw_cardpage">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -79,7 +79,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비0.png);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드0.png);</string>
                </property>
               </widget>
              </item>
@@ -92,7 +92,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드1.png);</string>
                </property>
               </widget>
              </item>
@@ -108,7 +108,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드2.png);</string>
                </property>
               </widget>
              </item>
@@ -124,7 +124,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드3.png);</string>
                </property>
               </widget>
              </item>
@@ -140,7 +140,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드4.png);</string>
                </property>
               </widget>
              </item>
@@ -156,7 +156,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드5.png);</string>
                </property>
               </widget>
              </item>
@@ -240,7 +240,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드6.png);</string>
                </property>
               </widget>
              </item>
@@ -253,7 +253,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드7.png);</string>
                </property>
               </widget>
              </item>
@@ -266,7 +266,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드8.png);</string>
                </property>
               </widget>
              </item>
@@ -279,7 +279,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드9.png);</string>
                </property>
               </widget>
              </item>
@@ -292,7 +292,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드10.png);</string>
                </property>
               </widget>
              </item>
@@ -305,7 +305,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/직업 카드/직업카드11.png);</string>
                </property>
               </widget>
              </item>
@@ -431,7 +431,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비0.png);</string>
                </property>
               </widget>
              </item>
@@ -444,7 +444,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비1.png);</string>
                </property>
               </widget>
              </item>
@@ -460,7 +460,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비2.png);</string>
                </property>
               </widget>
              </item>
@@ -476,7 +476,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비3.png);</string>
                </property>
               </widget>
              </item>
@@ -492,7 +492,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비4.png);</string>
                </property>
               </widget>
              </item>
@@ -508,7 +508,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비5.png);</string>
                </property>
               </widget>
              </item>
@@ -592,7 +592,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비6.png);</string>
                </property>
               </widget>
              </item>
@@ -605,7 +605,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비7.png);</string>
                </property>
               </widget>
              </item>
@@ -618,7 +618,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비8.png);</string>
                </property>
               </widget>
              </item>
@@ -631,7 +631,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비9.png);</string>
                </property>
               </widget>
              </item>
@@ -644,7 +644,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비10.png);</string>
                </property>
               </widget>
              </item>
@@ -657,7 +657,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/보조 설비/보조설비11.png);</string>
                </property>
               </widget>
              </item>
@@ -822,7 +822,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/주요 설비/주요설비0.png);</string>
                </property>
               </widget>
              </item>
@@ -835,7 +835,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/주요 설비/주요설비1.png);</string>
                </property>
               </widget>
              </item>
@@ -851,7 +851,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/주요 설비/주요설비2.png);</string>
                </property>
               </widget>
              </item>
@@ -867,7 +867,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/주요 설비/주요설비3.png);</string>
                </property>
               </widget>
              </item>
@@ -883,7 +883,7 @@
                 </sizepolicy>
                </property>
                <property name="styleSheet">
-                <string notr="true">background-color: rgb(154, 255, 127);</string>
+                <string notr="true">border-image: url(:/newPrefix/images/주요 설비/주요설비4.png);</string>
                </property>
               </widget>
              </item>
@@ -956,6 +956,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../MyQRC.qrc"/>
+ </resources>
  <connections/>
 </ui>

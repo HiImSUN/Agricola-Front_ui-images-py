@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>94</width>
-    <height>58</height>
+    <width>340</width>
+    <height>242</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -157,7 +157,7 @@
             <string notr="true">#btn_unit{border-image : url(:/newPrefix/images/pig.png);}</string>
            </property>
            <property name="text">
-            <string>동물</string>
+            <string/>
            </property>
            <property name="checkable">
             <bool>false</bool>
@@ -296,7 +296,7 @@
 QPushButton#btn_barn {border: none;}QPushButton#btn_barn:checked {border-image :url(:/newPrefix/images/barn_2.png);}</string>
            </property>
            <property name="text">
-            <string>외양간</string>
+            <string/>
            </property>
            <property name="checkable">
             <bool>false</bool>
@@ -321,7 +321,7 @@ QPushButton#btn_barn {border: none;}QPushButton#btn_barn:checked {border-image :
   </layout>
  </widget>
  <resources>
-  <include location="../MyQRC.qrc"/>
+  <include location="../../MyQRC.qrc"/>
  </resources>
  <connections/>
 </ui>
