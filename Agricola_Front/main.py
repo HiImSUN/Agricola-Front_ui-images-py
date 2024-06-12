@@ -116,8 +116,6 @@ class MainWindowClass(QMainWindow, main) :
         self.verticalLayout_37.addWidget(self.Class_check)
         ####################################init####################################
         self.timer_close,self.timer_open = QTimer(self),QTimer(self)
-        self.log.clicked.connect(self.change_main_stacked)
-        self.log.clicked.connect(self.update_state_of_all)
         self.pushButton_3.clicked.connect(self.round_test)
         # self.Class_check.btn_next_turn.clicked.connect(self.round_test)
         self.log_popup = Log_viewer(self)
@@ -126,7 +124,7 @@ class MainWindowClass(QMainWindow, main) :
         ############################################################################
         self.stackedWidget.setCurrentIndex(2) # 게임시작 화면
         self.GAMESTART_BUTTON.clicked.connect(self.game_start)
-
+        
         #카드 확인하면 다음사람에게 넘기기
         print("")
         card_distribution = [FirstCardDistribution(self,i) for i in range(4)]
@@ -148,8 +146,8 @@ class MainWindowClass(QMainWindow, main) :
 
 
 
-    def play_sound(self):
-        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'data/media/strongcowsound.mp3')  # 절대 경로로 변경
+    def play_sound(self, filename):
+        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),f'data/media/{filename}.mp3')  # 절대 경로로 변경
         print(f"Trying to play: {file_path}")
 
         if not os.path.exists(file_path):
@@ -177,10 +175,8 @@ class MainWindowClass(QMainWindow, main) :
 
 
 
-
     def game_start(self):
         pprint("게임이 시작되었습니다.")
-        self.play_sound()
         self.stackedWidget.setCurrentIndex(3) #player1의 카드 공개
         
 
@@ -392,11 +388,26 @@ class WidgetPersonalField(QWidget, personal_field_ui) :
     def press_fence(self, v,j,i):
         # try:
         player = myWindow.game_status.now_turn_player
+        vertical_fence = deepcopy(self.parent.player_status[player].farm.vertical_fence)
+        horizon_fence = deepcopy(self.parent.player_status[player].farm.horizon_fence)
         if v == "v":
-            self.parent.player_status[player].farm.vertical_fence[j][i] = not self.parent.player_status[player].farm.vertical_fence[j][i]
+            if vertical_fence[j][i]:
+                return
+            if not self.parent.player_status[player].farm.vertical_fence[j][i]:
+                self.parent.player_status[player].farm.vertical_fence[j][i] = True
+                self.parent.player_status[player].resource.wood -= 1
+            else :
+                self.parent.player_status[player].farm.vertical_fence[j][i] = False
+                self.parent.player_status[player].resource.wood += 1
         else:
-            self.parent.player_status[player].farm.horizon_fence[j][i] = not self.parent.player_status[player].farm.horizon_fence[j][i]
-
+            if horizon_fence[j][i]:
+                return
+            if not self.parent.player_status[player].farm.horizon_fence[j][i]:
+                self.parent.player_status[player].farm.horizon_fence[j][i] = True
+                self.parent.player_status[player].resource.wood -= 1
+            else:
+                self.parent.player_status[player].farm.horizon_fence[j][i] = False
+                self.parent.player_status[player].resource.wood += 1
             # self.parent.player_status[self.player].farm.horizon_fence[j][i] = not self.parent.player_status[self.player].farm.horizon_fence[j][i]
         # pprint(f"{v}{j}{i}펜스 설치")
         # except:
@@ -533,7 +544,6 @@ class WidgetFieldBase(QWidget, field_base_ui) :
                             if count>0:
                                 setattr(myWindow.player_status[myWindow.game_status.now_turn_player].resource,self.parent.parent.sidebar.checked.split('_')[-1],count-1)
                                 getattr(myWindow.sidebar,f"btn_{kind}_count").setText(f"x{int(getattr(myWindow.sidebar,f"btn_{kind}_count").text().replace("x",""))+1}")
-
 
                             if count == 1:
                                 myWindow.player_status[player].farm.field[self.i][self.j].kind = None
@@ -730,6 +740,9 @@ class WidgetBasicRound(QWidget, basic_roundcard_ui) :
                 get_basic_resource(self.parent,self.num,"흙","dirt")
             elif self.num == 5:
                 get_basic_resource(self.parent,self.num,"밥","food")
+            elif self.num == 7: #회합장소
+                #self.parent.player_status[self.parent.now_turn_player].resource.first_turn ~ #TODO
+                pass
             elif self.num == 8:
                 grain(self.parent)
             elif self.num == 11:
@@ -795,7 +808,7 @@ class WidgetrandomRound(QWidget, basic_roundcard_ui) :
             if self.imagenum == 2:
                 print(Facilities(myWindow))
             if self.imagenum == 3:
-                print(SeedBake(myWindow))
+                print(FenceConstructionRound(myWindow))
             if self.imagenum == 4:
                 print(FamilyFacility(myWindow))
             if self.imagenum == 5:
@@ -989,7 +1002,6 @@ class Scoreboard(QDialog, scoreboard_ui):
     def mousePressEvent(self,event):
         self.close()
 
-
 class FirstCardDistribution(QWidget, card_distribution_ui):
     def __init__(self,  parent,player):
         super().__init__()
@@ -1070,15 +1082,6 @@ class SideBar(QWidget, sidebar_ui):
     def update_state(self):
         # self.label_2_sheepcount
         pass
-
-        # getattr(self,btn_name).setFocus(False)
-        # # 모든 focus 값을 False로 설정
-        # self.focus = [False] * len(self.focus)
-        # # 클릭된 버튼의 인덱스에 해당하는 focus만 True로 설정
-        # self.focus[index] = True
-        # print(f"Button {self.btns[index]} clicked. Focus: {self.focus}")
-
-        # addStyleSheet(getattr(self,f"{self.btns[index]}"), "background-color: yellow;")
 
 def addStyleSheet(widget, new_style):
     # 현재 스타일 시트를 가져온다

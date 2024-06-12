@@ -1,5 +1,6 @@
 # from Agricola_Back.Agricola.behavior.roundbehavior.sheep_market import SheepMarket
 def SheepMarket(self):
+    self.play_sound("sheep")
     self.pprint(f"양 {self.random_card_resource["sheep"][0]}마리를 획득하였습니다.")
     # self.sidebar.btn_sheep_count.setText(str(self.random_card_resource["sheep"][0]))
     self.sidebar.btn_sheep_count.setText(f"x{int(self.sidebar.btn_sheep_count.text()[1:])+self.random_card_resource["sheep"][0]}")
@@ -8,30 +9,36 @@ def SheepMarket(self):
 
     # ret = [PlaceAnimal,GainAnimal(AnimalType.SHEEP, self.game_status.round_resource[sheep_card_index]), UseWorker]
 def Wood(self,i):
+    self.play_sound("ding")
     self.pprint(f"나무 {self.basic_card_resource[i][0]}개를 획득하였습니다.")
     self.player_status[self.game_status.now_turn_player].resource.wood+=self.basic_card_resource[i][0]
     self.basic_card_resource[i][0] = 0
 
 def reed(self,i):
+    self.play_sound("ding")
     self.pprint(f"갈대 {self.basic_card_resource[i][0]}개를 획득하였습니다.")
-    self.player_status[self.game_status.now_turn_player].resource.wood+=self.basic_card_resource[i][0]
+    self.player_status[self.game_status.now_turn_player].resource.reed+=self.basic_card_resource[i][0]
     self.basic_card_resource[i][0] = 0
 
 def get_basic_resource(self,i,name,eng):
+    self.play_sound("ding")
     self.pprint(f"{name} {self.basic_card_resource[i][0]}개를 획득하였습니다.")
     setattr(self.player_status[self.game_status.now_turn_player].resource,eng,getattr(self.player_status[self.game_status.now_turn_player].resource,eng)+self.basic_card_resource[i][0])
     self.basic_card_resource[i][0] = 0
 
 def get_random_resource(self,i,name,eng):
+    self.play_sound("ding")
     self.pprint(f"{name} {self.random_card_resource[i][0]}개를 획득하였습니다.")
     setattr(self.player_status[self.game_status.now_turn_player].resource,eng,getattr(self.player_status[self.game_status.now_turn_player].resource,eng)+self.random_card_resource[i][0])
     if self.random_card_resource[i][1]>0:
         self.random_card_resource[i][0] = 0
 def grain(self):
+    self.play_sound("ding")
     self.pprint(f"곡식 1개를 획득하였습니다.")
     self.player_status[self.game_status.now_turn_player].resource.grain+=1
     
 def get_three_resource(self):
+    self.play_sound("ding")
     self.pprint(f"갈대, 돌, 밥을 각 1개씩 획득하였습니다.")
     self.player_status[self.game_status.now_turn_player].resource.food+=1
     self.player_status[self.game_status.now_turn_player].resource.reed+=1
@@ -52,7 +59,7 @@ def FamilyFacility(self):
     pass
 
 def Stone2(self):
-    
+    self.play_sound("ding")
     self.pprint(f"돌 {self.random_card_resource["east"][0]}개 획득하였습니다.")
     self.player_status[self.game_status.now_turn_player].resource.stone+=self.random_card_resource["east"][0]
     self.random_card_resource["east"][0] = 0
@@ -62,7 +69,8 @@ def UpgradeFacilities(self):
     pass
 
 def PigMarket(self):
-    self.pprint(f"돼지 {self.random_card_resource["sheep"][0]}마리를 획득하였습니다.")
+    self.play_sound("pig")
+    self.pprint(f"돼지 {self.random_card_resource["pig"][0]}마리를 획득하였습니다.")
     # self.sidebar.btn_sheep_count.setText(str(self.random_card_resource["sheep"][0]))
     self.sidebar.btn_pig_count.setText(f"x{int(self.sidebar.btn_pig_count.text()[1:])+self.random_card_resource["pig"][0]}")
     self.change_main_stacked()
@@ -70,6 +78,7 @@ def PigMarket(self):
     pass
 
 def VegetableSeed(self):
+    self.play_sound("ding")
     self.pprint(f"채소종자 1개를 획득하였습니다. 배치하세요.")
     # self.sidebar.btn_sheep_count.setText(str(self.random_card_resource["sheep"][0]))
     self.sidebar.btn_vegetable_count.setText(f"x{int(self.sidebar.btn_vegetable_count.text()[1:])+1}")
@@ -77,6 +86,7 @@ def VegetableSeed(self):
     pass
 
 def CowMarket(self):
+    self.play_sound("strongcowsound")
     self.pprint(f"소 {self.random_card_resource["cow"][0]}마리를 획득하였습니다.")
     # self.sidebar.btn_sheep_count.setText(str(self.random_card_resource["sheep"][0]))
     self.sidebar.btn_cow_count.setText(f"x{self.random_card_resource["cow"][0]}")
@@ -85,7 +95,7 @@ def CowMarket(self):
     pass
 
 def Stone4(self):
-    
+    self.play_sound("ding")
     self.pprint(f"돌 {self.random_card_resource["west"][0]}개 획득하였습니다.")
     self.player_status[self.game_status.now_turn_player].resource.stone+=self.random_card_resource["west"][0]
     self.random_card_resource["west"][0] = 0
