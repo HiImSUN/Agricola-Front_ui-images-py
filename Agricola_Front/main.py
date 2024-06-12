@@ -1,6 +1,8 @@
 import sys,os,copy,random,traceback
-# 모듈이 위치한 디렉토리를 지정합니다.
+# # 모듈이 위치한 디렉토리를 지정합니다.
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola'))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola/behavior'))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'Agricola_Back/Agricola/entity'))
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data'))
 sys.dont_write_bytecode = True # pyc 생성 방지
 def custom_exception_handler(exctype, value, tb):
@@ -137,7 +139,7 @@ class MainWindowClass(QMainWindow, main) :
         self.verticalLayout.setStretch(0,0)
         self.verticalLayout.setStretch(2,0)
         # self.next_round()
-        self.open()
+        # self.open()
         self.update_state_of_check()
         self.update_state_of_all()
 
@@ -547,7 +549,7 @@ class WidgetFieldBase(QWidget, field_base_ui) :
                                 myWindow.player_status[player].farm.field[self.i][self.j].kind = None
 
 
-        myWindow.update_state_of_all()
+        # myWindow.update_state_of_all()
         myWindow.update_state_of_check()
 
     def update_state(self):
